@@ -4,6 +4,7 @@ language: ca
 
 cover:
   logo: 'img/cover/cipfp-mislata.svg'
+  background: true
 
 features:
   - content.code.copy

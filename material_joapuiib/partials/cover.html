@@ -2,10 +2,11 @@
 
 {% if cover %}
 
-{% set title = page.title %}
+{% set cover_title = page.title %}
+{% set cover_logo = config.theme.cover.logo %}
+{% set cover_background = config.theme.cover.background %}
 {% set author = config.site_author %}
 {% set email = config.site_email %}
-{% set cover_logo = config.theme.cover.logo %}
 {% set license_type = config.theme.license.type %}
 {% set license_text = config.theme.license.text %}
 {% set license_link = config.theme.license.link %}
@@ -14,9 +15,19 @@
 {% if page.meta %}
   {% set subtitle = page.meta.subtitle %}
   {% set curs = page.meta.curs %}
-  {% if page.meta.cover_logo %}
-    {% set cover_logo = page.meta.cover_logo %}
+
+  {% if page.meta.cover %}
+    {% if page.meta.cover.logo is defined %}
+      {% set cover_logo = page.meta.cover.logo %}
+    {% endif %}
+    {% if page.meta.cover.title is defined %}
+      {% set cover_title = page.meta.cover.title %}
+    {% endif %}
+    {% if page.meta.cover.background is defined %}
+      {% set cover_background = page.meta.cover.background %}
+    {% endif %}
   {% endif %}
+
   {% if page.meta.author is defined %}
     {% set author = page.meta.author %}
   {% endif %}
@@ -44,22 +55,26 @@
 <div class="cover">
 
 {% block background %}
+{% if cover_background %}
 {% include "partials/cover/cipfp-mislata/background.html" %}
+{% endif %}
 {% endblock %}
 
-<div class="content">
+<div class="content {% if cover_background %}with-background{% endif %}">
 
 {% block logo %}
-  <div class="logo">
-    {% if cover_logo.endswith('.svg') %}
-      {% include cover_logo %}
-    {% else %}
-      <img src="{{ cover_logo | url }}" alt="Logo" />
-    {% endif %}
-  </div>
+  {% if cover_logo %}
+    <div class="logo">
+      {% if cover_logo.endswith('.svg') %}
+        {% include cover_logo %}
+      {% else %}
+        <img src="{{ cover_logo | url }}" alt="Logo" />
+      {% endif %}
+    </div>
+  {% endif %}
 {% endblock %}
 
-<h1>{{ title }}</h1>
+<h1>{{ cover_title }}</h1>
 
 {% if subtitle %}
 {% if subtitle is string %}
