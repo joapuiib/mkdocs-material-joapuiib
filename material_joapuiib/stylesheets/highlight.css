@@ -44,13 +44,16 @@
   color: #EBCB8B;
 }
 
-.language-shellconsole.highlight .git-bl {
+.language-shellconsole.highlight .git-bl,
+.language-shellconsole.highlight .git-untr,
+.language-shellconsole.highlight .git-mod {
   color: #BF616A;
 }
 .language-shellconsole.highlight .git-ch {
   color: #81A1C1;
 }
-.language-shellconsole.highlight .git-cd {
+.language-shellconsole.highlight .git-cd,
+.language-shellconsole.highlight .git-stg {
   color: #A3BE8C;
 }
 .language-shellconsole.highlight .git-ca {
