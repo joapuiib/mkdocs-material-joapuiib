@@ -47,6 +47,10 @@ joapuiib@FP:~/git_tutorial (main) $ git push
 Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
 To /home/joapuiib/gitflow_example/remot
    0fb88ef..9e34bb0  develop -> develop
+```
+
+#### Git log
+```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git lga
 * f853946 - (7 minutes ago) README: Afegits autors - Mar (origin/feature/author)
 | * cc8c388 - (9 minutes ago) LICENSE: Afegida llicència - Pau (origin/feature/license)
@@ -58,10 +62,9 @@ joapuiib@FP:~/git_tutorial (main) $ git lga
 (venv) [user@host ~] $ echo "Hello, world!"
 ```
 
-#### Git output
+#### Git status
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git status
-joapuiib@fp:~/01_introduccio (main) $ git status
 On branch main
 
 No commits yet
@@ -80,6 +83,25 @@ Changes not staged for commit:
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
         new file:   README.md
+```
+
+#### Git show
+```shellconsole
+joapuiib@FP:~/01_introduccio (main) $ git show 8e70293
+commit 8e702933d5dbec9ee71100a1599ae4491085e1aa (HEAD -> main, tag: v1, origin/main, origin/HEAD)
+Author: Joan Puigcerver Ibáñez <j.puigcerveribanez@edu.gva.es>
+Date:   Fri Oct 13 16:06:59 2023 +0200
+
+    Added README.md
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..6d747b3
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,2 @@
++# 01 - Introducció a Git
++Estem aprenent a utilitzar Git!
 ```
 
 
