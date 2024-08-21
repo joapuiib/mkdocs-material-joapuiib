@@ -1,12 +1,13 @@
-{% if page.meta.comments and build %}
+{% if page.meta.comments %}
   <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
 
+{% if build %}
   <!-- Insert generated snippet here -->
   <script src="https://giscus.app/client.js"
-        data-repo="joapuiib/mkdocs-material-joapuiib"
-        data-repo-id="R_kgDOMUF9Jg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOMUF9Js4CgyME"
+        data-repo="{{ config.theme.comments.data_repo }}"
+        data-repo-id="{{ config.theme.comments.data_repo_id }}"
+        data-category="{{ config.theme.comments.data_category }}"
+        data-category-id="{{ config.theme.comments.data_category_id }}"
         data-mapping="pathname"
         data-strict="1"
         data-reactions-enabled="1"
@@ -54,4 +55,14 @@
       })
     })
   </script>
+{% else %}
+<p>Diponibles en producció.</p>
+<p>Paràmetres:</p>
+<ul>
+  <li><code>comments-data-repo</code>: {{ config.theme.comments.data_repo }}</li>
+  <li><code>comments-data-repo-id</code>: {{ config.theme.comments.data_repo_id }}</li>
+  <li><code>comments-data-category</code>: {{ config.theme.comments.data_category }}</li>
+  <li><code>comments-data-category-id</code>: {{ config.theme.comments.data_category_id }}</li>
+</ul>
+{% endif %}
 {% endif %}

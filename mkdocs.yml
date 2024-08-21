@@ -20,6 +20,12 @@ theme:
   icon:
     logo: octicons/book-16
 
+  comments:
+    data-repo: joapuiib/mkdocs-material-joapuiib
+    data-repo-id: R_kgDOMUF9Jg
+    data-category: Announcements
+    data-category-id: DIC_kwDOMUF9Js4CgyME
+
   # Palette toggle for light mode
   palette:
     - media: "(prefers-color-scheme: light)"
