@@ -1,6 +1,8 @@
 ---
 title: Inici
 comments: true
+hide:
+    - navigation
 ---
 
 Aquest lloc web recull les configuracions i extensions realitzades sobre el tema [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
