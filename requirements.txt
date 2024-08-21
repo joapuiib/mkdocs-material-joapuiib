@@ -6,4 +6,4 @@ mkdocs-material==9.5.29
 mkdocs-static-i18n==1.2.3
 markdown-captions==2.1.2
 mdx-linkify==2.1
-pygments-shell-console==0.0.6
+pygments-shell-console==0.1
