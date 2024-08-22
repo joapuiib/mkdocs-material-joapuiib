@@ -97,3 +97,8 @@ title: Admonitions
 !!! solution
     Alerta de solució `solution`
 
+!!! important
+    Alerta de important `important`
+
+!!! notice
+    Alerta de notícia `notice`
