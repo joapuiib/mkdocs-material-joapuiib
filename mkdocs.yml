@@ -68,6 +68,7 @@ plugins:
             solution: Solució
             important: Important
             notice: Fixa't
+            prep: Preparació
   - git-revision-date-localized
 
 markdown_extensions:

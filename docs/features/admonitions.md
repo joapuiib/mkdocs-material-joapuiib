@@ -102,3 +102,6 @@ title: Admonitions
 
 !!! notice
     Alerta de notícia `notice`
+
+!!! prep
+    Alerta de preparació `prep`
