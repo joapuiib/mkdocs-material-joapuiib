@@ -104,6 +104,21 @@ index 0000000..6d747b3
 +Estem aprenent a utilitzar Git!
 ```
 
+#### Git output with hints
+```shellconsole
+joapuiib@FP:~/git_tutorial (main) $ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositoris, which will suppress this warning, call:
+hint:
+hint: git config --global init.dafaultBranch <name>
+hint:
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint: git branch -m <name>
+Initialized empty Git repository in /home/joapuiib/git_tutorial/.git/
+```
 
 ### Keyboard keys
 ++ctrl+alt+del++
