@@ -6,6 +6,8 @@ cover:
   logo: 'img/cover/cipfp-mislata.svg'
   background: true
 
+under_construction: false
+
 features:
   - announce.dismiss
   - content.code.copy
