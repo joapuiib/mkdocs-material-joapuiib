@@ -77,7 +77,6 @@ markdown_extensions:
   - attr_list
   - def_list
   - md_in_html
-  - mdx_linkify
   - sane_lists
   - pymdownx.arithmatex:
       generic: true
@@ -94,6 +93,7 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
+  - pymdownx.magiclink
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.tasklist:
