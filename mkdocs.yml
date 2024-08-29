@@ -47,6 +47,10 @@ plugins:
   - material/search
   - material-joapuiib/enviorment
   - awesome-pages # Navegació
+  - encryptcontent:
+      remember_password: false
+      password_inventory:
+        secret: "secret"
   - macros
   - i18n:
       languages:
@@ -84,7 +88,6 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material_joapuiib.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
   - pymdownx.highlight:
       use_pygments: true
       linenums_style: pymdownx-inline
