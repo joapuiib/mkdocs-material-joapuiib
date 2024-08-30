@@ -30,9 +30,9 @@ Icons from IntelliJ are available.
 - `:intellij-debug:` :intellij-debug:
 - `:intellij-resume:` :intellij-resume:
 - `:intellij-run:` :intellij-run:
-- `:intellij-step_into:` :intellij-step_into:
-- `:intellij-step_out:` :intellij-step_out:
-- `:intellij-step_over:` :intellij-step_over:
+- `:intellij-step-into:` :intellij-step-into:
+- `:intellij-step-out:` :intellij-step-out:
+- `:intellij-step-over:` :intellij-step-over:
 - `:intellij-stop:` :intellij-stop:
 
 
