@@ -23,6 +23,19 @@ You can use the following syntax to include an icon:
 | `:devicons-python-plain:` | :devicons-python-plain: |
 | `:devicons-python-plain-wordmark:` | :devicons-python-plain-wordmark: |
 
+## IntelliJ
+Icons from IntelliJ are available.
+
+- `:intellij-breakpoint:` :intellij-breakpoint:
+- `:intellij-debug:` :intellij-debug:
+- `:intellij-resume:` :intellij-resume:
+- `:intellij-run:` :intellij-run:
+- `:intellij-step_into:` :intellij-step_into:
+- `:intellij-step_out:` :intellij-step_out:
+- `:intellij-step_over:` :intellij-step_over:
+- `:intellij-stop:` :intellij-stop:
+
+
 
 ## Built-in icons
 A complete list can be found at https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/#search
