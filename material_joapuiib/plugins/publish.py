@@ -29,7 +29,6 @@ class PublishPlugin(BasePlugin):
     def on_page_markdown(self, markdown: str, page: Page, config: MkDocsConfig, files: Files) -> str:
         if not self.is_building and not self.is_page_published(page.meta):
             if page.meta.get('title'):
-                self.log.info(f"Unpublished page: {page.meta}")
                 page.meta["title"] = '[Unpublished] ' + page.meta["title"]
 
         return markdown
