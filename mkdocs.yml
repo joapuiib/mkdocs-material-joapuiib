@@ -15,6 +15,13 @@ extra:
       link: https://www.linkedin.com/in/joanpuigcerver/
       name: Joan Puigcerver a LinkedIn
 
+draft_docs: |
+  *_unpublished.md
+  *_draft.md
+
+exclude_docs: |
+  *_excluded.md
+
 theme:
   name: material-joapuiib
   icon:
@@ -46,7 +53,6 @@ theme:
 plugins:
   - material/search
   - material-joapuiib/enviorment
-  - publish
   - awesome-pages # Navegació
   - macros
   - i18n:
