@@ -28,10 +28,10 @@ theme:
     logo: octicons/book-16
 
   comments:
-    data_repo: joapuiib/mkdocs-material-joapuiib
-    data_repo_id: R_kgDOMUF9Jg
-    data_category: Announcements
-    data_category_id: DIC_kwDOMUF9Js4CgyME
+    repo: joapuiib/mkdocs-material-joapuiib
+    repo_id: R_kgDOMUF9Jg
+    category: General
+    category_id: DIC_kwDOMUF9Js4CgyMF
 
   # Palette toggle for light mode
   palette:

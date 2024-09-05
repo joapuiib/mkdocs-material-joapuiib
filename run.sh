@@ -39,9 +39,11 @@ if [ $INSTALL_VENV -eq 1 ]; then
     python3 -m venv venv
     print "Installing dependencies"
     ./venv/bin/pip install -r requirements.txt
+    print "Installing this package"
+    ./venv/bin/pip install -e .
 fi
 
-COMMAND="serve"
+COMMAND="serve --watch-theme"
 if [ $BUILD -eq 1 ]; then
     COMMAND="build"
 fi

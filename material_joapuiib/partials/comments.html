@@ -1,22 +1,70 @@
 {% if page.meta.comments %}
   <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
 
+{% set mapping = "pathname" %}
+{% set strict = true %}
+{% set reactionsEnabled = true %}
+{% set emitMetadata = true %}
+{% set inputPosition = "top" %}
+{% set theme = "preferred_color_scheme" %}
+{% set lang = "ca" %}
+{% set loading = "lazy" %}
+{% set crossorigin = "anonymous" %}
+{% set async = true %}
+
+{% if config.theme.comments.mapping is defined %}
+  {% set mapping = config.theme.comments.mapping %}
+{% endif %}
+
+{% if config.theme.comments.strict is defined %}
+  {% set strict = config.theme.comments.strict %}
+{% endif %}
+
+{% if config.theme.comments.reactions_enabled is defined %}
+  {% set reactionsEnabled = config.theme.comments.reactions_enabled %}
+{% endif %}
+
+{% if config.theme.comments.emit_metadata is defined %}
+  {% set emitMetadata = config.theme.comments.emit_metadata %}
+{% endif %}
+
+{% if config.theme.comments.input_position is defined %}
+  {% set inputPosition = config.theme.comments.input_position %}
+{% endif %}
+
+{% if config.theme.comments.theme is defined %}
+  {% set theme = config.theme.comments.theme %}
+{% endif %}
+
+{% if config.theme.comments.lang is defined %}
+  {% set lang = config.theme.comments.lang %}
+{% endif %}
+
+{% if config.theme.comments.loading is defined %}
+  {% set loading = config.theme.comments.loading %}
+{% endif %}
+
+{% if config.theme.comments.crossorigin is defined %}
+  {% set crossorigin = config.theme.comments.crossorigin %}
+{% endif %}
+
+
 {% if build %}
   <!-- Insert generated snippet here -->
   <script src="https://giscus.app/client.js"
-        data-repo="{{ config.theme.comments.data_repo }}"
-        data-repo-id="{{ config.theme.comments.data_repo_id }}"
-        data-category="{{ config.theme.comments.data_category }}"
-        data-category-id="{{ config.theme.comments.data_category_id }}"
-        data-mapping="pathname"
-        data-strict="1"
-        data-reactions-enabled="1"
-        data-emit-metadata="1"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="ca"
-        data-loading="lazy"
-        crossorigin="anonymous"
+        data-repo="{{ config.theme.comments.repo }}"
+        data-repo-id="{{ config.theme.comments.repo_id }}"
+        data-category="{{ config.theme.comments.category }}"
+        data-category-id="{{ config.theme.comments.category_id }}"
+        data-mapping="{{ mapping }}"
+        data-strict="{{ strict | int }}"
+        data-reactions-enabled="{{ reactionsEnabled | int }}"
+        data-emit-metadata="{{ emitMetadata | int }}"
+        data-input-position="{{ inputPosition }}"
+        data-theme="{{ theme }}"
+        data-lang="{{ lang }}"
+        data-loading="{{ loading }}"
+        crossorigin="{{ crossorigin }}"
         async>
   </script>
 
@@ -58,11 +106,23 @@
 {% else %}
 <p>Diponibles en producció.</p>
 <p>Paràmetres:</p>
-<ul>
-  <li><code>comments-data-repo</code>: {{ config.theme.comments.data_repo }}</li>
-  <li><code>comments-data-repo-id</code>: {{ config.theme.comments.data_repo_id }}</li>
-  <li><code>comments-data-category</code>: {{ config.theme.comments.data_category }}</li>
-  <li><code>comments-data-category-id</code>: {{ config.theme.comments.data_category_id }}</li>
-</ul>
+<pre><code>&lt;script src="https://giscus.app/client.js"
+      data-repo="{{ config.theme.comments.repo }}"
+      data-repo-id="{{ config.theme.comments.repo_id }}"
+      data-category="{{ config.theme.comments.category }}"
+      data-category-id="{{ config.theme.comments.category_id }}"
+      data-mapping="{{ mapping }}"
+      data-strict="{{ strict | int }}"
+      data-reactions-enabled="{{ reactionsEnabled | int }}"
+      data-emit-metadata="{{ emitMetadata | int }}"
+      data-input-position="{{ inputPosition }}"
+      data-theme="{{ theme }}"
+      data-lang="{{ lang }}"
+      data-loading="{{ loading }}"
+      crossorigin="{{ crossorigin }}"
+      async&gt;
+&lt;/script&gt;
+</code>
+</pre>
 {% endif %}
 {% endif %}
