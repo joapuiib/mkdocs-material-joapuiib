@@ -5,18 +5,21 @@ table.distribucio-temporal {
 }
 
 table.distribucio-temporal td,
-table.distribucio-temporal tr {
+table.distribucio-temporal tr,
+table.quadre-resum td,
+table.quadre-resum tr {
     border: 0;
     font-weight: unset;
     vertical-align: middle;
     padding: 5px 10px;
 }
 
-table.distribucio-temporal th {
+table.distribucio-temporal th,
+table.quadre-resum th {
     background-color: #2F84B5;
     color: white;
     text-align: center;
-    font-weight: unset;
+    font-weight: bold;
     vertical-align: middle;
 }
 
