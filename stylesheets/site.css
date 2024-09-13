@@ -29,6 +29,10 @@
     color: #111111;
 }
 
+p:has(img.center) {
+    text-align: center;
+}
+
 .red {
     color: #d85b5b;
 }
