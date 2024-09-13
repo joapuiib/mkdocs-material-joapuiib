@@ -5,4 +5,4 @@ mkdocs-macros-plugin==1.0.5
 mkdocs-material==9.5.29
 mkdocs-static-i18n==1.2.3
 markdown-captions==2.1.2
-pygments-shell-console==0.3
+pygments-shell-console==0.4
