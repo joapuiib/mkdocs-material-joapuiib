@@ -36,7 +36,7 @@ material-joapuiib = 'material_joapuiib'
 
 [project.entry-points."mkdocs.plugins"]
 "material-joapuiib/enviorment" = "material_joapuiib.plugins.enviorment:EnviormentPlugin"
-"material-joapuiib/publish" = "material_joapuiib.plugins.publish:PublishPlugin"
+"material-joapuiib/sectionicons" = "material_joapuiib.plugins.sectionicons:SectionIconsPlugin"
 
 # [tool.setuptools]
 # license-files = ['LICENSE', 'bootswatch.LICENSE']

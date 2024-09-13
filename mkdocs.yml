@@ -54,6 +54,7 @@ theme:
 plugins:
   - material/search
   - material-joapuiib/enviorment
+  - material-joapuiib/sectionicons
   - awesome-pages # Navegació
   - macros
   - i18n:
