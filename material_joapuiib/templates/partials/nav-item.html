@@ -15,7 +15,7 @@
   {% if nav_item.is_page and nav_item.meta.icon %}
     {% include ".icons/" ~ nav_item.meta.icon ~ ".svg" %}
   {% endif %}
-  {% if nav_item.is_section %}
+  {% if "material-joapuiib/sectionicons" in config.plugins and nav_item.is_section %}
     {% set section_icon = ref.title | extract_icon %}
     {% if section_icon %}
       {% set title = ref.title | remove_icon %}
