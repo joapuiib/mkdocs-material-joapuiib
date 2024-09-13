@@ -26,13 +26,13 @@ dependencies = [
     'pygments-shell-console>=0.3'
 ]
 
-# [project.urls]
+[project.urls]
 # 'Homepage' = ''
-# 'Repository' = ''
+'Repository' = 'https://github.com/joapuiib/mkdocs-material-joapuiib'
 # 'Issue Tracker' = ''
 
 [project.entry-points.'mkdocs.themes']
-material-joapuiib = 'material_joapuiib'
+material-joapuiib = 'material_joapuiib.templates'
 
 [project.entry-points."mkdocs.plugins"]
 "material-joapuiib/enviorment" = "material_joapuiib.plugins.enviorment:EnviormentPlugin"
