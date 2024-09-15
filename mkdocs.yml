@@ -107,3 +107,6 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
+  - material_joapuiib.extensions.collapse_code:
+      expand_text: ''
+      collapse_text: ''

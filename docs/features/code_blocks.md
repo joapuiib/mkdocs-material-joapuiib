@@ -29,6 +29,35 @@ function hello() {
 echo "Hello, world!"
 ```
 
+### Collapsable block
+
+/// collapse-code
+```java 
+class LongClass {
+    private int a;
+    public LongClass() {
+        a = 0;
+    }
+
+    public void increment() {
+        a++;
+    }
+
+    public void decrement() {
+        a--;
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+}
+```
+///
+
 ### Shell block
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ echo "Hello world!"
