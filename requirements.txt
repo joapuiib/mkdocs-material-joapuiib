@@ -6,3 +6,4 @@ mkdocs-material==9.5.29
 mkdocs-static-i18n==1.2.3
 markdown-captions==2.1.2
 pygments-shell-console==0.4
+pymdown-fancylists==0.3.0
