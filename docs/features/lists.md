@@ -1,6 +1,53 @@
 ---
 title: Lists
 ---
+## Types of Lists
+__Numbered Lists__
+
+1. List item
+2. List item
+3. List item
+
+_Nested_
+
+1. List item
+2. List item
+    1. List item
+    2. List item
+    3. List item
+
+__Alpha lists__
+
+a. List item
+b. List item
+c. List item
+
+---
+
+A. List item
+B. List item
+C. List item
+
+__Roman lists__
+
+i. List item
+ii. List item
+iii. List item
+
+_Nested_
+
+i. List item
+ii. List item
+    i. List item
+    ii. List item
+    iii. List item
+
+---
+
+I. List item
+II. List item
+III. List item
+
 ## Nested Ordered Lists
 1. Vivamus id mi enim. Integer id turpis sapien. Ut condimentum lobortis
   sagittis. Aliquam purus tellus, faucibus eget urna at, iaculis venenatis
