@@ -60,11 +60,11 @@
 {% endif %}
 {% endblock %}
 
-<div class="content {% if cover_background %}with-background{% endif %}">
+<div class="cover__content{% if cover_background %} with-background{% endif %}">
 
 {% block logo %}
   {% if cover_logo %}
-    <div class="logo">
+    <div class="cover__logo">
       {% if cover_logo.endswith('.svg') %}
         {% include cover_logo %}
       {% else %}
@@ -88,7 +88,7 @@
 {% endif %}
 {% endif %}
 
-<div class="details">
+<div class="cover__details">
     {% if author %}
     <p><strong>Autor:</strong> {{ author }}</p>
     {% endif %}
@@ -100,7 +100,7 @@
     {% endif %}
 </div>
 
-<div class="license">
+<div class="cover__license">
 
 {% if original_author %}
 <p>Aquest material és una obra derivada a partir del material de: <strong>{{ original_author }}</strong></p>
@@ -112,7 +112,7 @@
 {% endif %}
 
 {% if license_image %}
-<div class="license-img">
+<div class="cover__license-img">
 <a href="{{ license_link }}" target="_blank">
   <img class="" src="{{ license_image | url }}" alt="Licence" height="50" />
 </a>
