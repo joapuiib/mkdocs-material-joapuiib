@@ -24,10 +24,20 @@ a. List item letter
 b. List item letter
 c. List item letter
 
+---
+
+A. List item letter
+B. List item letter
+C. List item letter
+
 ```md
 a. List item letter
 b. List item letter
 c. List item letter
+
+A. List item letter
+B. List item letter
+C. List item letter
 ```
 
 Also a starting number can be specified.
