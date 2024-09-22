@@ -24,20 +24,19 @@ a. List item letter
 b. List item letter
 c. List item letter
 
----
 
-A. List item letter
-B. List item letter
-C. List item letter
+A.  List item letter
+B.  List item letter
+C.  List item letter
 
 ```md
 a. List item letter
 b. List item letter
 c. List item letter
 
-A. List item letter
-B. List item letter
-C. List item letter
+A.  List item letter
+B.  List item letter
+C.  List item letter
 ```
 
 Also a starting number can be specified.
@@ -69,14 +68,14 @@ iii. List item roman
 4. List item number
     a. List item letter
     b. List item letter
-        v. List item roman
-        vi. List item roman
+        i. List item roman
+        ii. List item roma
 
 ```md
 3. List item number
 4. List item number
     a. List item letter
     b. List item letter
-        v. List item roman
-        vi. List item roman
+        i. List item roman
+        ii. List item roma
 ```
