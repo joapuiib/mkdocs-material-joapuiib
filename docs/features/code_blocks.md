@@ -133,7 +133,7 @@ index 0000000..6d747b3
 +Estem aprenent a utilitzar Git!
 ```
 
-#### Git output with hints
+#### Git output with hints and errors
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git init
 hint: Using 'master' as the name for the initial branch. This default branch name
@@ -147,6 +147,7 @@ hint: 'development'. The just-created branch can be renamed via this command:
 hint:
 hint: git branch -m <name>
 Initialized empty Git repository in /home/joapuiib/git_tutorial/.git/
+fatal: unable to auto-detect email address (got 'joapuiib@FP.(none)')
 ```
 
 ### Keyboard keys
