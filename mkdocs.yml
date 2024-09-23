@@ -52,10 +52,11 @@ theme:
         name: Switch to light mode
 
 plugins:
+  - awesome-pages # Navegació
+  - glightbox
   - material/search
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
-  - awesome-pages # Navegació
   - macros
   - i18n:
       languages:
