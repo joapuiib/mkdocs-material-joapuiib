@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/icons/section_icons/">
       
       
-        <link rel="prev" href="../../variables/">
+        <link rel="prev" href="../../zoom_images/">
       
       
       
@@ -62,7 +62,11 @@
     
     
     
-  </head>
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     
@@ -333,6 +337,8 @@
   
     
     
+      
+        
       
         
       
@@ -706,6 +712,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zoom_images/" class="md-nav__link">
+        
+  
+  
+  
+  <span class="md-ellipsis">
+    Zoom images
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -725,10 +754,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_14" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_15" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_14" id="__nav_2_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_15" id="__nav_2_15_label" tabindex="0">
             
   
   
@@ -747,8 +776,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_14_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_14">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_15_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_15">
             <span class="md-nav__icon md-icon"></span>
             :material/pencil-outline: Section title
           </label>
@@ -1169,7 +1198,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
         
           
-          <a href="../../variables/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Variables">
+          <a href="../../zoom_images/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Zoom images">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1179,7 +1208,7 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                Variables
+                Zoom images
               </div>
             </div>
           </a>
@@ -1261,5 +1290,6 @@
     <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
     <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
 
-  </body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+</script></body>
 </html>

@@ -10,13 +10,13 @@
         <meta name="author" content="Joan Puigcerver Ibáñez">
       
       
-        <link rel="canonical" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/magiclinks/">
+        <link rel="canonical" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/zoom_images/">
       
       
-        <link rel="prev" href="../lists/">
+        <link rel="prev" href="../variables/">
       
       
-        <link rel="next" href="../slides/">
+        <link rel="next" href="../icons/section_icons/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Magic Links - Material joapuiib</title>
+        <title>Zoom images - Material joapuiib</title>
       
     
     
@@ -87,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#magic-links" class="md-skip">
+        <a href="#zoom-images" class="md-skip">
           Salta el contingut
         </a>
       
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Magic Links
+              Zoom images
             
           </span>
         </div>
@@ -645,19 +645,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../magiclinks/" class="md-nav__link">
         
   
   
@@ -668,7 +659,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -724,10 +714,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../zoom_images/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  
+  <span class="md-ellipsis">
+    Zoom images
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -738,6 +748,33 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zoom-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zoom images
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -848,8 +885,23 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zoom-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Zoom images
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -866,13 +918,17 @@
   
   
 
-<h1 id="magic-links">Magic Links</h1>
-<p>L'extensió <a href="https://facelessuser.github.io/pymdown-extensions/extensions/magiclink/">Magic Links</a>
-està activada, que permet convertir automàticament els enllaços en contingut de Markdown.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>markdown_extensions:
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  - pymdownx.magiclink
-</span></code></pre></div>
-<p>Exemple: <a href="https://facelessuser.github.io/">https://facelessuser.github.io/</a></p>
+<h2 id="zoom-images">Zoom images</h2>
+<p>Mkdocs <a href="https://blueswen.github.io/mkdocs-glightbox/">GLightBox plugin</a> is provided in this theme
+to support zoom images.</p>
+<figure>
+<p><a class="glightbox" href="../img/yuhan-chang-kenting.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom">
+    <a class="glightbox" href="../img/yuhan-chang-kenting.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Kenting, Taiwan" src="../img/yuhan-chang-kenting.jpg" /></a>
+</a></p>
+<figcaption>
+<p>Kenting, Taiwan. Credit: <a href="https://unsplash.com/photos/ROWXoqmqyjk">Yuhan Chang</a></p>
+</figcaption>
+</figure>
 
 
 
@@ -893,7 +949,7 @@ està activada, que permet convertir automàticament els enllaços en contingut 
     <span class="md-icon" title="Darrera actualització">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">28 d’agost del 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">23 de setembre del 2024</span>
   </span>
 
     
@@ -929,7 +985,7 @@ està activada, que permet convertir automàticament els enllaços en contingut 
       <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
         
           
-          <a href="../lists/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Lists">
+          <a href="../variables/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Variables">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -939,20 +995,20 @@ està activada, que permet convertir automàticament els enllaços en contingut 
                 Anterior
               </span>
               <div class="md-ellipsis">
-                Lists
+                Variables
               </div>
             </div>
           </a>
         
         
           
-          <a href="../slides/" class="md-footer__link md-footer__link--next" aria-label="Següent: Slides">
+          <a href="../icons/section_icons/" class="md-footer__link md-footer__link--next" aria-label="Següent: This is a page">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Següent
               </span>
               <div class="md-ellipsis">
-                Slides
+                This is a page
               </div>
             </div>
             <div class="md-footer__button md-icon">
