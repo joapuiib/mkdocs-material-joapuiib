@@ -78,9 +78,9 @@ p:has(img.center) {
     opacity: 1 !important;
 }
 
-.fancylists-lower-alpha li::marker {
+.fancylists-lower-alpha > li::marker {
     content: counter(list-item, lower-alpha) ") ";
 }
-.fancylists-upper-alpha li::marker {
+.fancylists-upper-alpha > li::marker {
     content: counter(list-item, upper-alpha) ") ";
 }
