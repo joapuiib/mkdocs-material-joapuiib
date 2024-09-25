@@ -60,6 +60,10 @@ plugins:
       summary: 'Aquesta pàgina està protegida!'
       encryption_info_message: 'Introdueix la contrasenya per accedir al contingut protegit.'
       placeholder: 'Contrasenya'
+      decryption_failure_message: 'Contrasenya incorrecta. Torna-ho a provar.'
+      input_class: 'md-encryption__input--password'
+      remember_keys: false
+      remember_password: false
   - glightbox
   - macros
   - i18n:
