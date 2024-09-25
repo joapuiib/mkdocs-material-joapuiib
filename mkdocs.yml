@@ -52,11 +52,15 @@ theme:
         name: Switch to light mode
 
 plugins:
-  - awesome-pages # Navegació
-  - glightbox
   - material/search
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
+  - awesome-pages # Navegació
+  - encryptcontent:
+      summary: 'Aquesta pàgina està protegida!'
+      encryption_info_message: 'Introdueix la contrasenya per accedir al contingut protegit.'
+      placeholder: 'Contrasenya'
+  - glightbox
   - macros
   - i18n:
       languages:
