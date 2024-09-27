@@ -152,7 +152,10 @@
     </li>
   {% else %}
     <li class="{{ class }}">
-      <a href="{{ nav_item.url | url }}" class="md-nav__link">
+      {% if nav_item.is_link %}
+        {% set target = " target=\"_blank\"" %}
+      {% endif %}
+      <a href="{{ nav_item.url | url }}" class="md-nav__link"{{ target }}>
         {{ render_content(nav_item) }}
       </a>
     </li>
