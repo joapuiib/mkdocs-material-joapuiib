@@ -1,5 +1,5 @@
 ---
-title: This is a page
+title: Icons
 icon: material/book-open-variant
 ---
 ## Devicons
