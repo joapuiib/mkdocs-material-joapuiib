@@ -1,5 +1,6 @@
 ---
 title: This is a page
+icon: material/book-open-variant
 ---
 ## Devicons
 Icons from [devicons](https://devicon.dev/) are available.
@@ -39,12 +40,8 @@ Icons from IntelliJ are available.
 ## Built-in icons
 A complete list can be found at https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/#search
 
-:smile:
-:simple-4d:
-:material-language-java:
-
 ## Page icons
 In the frontmatter:
 ```md
-icon: devicons/java-plain
+icon: material/book-open-variant
 ```
