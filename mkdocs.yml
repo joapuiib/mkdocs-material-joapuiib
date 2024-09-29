@@ -52,11 +52,13 @@ theme:
         name: Switch to light mode
 
 plugins:
+  - alias
   - awesome-pages # Navegació
   - glightbox
   - material/search
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
+  # - material/social
   - macros
   - i18n:
       languages:
@@ -79,7 +81,7 @@ plugins:
             important: Important
             notice: Fixa't
             prep: Preparació
-  - git-revision-date-localized
+  - git-revision-date-localized # Després de i18n o falla
 
 markdown_extensions:
   - abbr
@@ -92,6 +94,7 @@ markdown_extensions:
   - sane_lists
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.blocks.html
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material_joapuiib.extensions.emoji.twemoji
@@ -119,3 +122,8 @@ markdown_extensions:
   - toc:
       permalink: true
       toc_depth: 4
+  - material_joapuiib.extensions.collapse_code:
+      expand_text: ''
+      expand_title: ''
+      collapse_text: ''
+      collapse_title: ''
