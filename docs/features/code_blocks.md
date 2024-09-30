@@ -23,6 +23,11 @@ function hello() {
     console.log("Hello, world!");
 }
 ```
+/// html | div.result
+```text
+Hello, world!
+```
+///
 
 ### Bash block
 ```bash
