@@ -54,11 +54,13 @@ theme:
 plugins:
   - alias
   - awesome-pages # Navegació
+  - drawio_file
   - glightbox
   - material/search
+  # - material/social
+  - material/tags
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
-  # - material/social
   - macros
   - i18n:
       languages:
