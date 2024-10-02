@@ -26,32 +26,22 @@ title: Tables
 
 ## Sortable Tables
 
-Use `class="md-datatable sortable"` to make a table sortable
-and also style it with the default theme.
+Use a `div` element with the class `table-sortable` to make a table sortable.
 
-<table class="md-datatable sortable">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Country</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>John</td>
-            <td>27</td>
-            <td>USA</td>
-        </tr>
-        <tr>
-            <td>Jane</td>
-            <td>23</td>
-            <td>Canada</td>
-        </tr>
-        <tr>
-            <td>Doe</td>
-            <td>45</td>
-            <td>UK</td>
-        </tr>
-    </tbody>
-</table>
+```markdown
+/// html | div.table-sortable
+| Name | Age | Country |
+|------|-----|---------|
+| John | 27  | USA     |
+| Jane | 23  | Canada  |
+| Doe  | 45  | UK      |
+///
+```
+
+/// html | div.table-sortable
+| Name | Age | Country |
+|------|-----|---------|
+| John | 27  | USA     |
+| Jane | 23  | Canada  |
+| Doe  | 45  | UK      |
+///

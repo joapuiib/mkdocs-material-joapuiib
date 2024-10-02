@@ -25,34 +25,6 @@
     color: #111111;
 }
 
-.md-typeset table.md-datatable {
-    background-color: var(--md-default-bg-color);
-    border: .05rem solid var(--md-typeset-table-color);
-    border-radius: .1rem;
-    display: inline-block;
-    font-size: .64rem;
-    max-width: 100%;
-    overflow: auto;
-    touch-action: auto;
-}
-
-.md-typeset table.md-datatable th {
-    font-weight: 700;
-    min-width: 5rem;
-    padding: .9375em 1.25em;
-    vertical-align: top;
-}
-
-.md-typeset table.md-datatable tbody tr {
-    transition: background-color 125ms;
-}
-
-.md-typeset table.md-datatable td {
-    border-top: .05rem solid var(--md-typeset-table-color);
-    padding: .9375em 1.25em;
-    vertical-align: top;
-}
-
 p:has(img.center) {
     text-align: center;
 }
