@@ -14,11 +14,19 @@
     position: relative;
 }
 
+.md-typeset figure figure,
+figure > *,
+figcaption > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .md-typeset figcaption {
   color: var(--md-default-fg-color--light);
 }
 
-.md-typeset figcaption.attribution {
+figure.attribution figcaption,
+figcaption.attribution {
   text-align: left;
   font-size: 0.75em;
   margin: unset;
