@@ -99,7 +99,7 @@ markdown_extensions:
   - pymdownx.blocks.html
   - pymdownx.blocks.caption:
       autoid: true
-      prefix_level: 0
+      prefix_level: 1
       prefix: 'Figura {}: '
   - pymdownx.details
   - pymdownx.emoji:

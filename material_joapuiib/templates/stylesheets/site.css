@@ -7,15 +7,15 @@
     padding: 0 1.5rem;
 }
 
-.md-typeset figure figure,
-figure > *,
-figcaption > * {
+figure > *:first-child,
+figcaption > *:first-child {
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .md-typeset figcaption {
   color: var(--md-default-fg-color--light);
+  margin: 0.5em 0 0 0;
 }
 
 figure.attribution figcaption,
