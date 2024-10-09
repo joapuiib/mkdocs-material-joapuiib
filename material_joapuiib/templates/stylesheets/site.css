@@ -23,6 +23,7 @@ figcaption > * {
 
 .md-typeset figcaption {
   color: var(--md-default-fg-color--light);
+  margin: 0.5em 0 0 0;
 }
 
 figure.attribution figcaption,
