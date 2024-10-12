@@ -98,10 +98,8 @@ markdown_extensions:
       generic: true
   - pymdownx.blocks.html
   - pymdownx.blocks.caption:
-      autoid: true
-      prefix_level: 1
-      prefix: 'Figura {}: '
-      prepend: false
+      auto: true
+      auto_level: 1
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material_joapuiib.extensions.emoji.twemoji
