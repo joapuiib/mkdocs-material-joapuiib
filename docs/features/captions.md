@@ -8,6 +8,11 @@ Captions can be added to block elements
 using the [Caption Block Extension](#).
 
 
+Generic text
+/// caption
+Generic Caption
+///
+
 ![Image](https://via.placeholder.com/150)
 /// figure-caption
     attrs: {class: "attribution"}
@@ -26,9 +31,4 @@ Attribution
 ///
 /// table-caption
 Caption for table
-///
-
-Generic text
-/// caption
-Generic Caption
 ///
