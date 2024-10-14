@@ -54,7 +54,7 @@ theme:
 plugins:
   - alias
   - awesome-pages # Navegació
-  - drawio_file
+  - drawio
   - glightbox
   - material/search
   # - material/social
