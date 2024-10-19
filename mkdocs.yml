@@ -55,6 +55,7 @@ plugins:
   - alias
   - awesome-pages # Navegació
   - drawio
+  - exclude-search
   - glightbox
   - material/search
   # - material/social
