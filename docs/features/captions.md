@@ -14,7 +14,7 @@ Generic Caption
 ///
 
 ![Image](https://via.placeholder.com/150)
-/// attribution
+/// attribution-caption
 Attribution
 ///
 /// figure-caption
@@ -34,4 +34,16 @@ Attribution
 ///
 /// table-caption
 Caption for table
+///
+
+## Integration with glightbox
+![Image](https://via.placeholder.com/150)
+/// attribution-caption
+Some attribution
+///
+/// description-caption
+Some description
+///
+/// figure-caption
+Some caption
 ///

@@ -103,11 +103,14 @@ markdown_extensions:
       types:
         - caption
         - name: figure-caption
-          prefix: "Figura {}."
-        - name: "table-caption"
-          prefix: "Taula {}."
-        - name: attribution
-          classes: attribution
+          prefix: "Figure {}."
+          classes: "glightbox-title"
+        - name: table-caption
+          prefix: "Taule {}."
+        - name: attribution-caption
+          classes: "attribution glightbox-attribution"
+        - name: description-caption
+          classes: "glightbox-description"
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material_joapuiib.extensions.emoji.twemoji
