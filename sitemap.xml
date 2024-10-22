@@ -73,6 +73,12 @@
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/magiclinks/"/>
     </url>
     <url>
+        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/password/</loc>
+        <lastmod>2024-10-22</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/password/"/>
+    </url>
+    <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/slides/</loc>
         <lastmod>2024-10-22</lastmod>
         <changefreq>daily</changefreq>
