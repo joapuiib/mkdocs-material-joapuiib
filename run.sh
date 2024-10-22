@@ -37,10 +37,10 @@ if [ $INSTALL_VENV -eq 1 ]; then
 
     print "Installing virtual environment..."
     python3 -m venv venv
-    print "Installing dependencies"
-    ./venv/bin/pip install -r requirements.txt
     print "Installing this package"
     ./venv/bin/pip install -e .
+    print "Installing dependencies"
+    ./venv/bin/pip install -r requirements.txt
 fi
 
 COMMAND="serve --watch-theme"
