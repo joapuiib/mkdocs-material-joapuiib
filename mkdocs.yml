@@ -52,17 +52,31 @@ theme:
         name: Switch to light mode
 
 plugins:
+  - material/search
   - alias
   - awesome-pages # Navegació
   - drawio
   - exclude-search
+  - encryptcontent:
+      title_prefix: ''
+      summary: 'Aquesta pàgina està protegida!'
+      encryption_info_message: 'Introdueix la contrasenya per accedir al contingut protegit.'
+      placeholder: 'Contrasenya'
+      decryption_failure_message: 'Contrasenya incorrecta. Torna-ho a provar.'
+      decryption_failure_timerange_message: 'Aquesta pàgina no està disponible en aquest moment.'
+      input_class: 'md-encryption__input--password'
+      remember_keys: false
+      remember_password: false
+      encrypted_something:
+        mkdocs-encrypted-toc: [nav, class]
+
+
   - glightbox
-  - material/search
+  - macros
   # - material/social
   - material/tags
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
-  - macros
   - i18n:
       languages:
         - locale: ca
