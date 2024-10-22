@@ -88,20 +88,24 @@ title: Admonitions
 
 
 ## Custom admonitions
-!!! docs
-    Alerta de documentació `docs`
-
-!!! spoiler
-    Alerta de spoiler `spoiler`
-
-!!! solution
-    Alerta de solució `solution`
+!!! prep
+    Alerta de preparació `prep`
 
 !!! important
     Alerta de important `important`
 
+!!! solution
+    Alerta de solució `solution`
+
+!!! recommend
+    Alerta de recomanació `recommend`
+
 !!! notice
     Alerta de notícia `notice`
 
-!!! prep
-    Alerta de preparació `prep`
+!!! spoiler
+    Alerta de spoiler `spoiler`
+
+!!! docs
+    Alerta de documentació `docs`
+
