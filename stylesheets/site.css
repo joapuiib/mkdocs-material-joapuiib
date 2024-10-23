@@ -64,7 +64,15 @@
     color: #111111;
 }
 
+.center {
+    text-align: center;
+}
+
 p:has(img.center) {
+    text-align: center;
+}
+
+.mermaid {
     text-align: center;
 }
 
@@ -94,10 +102,6 @@ p:has(img.center) {
 }
 .gray {
     color: gray;
-}
-
-.center {
-    text-align: center;
 }
 
 .opacity-25 {
