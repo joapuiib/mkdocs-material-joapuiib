@@ -80,6 +80,9 @@ plugins:
       input_class: 'md-encryption__input--password'
       remember_keys: false
       remember_password: false
+      threshold_warning_min_entropy: 0
+      show_content_on_serve: true
+      serve_content_info_message: 'Aquest contingut sols està disponible en mode de desenvolupament.'
       encrypted_something:
         mkdocs-encrypted-toc: [nav, class]
 

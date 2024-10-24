@@ -1,13 +1,13 @@
 ---
-template: document.html
+template: exam.html
+title: Exam
 icon: material/lock
 inject_id: protected
-title: Password
 password: 1234
 start_time: 2024-10-21 12:30:00
 ---
 
-## Password
+## Exam
 La contrasenya és `1234`.
 
 ---
