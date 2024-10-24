@@ -8,11 +8,15 @@ function print {
 
 BUILD=0
 INSTALL_VENV=0
+PROD=0
 ARGS=''
 while [ $# -gt 0 ] ; do
     case $1 in
         -b)
             BUILD=1
+            ;;
+        -p)
+            PROD=1
             ;;
         --install-venv)
             INSTALL_VENV=1
@@ -41,6 +45,10 @@ if [ $INSTALL_VENV -eq 1 ]; then
     ./venv/bin/pip install -e .
     print "Installing dependencies"
     ./venv/bin/pip install -r requirements.txt
+fi
+
+if [ $PROD -eq 1 ]; then
+    export SHOW_PROTECTED_CONTENT=false
 fi
 
 COMMAND="serve --watch-theme"
