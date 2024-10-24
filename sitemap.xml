@@ -43,6 +43,12 @@
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/draft/"/>
     </url>
     <url>
+        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/exam/</loc>
+        <lastmod>2024-10-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/exam/"/>
+    </url>
+    <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/fancylists/</loc>
         <lastmod>2024-10-24</lastmod>
         <changefreq>daily</changefreq>
@@ -71,12 +77,6 @@
         <lastmod>2024-10-24</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/magiclinks/"/>
-    </url>
-    <url>
-        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/password/</loc>
-        <lastmod>2024-10-24</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/password/"/>
     </url>
     <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/slides/</loc>
