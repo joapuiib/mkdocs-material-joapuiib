@@ -25,6 +25,7 @@ exclude_docs: |
 
 theme:
   name: material-joapuiib
+  under_construction: true
   icon:
     logo: octicons/book-16
 
