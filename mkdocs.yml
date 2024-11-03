@@ -136,6 +136,9 @@ markdown_extensions:
         - caption
         - name: figure-caption
           prefix: "Figura {}."
+        - name: shadow-figure-caption
+          prefix: "Figura {}."
+          classes: shadow
         - name: "table-caption"
           prefix: "Taula {}."
         - name: attribution

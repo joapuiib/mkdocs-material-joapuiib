@@ -13,6 +13,8 @@ Generic text
 Generic Caption
 ///
 
+### Image caption
+
 ![Image](https://via.placeholder.com/150)
 /// attribution
 Attribution
@@ -25,6 +27,15 @@ Caption for image
 /// figure-caption | ^1
 Virtual nested caption
 ///
+
+### Shadowed image caption
+
+![Image](https://via.placeholder.com/150)
+/// shadow-figure-caption
+Shadow :material-box-shadow: image caption
+///
+
+### Table caption
 
 | Header 1 | Header 2 |
 |----------|----------|
