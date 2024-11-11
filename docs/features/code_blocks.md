@@ -17,7 +17,7 @@ lines in the code block.
 ```
 ````
 
-### Javascript block
+### JavaScript block
 ```javascript
 function hello() {
     console.log("Hello, world!");

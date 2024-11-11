@@ -3,7 +3,7 @@ title: Admonitions
 ---
 ## Built-in admonitions
 !!! note
-    Alerta d'annotació `note`
+    Alerta d'anotació `note`
 
 !!! abstract
     Alerta de resum `abstract`
@@ -72,18 +72,18 @@ title: Admonitions
     ```
 
 !!! note "Nested admonitions"
-    Les alertes es poden anidar.
+    Les alertes es poden imbricar.
 
     ???+ info "Nested admonitions"
-        Les alertes es poden anidar.
+        Les alertes es poden imbricar.
 
 
     ```markdown
     !!! note "Nested admonitions"
-        Les alertes es poden anidar.
+        Les alertes es poden imbricar.
 
         ??? info "Nested admonitions"
-            Les alertes es poden anidar.
+            Les alertes es poden imbricar.
     ```
 
 

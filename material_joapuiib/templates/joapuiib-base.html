@@ -27,3 +27,17 @@ Lloc web en construcció!
 <img alt="🏗" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f3d7.svg" title="">
 </div>
 {% endif %}{% endblock %}
+
+{% block container %}
+  {% if page.is_page and page.meta['spell-ignore'] %}
+    {% set spell_ignore = " spell-ignore" %}
+  {% endif %}
+
+  <div class="md-content{{ spell_ignore }}" data-md-component="content">
+    <article class="md-content__inner md-typeset">
+      {% block content %}
+        {% include "partials/content.html" %}
+      {% endblock %}
+    </article>
+  </div>
+{% endblock %}

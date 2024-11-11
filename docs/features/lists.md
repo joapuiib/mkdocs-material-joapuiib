@@ -1,5 +1,6 @@
 ---
 title: Lists
+spell-ignore: true
 ---
 ## Types of Lists
 __Numbered Lists__
@@ -24,9 +25,9 @@ c. List item
 
 ---
 
-A. List item
-B. List item
-C. List item
+A.  List item
+B.  List item
+C.  List item
 
 __Roman lists__
 
@@ -44,7 +45,7 @@ ii. List item
 
 ---
 
-I. List item
+I.  List item
 II. List item
 III. List item
 

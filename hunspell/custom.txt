@@ -1,0 +1,11 @@
+-
+by-nc-sa
+CIPFP
+joapuiib
+MkDocs
+frontmatter
+IntelliJ
+devicons
+GLightBox
+collapsable
+sortable

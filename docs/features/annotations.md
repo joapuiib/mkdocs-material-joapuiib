@@ -5,7 +5,7 @@ title: Annotations
 ## Annotations in paragraphs
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. (1)
 Praesent id metus diam. Aliquam condimentum libero eu tortor.
-{ .annotate }
+{ .annotate .spell-ignore }
 
 1.  Annotations can be used in paragraphs.
 
