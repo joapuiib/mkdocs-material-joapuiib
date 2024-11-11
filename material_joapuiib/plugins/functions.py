@@ -3,17 +3,18 @@ import os
 from mkdocs.plugins import BasePlugin
 
 class FunctionsPlugin(BasePlugin):
-    RE = re.compile(r'^!([a-z_]+) ([^\n]+)')
+    RE = re.compile(r'^( *)!([a-z_]+) ([^\n]+)')
 
     def on_page_markdown(self, markdown, page, config, files):
         new_markdown = []
         for line in markdown.split('\n'):
             match = self.RE.match(line)
             if match:
-                function = match.group(1)
-                args = match.group(2)
+                indent = match.group(1)
+                function = match.group(2)
+                args = match.group(3)
                 args = self.parse_args(args)
-                line = self.call_function(page, function, args)
+                line = self.call_function(page, function, indent, args)
             new_markdown.append(line)
 
         return '\n'.join(new_markdown)
@@ -24,17 +25,17 @@ class FunctionsPlugin(BasePlugin):
         return [match[0] or match[1] for match in matches]
 
 
-    def call_function(self, page, function, args):
+    def call_function(self, page, function, indent, args):
         """
         Checks if the function exists and calls it
         """
         if hasattr(self, function):
             function_config = self.config.get(function, {})
-            return getattr(self, function)(page, function_config, args)
+            return getattr(self, function)(page, function_config, indent, args)
         return ''
 
 
-    def load_file(self, page, config, paths):
+    def load_file(self, page, config, indent, paths):
         files_dir = config.get('files_dir', '')
 
         output = []
@@ -59,7 +60,7 @@ class FunctionsPlugin(BasePlugin):
                 f'```',
                 f'///',
             )
-            template = '\n'.join(template) + '\n'
+            template = ''.join([indent + line + '\n' for line in template])
             output.append(template)
 
         return "\n".join(output)
