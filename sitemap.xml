@@ -55,6 +55,12 @@
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/fancylists/"/>
     </url>
     <url>
+        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/functions/</loc>
+        <lastmod>2024-11-11</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/functions/"/>
+    </url>
+    <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/header_footer/</loc>
         <lastmod>2024-11-11</lastmod>
         <changefreq>daily</changefreq>
