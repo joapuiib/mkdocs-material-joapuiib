@@ -5,38 +5,11 @@
     <link rel="stylesheet" href="{{'stylesheets/programacio.css' | url}}">
 {% endblock %}
 
-{% block container %}
-    <div class="md-content" data-md-component="content">
+{% block document_header %}
+<img src="{{'img/logo_mislata.png' | url}}" alt="">
+<img src="{{'img/iso.png' | url}}" alt="">
+{% endblock %}
 
-        {% block content_header %}
-            <div class="md-content__header">
-                <img src="{{'img/logo_mislata.png' | url}}" alt="">
-                <img src="{{'img/iso.png' | url}}" alt="">
-            </div>
-        {% endblock %}
-
-        <table class="md-content__print-layout">
-            <thead><tr><td>
-                <div class="md-content__header-space">&nbsp;</div>
-            </td></tr></thead>
-
-            <tbody><tr><td>
-                <article class="md-content__inner md-typeset">
-                    {% block content %}
-                        {{ super() }}
-                    {% endblock %}
-                </article>
-            </td></tr></tbody>
-
-            <tfoot><tr><td>
-                <div class="md-content__footer-space">&nbsp;</div>
-            </td></tr></tfoot>
-        </table>
-
-        {% block content_footer %}
-            <div class="md-content__footer">
-                <img src="{{'img/fse.png' | url}}" alt="">
-            </div>
-        {% endblock %}
-    </div>
+{% block document_footer %}
+<img src="{{'img/fse.png' | url}}" alt="">
 {% endblock %}
