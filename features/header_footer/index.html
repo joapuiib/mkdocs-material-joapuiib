@@ -46,7 +46,23 @@
     <link rel="stylesheet" href="../../stylesheets/collapse-code.css">
     <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
 
+    <link rel="stylesheet" href="../../stylesheets/document.css">
     <link rel="stylesheet" href="../../stylesheets/cover.css">
+
+    
+    <style>
+        :root {
+            --md-document__header-height: 3rem;
+        }
+    </style>
+    
+    
+    <style>
+        :root {
+            --md-document__footer-height: 3rem;
+        }
+    </style>
+    
 
     <link rel="stylesheet" href="../../stylesheets/programacio.css">
 
@@ -1088,24 +1104,24 @@ Lloc web en construcció!
             
           
           
-    <div class="md-content" data-md-component="content">
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
 
-        
-            <div class="md-content__header">
-                <img src="../../img/logo_mislata.png" alt="">
-                <img src="../../img/iso.png" alt="">
-            </div>
-        
+<div class="md-document__header">
 
-        <table class="md-content__print-layout">
-            <thead><tr><td>
-                <div class="md-content__header-space">&nbsp;</div>
-            </td></tr></thead>
+<img src="../../img/logo_mislata.png" alt="">
+<img src="../../img/iso.png" alt="">
 
-            <tbody><tr><td>
-                <article class="md-content__inner md-typeset">
-                    
-                        
+</div>
+
+<table class="md-document__print-layout">
+    <thead><tr><td>
+        <div class="md-document__header-space">&nbsp;</div>
+    </td></tr></thead>
+
+    <tbody><tr><td>
+
+
     
     
 
@@ -1442,7 +1458,22 @@ els blocks <code>content_header</code> i <code>content_footer</code> de la plant
 </span></code></pre></div>
 <p>La capçalera i el peu de pàgina es mostraran a totes les pàgines
 quan s'imprimisca la pàgina <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-p">P</kbd></span>.</p>
-    
+
+
+    </td></tr></tbody>
+
+    <tfoot><tr><td>
+        <div class="md-document__footer-space">&nbsp;</div>
+    </td></tr></tfoot>
+</table>
+
+<div class="md-document__footer">
+
+<img src="../../img/fse.png" alt="">
+
+</div>
+
+
 
 
 
@@ -1471,26 +1502,12 @@ quan s'imprimisca la pàgina <span class="keys"><kbd class="key-control">Ctrl</k
     
   </aside>
 
-    
 
 
-    
 
-                    
-                </article>
-            </td></tr></tbody>
 
-            <tfoot><tr><td>
-                <div class="md-content__footer-space">&nbsp;</div>
-            </td></tr></tfoot>
-        </table>
-
-        
-            <div class="md-content__footer">
-                <img src="../../img/fse.png" alt="">
-            </div>
-        
-    </div>
+</article>
+</div>
 
           
   <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
