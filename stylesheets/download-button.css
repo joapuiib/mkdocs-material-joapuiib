@@ -1,3 +1,6 @@
+:root {
+  --md-download-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5m14-9h-4V3H9v6H5l7 7z"/></svg>');
+}
 :hover>.md-download {
     color: var(--md-default-fg-color--light);
 }
@@ -16,6 +19,11 @@ a.md-download {
     transition: color .25s;
     width: 1.5em;
     z-index: 1;
+}
+
+a.md-download {
+    display: flex;
+    align-items: center;
 }
 
 .md-download:after {

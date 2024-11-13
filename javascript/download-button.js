@@ -27,7 +27,6 @@ function renderDownloadContentButton(id, filename) {
   const button = document.createElement("button");
   button.className = "md-download md-icon";
   button.title = "Download";
-  button.setAttribute("data-download-target", `#${id} > code`);
 
   // Attach a click event listener to handle the download logic
   button.addEventListener("click", function() {
