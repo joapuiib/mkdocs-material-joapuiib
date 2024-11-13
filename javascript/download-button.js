@@ -6,14 +6,9 @@ document$.subscribe(function() {
 })
 
 function mountDownloadButton(el) {
-  console.log(el)
   var code = el.querySelector('code')
-  console.log(code)
   var data_download = el.getAttribute('data-download')
-  console.log(data_download)
-
   var parent = code.closest('pre')
-  console.log(parent)
 
   if (data_download == "1") {
     var filename = el.querySelector('span.filename').textContent
