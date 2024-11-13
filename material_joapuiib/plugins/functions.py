@@ -3,7 +3,11 @@ import os
 from mkdocs.plugins import BasePlugin
 
 class FunctionsPlugin(BasePlugin):
-    RE = re.compile(r'^( *)!([a-z_]+) ([^\n]+)')
+    RE = re.compile(r'^( *)(\\)?!([a-z_]+) ([^\n]+)')
+
+    supported_functions = [
+        'load_file',
+    ]
 
     def on_page_markdown(self, markdown, page, config, files):
         new_markdown = []
@@ -11,8 +15,19 @@ class FunctionsPlugin(BasePlugin):
             match = self.RE.match(line)
             if match:
                 indent = match.group(1)
-                function = match.group(2)
-                args = match.group(3)
+                escaped = match.group(2)
+                function = match.group(3)
+                args = match.group(4)
+
+                if function not in self.supported_functions:
+                    new_markdown.append(line)
+                    continue
+
+                if escaped:
+                    line = line.replace(escaped, '')
+                    new_markdown.append(line)
+                    continue
+
                 args = self.parse_args(args)
                 line = self.call_function(page, function, indent, args)
             new_markdown.append(line)
@@ -48,14 +63,14 @@ class FunctionsPlugin(BasePlugin):
                 '.',
                 os.path.dirname(page.file.src_uri)
             )
+            relative_path_from_docs = os.path.join("..", relative_path_from_docs)
 
             relative_path = os.path.join(relative_path_from_docs, files_dir, path)
             absolute_path = os.path.join("docs", files_dir, path)
 
             template = (
-                f'- [`{filename}`]({relative_path}){{download="{filename}"}}',
                 f'/// collapse-code',
-                f'```{language} title="{filename}"',
+                f'```{language} {{title="{filename}" data-download="{relative_path}"}}',
                 f'--8<-- "{absolute_path}"',
                 f'```',
                 f'///',
