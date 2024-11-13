@@ -1,8 +1,15 @@
 import re
 import os
 from mkdocs.plugins import BasePlugin
+from mkdocs.config import base, config_options as c
 
-class FunctionsPlugin(BasePlugin):
+class _LoadFileConfig(base.Config):
+    files_dir = c.Type(str, default='')
+
+class FunctionsPluginConfig(base.Config):
+    load_file = c.SubConfig(_LoadFileConfig)
+
+class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
     RE = re.compile(r'^( *)(\\)?!([a-z_]+) ([^\n]+)')
 
     supported_functions = [
@@ -51,7 +58,7 @@ class FunctionsPlugin(BasePlugin):
 
 
     def load_file(self, page, config, indent, paths):
-        files_dir = config.get('files_dir', '')
+        files_dir = config.files_dir
 
         output = []
 
