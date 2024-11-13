@@ -2,39 +2,20 @@
 title: Icons
 icon: material/book-open-variant
 ---
-## Devicons
-Icons from [devicons](https://devicon.dev/) are available.
+## Custom icons
 
-You can use the following syntax to include an icon:
+### IntelliJ
 
-### Example with Java
-| Syntax | Icon |
-| :-: | :-: |
-| `:devicons-java-original:` | :devicons-java-original: |
-| `:devicons-java-original-wordmark:` | :devicons-java-original-wordmark: |
-| `:devicons-java-plain:` | :devicons-java-plain: |
-| `:devicons-java-plain-wordmark:` | :devicons-java-plain-wordmark: |
-
-### Example with Python
-| Syntax | Icon |
-| :-: | :-: |
-| `:devicons-python-original:` | :devicons-python-original: |
-| `:devicons-python-original-wordmark:` | :devicons-python-original-wordmark: |
-| `:devicons-python-plain:` | :devicons-python-plain: |
-| `:devicons-python-plain-wordmark:` | :devicons-python-plain-wordmark: |
-
-## IntelliJ
-Icons from IntelliJ are available.
-
-- `:intellij-breakpoint:` :intellij-breakpoint:
-- `:intellij-debug:` :intellij-debug:
-- `:intellij-resume:` :intellij-resume:
-- `:intellij-run:` :intellij-run:
-- `:intellij-step-into:` :intellij-step-into:
-- `:intellij-step-out:` :intellij-step-out:
-- `:intellij-step-over:` :intellij-step-over:
-- `:intellij-stop:` :intellij-stop:
-
+| Icon | Markdown |
+|------|----------|
+| :intellij-breakpoint: | `:intellij-breakpoint:` |
+| :intellij-debug: | `:intellij-debug:` |
+| :intellij-resume: | `:intellij-resume:` |
+| :intellij-run: | `:intellij-run:` |
+| :intellij-step-into: | `:intellij-step-into:` |
+| :intellij-step-out: | `:intellij-step-out:` |
+| :intellij-step-over: | `:intellij-step-over:` |
+| :intellij-stop: | `:intellij-stop:` |
 
 
 ## Built-in icons
@@ -43,5 +24,17 @@ A complete list can be found at https://squidfunk.github.io/mkdocs-material/refe
 ## Page icons
 In the frontmatter:
 ```md
+---
 icon: material/book-open-variant
+---
+```
+
+## Section icons
+Section icons are set as a prefix to the section title in the table of contents.
+This also works for external links.
+
+```yaml title=".pages"
+nav:
+    - ...
+    - ":material/pencil-outline: Icon section": icons
 ```
