@@ -87,6 +87,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#functions" class="md-skip">
+          Salta el contingut
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -647,6 +652,21 @@ Lloc web en construcció!
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -659,6 +679,38 @@ Lloc web en construcció!
   
 
       </a>
+      
+        
+
+
+
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#load-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load file
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -992,6 +1044,25 @@ Lloc web en construcció!
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#load-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load file
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1010,23 +1081,28 @@ Lloc web en construcció!
   
   
 
-<ul>
-<li><a download="HelloWorld.java" href="../../files/HelloWorld.java"><code>HelloWorld.java</code></a></li>
-</ul>
-<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="language-java highlight"><span class="filename">HelloWorld.java</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloWorld</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+<h1 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h1>
+<p>Functions are provided by <code>material-joapuiib/functions</code> plugin.</p>
+<div class="language-text highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>plugins:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  - material-joapuiib/functions:
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>      load_file:
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        files_dir: files
+</span></code></pre></div>
+<p>To call a function, use the following syntax:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>!function_name arg1 arg2
+</span></code></pre></div>
+<h2 id="load-file">Load file<a class="headerlink" href="#load-file" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>!load_file HelloWorld.java
+</span></code></pre></div>
+<div class="result">
+<div class="collapse-code"><input checked="checked" id="__collapse0" name="__collapse0" type="checkbox" /><div class="language-java highlight" data-download="../../files/HelloWorld.java"><span class="filename">HelloWorld.java</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloWorld</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <div class="code-footer"><label class="expand" for="__collapse0" tabindex="0"></label><label class="collapse" for="__collapse0" tabindex="0"></label></div>
 </div>
-<ul>
-<li><a download="Merda.java" href="../files/Merda.java"><code>Merda.java</code></a></li>
-</ul>
-<div class="collapse-code"><input checked="checked" id="__collapse1" name="__collapse1" type="checkbox" /><div class="language-java highlight"><span class="filename">Merda.java</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>
-</span></code></pre></div>
-<div class="code-footer"><label class="expand" for="__collapse1" tabindex="0"></label><label class="collapse" for="__collapse1" tabindex="0"></label></div>
 </div>
 
 
@@ -1048,7 +1124,7 @@ Lloc web en construcció!
     <span class="md-icon" title="Darrera actualització">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">11 de novembre del 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">13 de novembre del 2024</span>
   </span>
 
     
