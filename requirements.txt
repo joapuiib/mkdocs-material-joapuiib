@@ -1,2 +1,2 @@
-mkdocs-encryptcontent-plugin @ git+https://github.com/joapuiib/mkdocs-encryptcontent-plugin.git@feature/time-range
+mkdocs-encryptcontent-plugin @ git+https://github.com/joapuiib/mkdocs-encryptcontent-plugin.git@develop
 mkdocs-static-i18n @ git+https://github.com/joapuiib/mkdocs-static-i18n@develop

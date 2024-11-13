@@ -37,7 +37,7 @@ echo "Hello, world!"
 ### Collapsable block
 
 /// collapse-code
-```java 
+```java title="LongClass.java"
 class LongClass {
     private int a;
     public LongClass() {
@@ -62,6 +62,29 @@ class LongClass {
 }
 ```
 ///
+
+### Downloadable block
+
+From file:
+```java {title="HelloWorld.java" data-download="../../files/HelloWorld.java"}
+--8<-- "docs/files/HelloWorld.java"
+```
+
+````md
+```java {title="HelloWorld.java" data-download="../../files/HelloWorld.java"}
+\--8<-- "docs/files/HelloWorld.java"
+```
+````
+
+From content:
+```java {title="HelloWorld.java" data-download="1"}
+--8<-- "docs/files/HelloWorld.java"
+```
+````md
+```java {title="HelloWorld.java" data-download="1"}
+\--8<-- "docs/files/HelloWorld.java"
+```
+````
 
 ### Shell block
 ```shellconsole
