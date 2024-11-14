@@ -94,6 +94,7 @@ plugins:
   - material/tags
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
+  - material-joapuiib/filters
   - material-joapuiib/functions:
       load_file:
         files_dir: files

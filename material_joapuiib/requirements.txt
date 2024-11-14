@@ -12,3 +12,4 @@ mkdocs-material~=9.5
 mkdocs-static-i18n~=1.2
 pygments-shell-console~=0.8
 pymdown-extensions~=10.12
+unidecode~=1.3
