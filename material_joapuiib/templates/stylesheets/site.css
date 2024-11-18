@@ -190,3 +190,10 @@ p:has(img.center) {
         display: none;
     }
 }
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
