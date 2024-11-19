@@ -4,6 +4,10 @@ icon: material/book-open-variant
 ---
 ## Custom icons
 
+| Icon | Markdown |
+|------|----------|
+| :softcatala: | `:simple-softcatala:` |
+
 ### IntelliJ
 
 | Icon | Markdown |
