@@ -6,7 +6,7 @@ icon: material/book-open-variant
 
 | Icon | Markdown |
 |------|----------|
-| :softcatala: | `:simple-softcatala:` |
+| :simple-softcatala: | `:simple-softcatala:` |
 
 ### IntelliJ
 
