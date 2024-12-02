@@ -167,6 +167,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: math
+          class: arithmatex
+          format: !!python/object/apply:pymdownx.arithmatex.arithmatex_fenced_format {kwds: {mode: generic, tag: pre}}
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
