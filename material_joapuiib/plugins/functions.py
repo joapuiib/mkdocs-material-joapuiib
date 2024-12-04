@@ -72,12 +72,12 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
             )
             relative_path_from_docs = os.path.join("..", relative_path_from_docs)
 
-            relative_path = os.path.join(relative_path_from_docs, files_dir, path)
+            # relative_path = os.path.join(relative_path_from_docs, files_dir, path)
             absolute_path = os.path.join("docs", files_dir, path)
 
             template = (
                 f'/// collapse-code',
-                f'```{language} {{title="{filename}" data-download="{relative_path}"}}',
+                f'```{language} {{title="{filename}" data-download="1"}}',
                 f'--8<-- "{absolute_path}"',
                 f'```',
                 f'///',
