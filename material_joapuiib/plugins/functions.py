@@ -1,7 +1,12 @@
-import re
 import os
-from mkdocs.plugins import BasePlugin
+
+import re
+
 from mkdocs.config import base, config_options as c
+from mkdocs.plugins import BasePlugin
+from mkdocs.plugins import get_plugin_logger
+
+log = get_plugin_logger("[functions]")
 
 class _LoadFileConfig(base.Config):
     files_dir = c.Type(str, default='')
@@ -63,21 +68,27 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
         output = []
 
         for path in paths:
-            filename = os.path.basename(path)
-            language = os.path.splitext(filename)[1][1:]
+            path, title = path.split('|') if '|' in path else (path, None)
 
-            relative_path_from_docs = os.path.relpath(
-                '.',
-                os.path.dirname(page.file.src_uri)
-            )
-            relative_path_from_docs = os.path.join("..", relative_path_from_docs)
+            if not title:
+                title = os.path.basename(path)
 
+            language = os.path.splitext(title)[1][1:]
+
+            # relative_path_from_docs = os.path.relpath(
+            #     '.',
+            #     os.path.dirname(page.file.src_uri)
+            # )
+            # relative_path_from_docs = os.path.join("..", relative_path_from_docs)
             # relative_path = os.path.join(relative_path_from_docs, files_dir, path)
+
             absolute_path = os.path.join("docs", files_dir, path)
+            if not os.path.exists(absolute_path):
+                log.error(f"{page.file.src_path}. File not found {path}")
 
             template = (
                 f'/// collapse-code',
-                f'```{language} {{title="{filename}" data-download="1"}}',
+                f'```{language} {{title="{title}" data-download="1"}}',
                 f'--8<-- "{absolute_path}"',
                 f'```',
                 f'///',
