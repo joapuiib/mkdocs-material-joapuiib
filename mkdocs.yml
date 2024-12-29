@@ -92,6 +92,7 @@ plugins:
   - macros
   # - material/social
   - material/tags
+  - material-joapuiib/badges
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
   - material-joapuiib/filters
