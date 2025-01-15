@@ -1,4 +1,4 @@
-{% if page.meta.comments %}
+{% if page_is_page and page.meta.comments %}
   <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
 
 {% set mapping = "pathname" %}
