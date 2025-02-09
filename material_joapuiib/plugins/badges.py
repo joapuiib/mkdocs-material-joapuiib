@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import posixpath
+import shlex
 import re
 
 from mkdocs.config.defaults import MkDocsConfig
@@ -24,6 +25,9 @@ class BadgesPlugin(BasePlugin):
             type, args = match.groups()
             args = args.strip()
             if type == "package":        return self._badge_for_package(args, page, files)
+            if type == "eval":           return self._badge_for_eval(args, page, files)
+            if type == "tag":            return self._badge_for_tag(args, page, files)
+            if type == "branch":         return self._badge_for_branch(args, page, files)
 
             # Otherwise, raise an error
             raise RuntimeError(f"Unknown shortcode: {type}")
@@ -64,10 +68,11 @@ class BadgesPlugin(BasePlugin):
     # Create badge
     def _badge(self, icon: str, text: str = "", type: str = ""):
         classes = f"mdx-badge mdx-badge--{type}" if type else "mdx-badge"
+        text = text if isinstance(text, list) else [text]
         return "".join([
             f"<span class=\"{classes}\">",
             *([f"<span class=\"mdx-badge__icon\">{icon}</span>"] if icon else []),
-            *([f"<span class=\"mdx-badge__text\">{text}</span>"] if text else []),
+            *[f"<span class=\"mdx-badge__text\">{t}</span>" for t in text],
             f"</span>",
         ])
 
@@ -80,3 +85,27 @@ class BadgesPlugin(BasePlugin):
             text = f"`{text}`",
         )
 
+    # Create badge for eval
+    def _badge_for_eval(self, text: str, page: Page, files: Files):
+        icon = "material-check"
+        return self._badge(
+            icon = f":{icon}:{{title=Avaluació}}",
+            text = shlex.split(text),
+        )
+
+
+    # Create badge for tag
+    def _badge_for_tag(self, text: str, page: Page, files: Files):
+        icon = "material-tag"
+        return self._badge(
+            icon = f":{icon}:{{title=Tag}}",
+            text = f"`{text}`",
+        )
+
+    # Create badge for branch
+    def _badge_for_branch(self, text: str, page: Page, files: Files):
+        icon = "material-source-branch"
+        return self._badge(
+            icon = f":{icon}:{{title=Branch}}",
+            text = f"`{text}`",
+        )
