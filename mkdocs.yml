@@ -127,6 +127,20 @@ markdown_extensions:
   - abbr
   - admonition
   - attr_list
+  - badges:
+      types:
+        package:
+          icon: material-folder-zip
+          title: Package
+        eval:
+          icon: material-check
+          title: Avaluació
+        tag:
+          icon: material-tag
+          title: Etiqueta
+        branch:
+          icon: material-source-branch
+          title: Branca
   - def_list
   - footnotes
   - markdown_grid_tables
