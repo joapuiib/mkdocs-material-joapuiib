@@ -69,6 +69,20 @@ plugins:
   - material/search
   - alias
   - awesome-pages # Navegació
+  - badges:
+      types:
+        package:
+          icon: material-folder-zip
+          title: Package
+        eval:
+          icon: material-check
+          title: Avaluació
+        tag:
+          icon: material-tag
+          title: Etiqueta
+        branch:
+          icon: material-source-branch
+          title: Branca
   - drawio
   - exclude-search
   - encryptcontent:
@@ -86,13 +100,10 @@ plugins:
       serve_content_info_message: 'Aquest contingut sols està disponible en mode de desenvolupament.'
       encrypted_something:
         mkdocs-encrypted-toc: [nav, class]
-
-
   - glightbox
   - macros
   # - material/social
   - material/tags
-  - material-joapuiib/badges
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
   - material-joapuiib/filters
@@ -127,20 +138,6 @@ markdown_extensions:
   - abbr
   - admonition
   - attr_list
-  - badges:
-      types:
-        package:
-          icon: material-folder-zip
-          title: Package
-        eval:
-          icon: material-check
-          title: Avaluació
-        tag:
-          icon: material-tag
-          title: Etiqueta
-        branch:
-          icon: material-source-branch
-          title: Branca
   - def_list
   - footnotes
   - markdown_grid_tables

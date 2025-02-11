@@ -6,7 +6,7 @@ title: Badges
 ### Configuration
 
 ```yaml
-markdown_extensions:
+plugins:
   - badges:
       types:
         package:
@@ -28,7 +28,7 @@ markdown_extensions:
 
 | Title | Definition | Rendered |
 | ----- | ---------- | -------- |
-| __Package__ | `[badge:package ud1.examples]` | [badge:package ud1.examples] |
-| __Avaluació__ | `[badge:eval __Bloc 1: Títol__|20%]` | [badge:eval __Bloc 1: Títol__|20%] |
-| __Tag__ | `[badge:tag Example]` | [badge:tag Example] |
-| __Branch__ | `[badge:branch main]` | [badge:branch main] |
+| __Package__ | `\[badge:package ud1.examples]` | [badge:package `ud1.examples`] |
+| __Avaluació__ | `\[badge:eval __Bloc 1: Títol__|20%]` | [badge:eval __Bloc 1: Títol__|20%] |
+| __Tag__ | `\[badge:tag Example]` | [badge:tag `Example`] |
+| __Branch__ | `\[badge:branch main]` | [badge:branch `main`] |
