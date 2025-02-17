@@ -83,6 +83,12 @@ plugins:
         branch:
           icon: material-source-branch
           title: Branca
+        commit:
+          icon: material-source-commit
+          title: Commit
+        remote-branch:
+          icon: material-source-branch-sync
+          title: Branca remota
   - drawio
   - exclude-search
   - encryptcontent:
