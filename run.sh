@@ -11,6 +11,7 @@ INSTALL_VENV=0
 SPELL=0
 ACT=''
 ALL=0
+DEV=0
 
 ARGS=''
 SPELL_ARGS=''
@@ -18,6 +19,9 @@ while [ $# -gt 0 ] ; do
     case $1 in
         -b)
             BUILD=1
+            ;;
+        -d)
+            DEV=1
             ;;
         --install-venv)
             INSTALL_VENV=1
@@ -78,6 +82,9 @@ if [ $INSTALL_VENV -eq 1 ]; then
 fi
 
 source venv/bin/activate
+if [ $DEV -eq 1 ]; then
+    export SHOW_PROTECTED_CONTENT="false";
+fi
 
 COMMAND="serve --watch-theme"
 if [ $BUILD -eq 1 ]; then

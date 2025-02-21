@@ -18,4 +18,24 @@ Aquest contingut està protegit per contrasenya.
 
 ### Hola
 ### Exercici 1
+
+```mermaid
+classDiagram
+    class Lamp {
+        - consumption: double
+        - on: boolean
+        + Lamp(consumption: double)
+        + Lamp(consumption: double, on: boolean)
+        + isOn(): boolean
+        + getConsumption(): double
+        + turnOn(): void
+        + turnOff(): void
+        + toggle(): void
+        + consume(seconds: double): double
+    }
+```
+
+$$
+kW = kWh \cdot \frac{seconds}{3600}
+$$
 ///

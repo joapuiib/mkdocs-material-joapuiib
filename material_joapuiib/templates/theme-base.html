@@ -25,6 +25,7 @@
     <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
     <script src="{{ 'javascript/tablesort.js' | url }}"></script>
     <script src="{{ 'javascript/download-button.js' | url }}"></script>
+    <script src="{{ 'javascript/encrypt-content.js' | url }}"></script>
     {% if page.is_page %}
     {% for script in page.meta.extra_javascript %}
         {{ script | script_tag }}
