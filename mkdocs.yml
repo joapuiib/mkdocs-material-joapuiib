@@ -68,7 +68,7 @@ theme:
 plugins:
   - material/search
   - alias
-  - awesome-pages # Navegació
+  - awesome-nav # Navegació
   - drawio
   - exclude-search
   - encryptcontent:
