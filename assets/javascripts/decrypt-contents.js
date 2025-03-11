@@ -282,7 +282,6 @@ function decryptor_reaction(key_or_keys, password_input, decrypted_content, fall
                 el.remove();
             }
         }
-
         // any post processing on the decrypted content should be done here
         if (typeof MathJax === 'object') { MathJax.typesetPromise();};
         
