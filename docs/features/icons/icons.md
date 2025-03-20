@@ -10,6 +10,7 @@ icon: material/book-open-variant
 
 ### IntelliJ
 
+
 | Icon | Markdown |
 |------|----------|
 | :intellij-breakpoint: | `:intellij-breakpoint:` |
@@ -20,6 +21,13 @@ icon: material/book-open-variant
 | :intellij-step-out: | `:intellij-step-out:` |
 | :intellij-step-over: | `:intellij-step-over:` |
 | :intellij-stop: | `:intellij-stop:` |
+| :intellij-maven: | `:intellij-maven:` |
+| :intellij-maven-load: | `:intellij-maven-load:` |
+
+__Sources__:
+
+- [intellij-community](https://github.com/JetBrains/intellij-community/tree/master/platform/icons/src)
+- [maven](https://github.com/JetBrains/intellij-community/tree/master/plugins/maven/src/main/resources/images)
 
 
 ## Built-in icons
