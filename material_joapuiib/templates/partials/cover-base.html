@@ -3,6 +3,7 @@
 {% if cover %}
 
 {% set cover_title = page.title %}
+{% set cover_icon = None %}
 {% set cover_logo = config.theme.cover.logo %}
 {% set cover_background = config.theme.cover.background %}
 {% set author = config.site_author %}
@@ -17,11 +18,14 @@
   {% set curs = page.meta.curs %}
 
   {% if page.meta.cover %}
-    {% if page.meta.cover.logo is defined %}
-      {% set cover_logo = page.meta.cover.logo %}
-    {% endif %}
     {% if page.meta.cover.title is defined %}
       {% set cover_title = page.meta.cover.title %}
+    {% endif %}
+    {% if page.meta.cover.icon is defined %}
+      {% set cover_icon = page.meta.cover.icon %}
+    {% endif %}
+    {% if page.meta.cover.logo is defined %}
+      {% set cover_logo = page.meta.cover.logo %}
     {% endif %}
     {% if page.meta.cover.background is defined %}
       {% set cover_background = page.meta.cover.background %}
@@ -74,8 +78,9 @@
   {% endif %}
 {% endblock %}
 
+{% block cover_title %}
 <div class="cover__title">
-<h1 class="">{{ cover_title }}</h1>
+  <h1 class="">{% if cover_icon %}<span class="cover__title-icon">{% include ".icons/" ~ cover_icon ~ ".svg" %}</span>{% endif %}<span class="cover__title-text">{{ cover_title }}</span></h1>
 
 {% block cover_subtitle %}
 {% if subtitle %}
@@ -91,19 +96,23 @@
 {% endif %}
 {% endblock %}
 </div>
+{% endblock %}
 
+{% block cover_details %}
 <div class="cover__details">
     {% if author %}
-    <p><strong>Autor:</strong> {{ author }}</p>
+    <p><strong>{{ author }}</strong></p>
     {% endif %}
     {% if email %}
-    <p><strong>Correu electrònic:</strong> {{ email }}</p>
+    <p><a href="mailto:{{ email }}">{{ email }}</a></p>
     {% endif %}
     {% if curs %}
     <p><strong>Curs:</strong> {{ curs }}</p>
     {% endif %}
-</div>
+</div> <!--details-->
+{% endblock %}
 
+{% block cover_license %}
 <div class="cover__license">
 
 {% if original_author %}
@@ -124,6 +133,7 @@
 {% endif %}
 
 </div><!--license-->
+{% endblock %}
 
 {% block cover_footer %}
 {% endblock %}
