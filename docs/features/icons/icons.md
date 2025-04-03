@@ -14,7 +14,12 @@ icon: material/book-open-variant
 | Icon | Markdown |
 |------|----------|
 | :intellij-class: | `:intellij-class:` |
+| :intellij-class-abstract: | `:intellij-class-abstract:` |
+| :intellij-class-junit-test: | `:intellij-class-junit-test:` |
+| :intellij-enum: | `:intellij-enum:` |
+| :intellij-exception: | `:intellij-exception:` |
 | :intellij-interface: | `:intellij-interface:` |
+| :intellij-package: | `:intellij-package:` |
 | :intellij-breakpoint: | `:intellij-breakpoint:` |
 | :intellij-debug: | `:intellij-debug:` |
 | :intellij-resume: | `:intellij-resume:` |
