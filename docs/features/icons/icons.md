@@ -13,6 +13,8 @@ icon: material/book-open-variant
 
 | Icon | Markdown |
 |------|----------|
+| :intellij-class: | `:intellij-class:` |
+| :intellij-interface: | `:intellij-interface:` |
 | :intellij-breakpoint: | `:intellij-breakpoint:` |
 | :intellij-debug: | `:intellij-debug:` |
 | :intellij-resume: | `:intellij-resume:` |

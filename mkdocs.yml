@@ -2,7 +2,7 @@ site_name: "Material joapuiib"
 site_author: "Joan Puigcerver Ibáñez"
 site_email: "j.puigcerveribanez@edu.gva.es"
 site_url: "https://joapuiib.github.io/mkdocs-material-joapuiib/"
-dev_addr: 127.0.0.1:4567
+dev_addr: 127.0.0.1:4568
 
 repo_name: mkdocs-material-joapuiib
 repo_url: https://github.com/joapuiib/mkdocs-material-joapuiib

@@ -69,6 +69,9 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
 
         for path in paths:
             path, title = path.split('|') if '|' in path else (path, None)
+            classes, path = path.split(':') if ':' in path else (None, path)
+            classes = f".{classes}" if classes else ""
+
 
             if not title:
                 title = os.path.basename(path)
@@ -88,7 +91,7 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
 
             template = (
                 f'/// collapse-code',
-                f'```{language} {{title="{title}" data-download="1"}}',
+                f'```{language} {{title="{title}" {classes} data-download="1"}}',
                 f'--8<-- "{absolute_path}"',
                 f'```',
                 f'///',
