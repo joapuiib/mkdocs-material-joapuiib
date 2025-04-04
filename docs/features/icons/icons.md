@@ -19,6 +19,12 @@ icon: material/book-open-variant
 | :intellij-enum: | `:intellij-enum:` |
 | :intellij-exception: | `:intellij-exception:` |
 | :intellij-interface: | `:intellij-interface:` |
+| :intellij-record: | `:intellij-record:` |
+| :intellij-exclude-folder: | `:intellij-exclude-folder:` |
+| :intellij-src-folder: | `:intellij-src-folder:` |
+| :intellij-resources-folder: | `:intellij-resources-folder:` |
+| :intellij-test-folder: | `:intellij-test-folder:` |
+| :intellij-test-resources-folder: | `:intellij-test-resources-folder:` |
 | :intellij-package: | `:intellij-package:` |
 | :intellij-breakpoint: | `:intellij-breakpoint:` |
 | :intellij-debug: | `:intellij-debug:` |
