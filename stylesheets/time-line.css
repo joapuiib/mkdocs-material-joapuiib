@@ -34,6 +34,31 @@
   z-index: 2;
 }
 
+/* Checkmark bullet */
+.timeline.check::before {
+  counter-increment: none;
+  content: '✓';
+}
+
+.timeline.cross::before {
+  counter-increment: none;
+  content: '✕';
+}
+
+/* Checkmark bullet */
+.timeline.success::before {
+  background-color: #00c853;
+}
+
+/* Error bullet */
+.timeline.error::before {
+  background-color: #ff5252;
+}
+
+.timeline.info::before {
+  background-color: #00b8d4;
+}
+
 /* Full vertical line going through the bullet */
 .timeline::after {
   content: '';
@@ -48,6 +73,10 @@
 
 .timeline.dashed::after {
     border-left-style: dashed;
+}
+
+.timeline.dotted::after {
+    border-left-style: dotted;
 }
 
 /* Remove the line for the last item */
