@@ -8,14 +8,14 @@ Captions can be added to block elements
 using the [Caption Block Extension](#).
 
 
-Generic text
+This is the figure.
 /// caption
-Generic Caption
+This is the caption.
 ///
 
 ### Image caption
 
-![Image](https://via.placeholder.com/150)
+![placeholder](img/placeholder-600x400.png)
 /// attribution
 Attribution
 ///
@@ -23,14 +23,14 @@ Attribution
 Caption for image
 ///
 
-![Image](https://via.placeholder.com/150)
+![placeholder](img/placeholder-600x400.png)
 /// figure-caption | ^1
 Virtual nested caption
 ///
 
 ### Shadowed image caption
 
-![Image](https://via.placeholder.com/150)
+![placeholder](img/placeholder-600x400.png)
 /// shadow-figure-caption
 Shadow :material-box-shadow: image caption
 ///
