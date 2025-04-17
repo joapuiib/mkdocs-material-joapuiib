@@ -109,3 +109,6 @@ title: Admonitions
 !!! docs
     Alerta de documentació `docs`
 
+!!! picture
+    Alerta d'imatge `picture`
+
