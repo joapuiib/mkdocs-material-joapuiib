@@ -1,7 +1,9 @@
 ---
 template: document.html
 icon: material/file-star-outline
-title: Cover
+cover:
+    icon: material/file-star-outline
+title: This is a long cover title
 subtitle: Custom subtitle
 curs: '24/25'
 original_author: Carmen
@@ -14,6 +16,8 @@ license_image: False
 ```yml
 ---
 template: document.html
+cover:
+    icon: material/file-star-outline
 title: Cover
 subtitle: Custom subtitle
 curs: '24/25'
