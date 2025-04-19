@@ -3,7 +3,7 @@ template: document.html
 icon: material/file-star-outline
 cover:
     icon: material/file-star-outline
-title: This is a long cover title
+title: Cover
 subtitle: Custom subtitle
 curs: '24/25'
 original_author: Carmen
