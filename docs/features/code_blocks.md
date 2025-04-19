@@ -1,5 +1,6 @@
 ---
 title: Code blocks
+icon: material/code-json
 ---
 
 ## Code blocks

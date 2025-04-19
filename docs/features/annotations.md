@@ -1,5 +1,6 @@
 ---
 title: Annotations
+icon: material/plus-circle
 ---
 
 ## Annotations in paragraphs

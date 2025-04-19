@@ -1,6 +1,8 @@
 ---
 title: Rubric
+icon: material/format-list-checks
 ---
+
 ## Rubric
 ```md
 /// rubric

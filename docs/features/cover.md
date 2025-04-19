@@ -1,5 +1,6 @@
 ---
 template: document.html
+icon: material/file-star-outline
 title: Cover
 subtitle: Custom subtitle
 curs: '24/25'

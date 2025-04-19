@@ -1,6 +1,7 @@
 ---
 template: slides.html
 title: Slides
+icon: material/presentation
 ---
 
 # Slides

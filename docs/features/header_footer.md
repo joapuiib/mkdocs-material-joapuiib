@@ -1,6 +1,7 @@
 ---
 template: programacio.html
 title: Header i footer
+icon: material/page-layout-header-footer
 ---
 
 ## Programació

@@ -1,5 +1,6 @@
 ---
 title: Admonitions
+icon: material/alert-outline
 ---
 ## Built-in admonitions
 !!! note

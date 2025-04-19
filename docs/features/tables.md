@@ -1,5 +1,6 @@
 ---
 title: Tables
+icon: material/table
 ---
 
 # Tables

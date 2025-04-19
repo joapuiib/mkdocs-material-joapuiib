@@ -1,6 +1,8 @@
 ---
 title: Functions
+icon: material/function
 ---
+
 # Functions
 
 Functions are provided by `material-joapuiib/functions` plugin.

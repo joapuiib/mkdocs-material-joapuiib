@@ -1,5 +1,6 @@
 ---
 title: Esborrany
+icon: material/file-hidden
 ---
 # Esborrany
 

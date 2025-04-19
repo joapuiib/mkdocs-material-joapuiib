@@ -1,5 +1,6 @@
 ---
 title: Math
+icon: material/alphabet-greek
 ---
 
 # Math

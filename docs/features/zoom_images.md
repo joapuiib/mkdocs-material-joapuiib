@@ -1,5 +1,6 @@
 ---
 title: Zoom images
+icon: material/image
 ---
 
 ## {{ page.title }}

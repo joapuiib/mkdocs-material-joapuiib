@@ -1,5 +1,6 @@
 ---
 title: Layouts
+icon: octicons/table-16
 ---
 
 ## Layout

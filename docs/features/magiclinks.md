@@ -1,5 +1,6 @@
 ---
 title: Magic Links
+icon: material/link-plus
 ---
 
 # Magic Links

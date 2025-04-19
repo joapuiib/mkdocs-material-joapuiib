@@ -1,74 +1,86 @@
 ---
 title: Lists
-spell-ignore: true
----
-## Types of Lists
-__Numbered Lists__
-
-1. List item
-2. List item
-3. List item
-
-_Nested_
-
-1. List item
-2. List item
-    1. List item
-    2. List item
-    3. List item
-
-__Alpha lists__
-
-a. List item
-b. List item
-c. List item
-
+icon: material/format-list-bulleted
 ---
 
-A.  List item
-B.  List item
-C.  List item
+# Lists
 
-__Roman lists__
+!!! info
+    `pymodwn-fancylists` extension is installed by default in this theme. It allows to create
+    lists with numbers, letters and roman numerals, both uppercase and lowercase.
 
-i. List item
-ii. List item
-iii. List item
+## List with numbers
+2. List item number
+3. List item number
+4. List item number
 
-_Nested_
+```md
+2. List item number
+3. List item number
+4. List item number
+```
 
-i. List item
-ii. List item
-    i. List item
-    ii. List item
-    iii. List item
+## List with letters
 
----
+a. List item letter
+b. List item letter
+c. List item letter
 
-I.  List item
-II. List item
-III. List item
 
-## Nested Ordered Lists
-1. Vivamus id mi enim. Integer id turpis sapien. Ut condimentum lobortis
-  sagittis. Aliquam purus tellus, faucibus eget urna at, iaculis venenatis
-  nulla. Vivamus a pharetra leo.
+A.  List item letter
+B.  List item letter
+C.  List item letter
 
-    1. Vivamus venenatis porttitor tortor sit amet rutrum. Pellentesque aliquet
-      quam enim, eu volutpat urna rutrum a. Nam vehicula nunc mauris, a
-      ultricies libero efficitur sed.
+```md
+a. List item letter
+b. List item letter
+c. List item letter
 
-    2. Morbi eget dapibus felis. Vivamus venenatis porttitor tortor sit amet
-      rutrum. Pellentesque aliquet quam enim, eu volutpat urna rutrum a.
+A.  List item letter
+B.  List item letter
+C.  List item letter
+```
 
-        1. Mauris dictum mi lacus
-        2. Ut sit amet placerat ante
-        3. Suspendisse ac eros arcu
+Also a starting number can be specified.
 
-## Ordered List starting at 5
-5. First item
-1. Second item
-1. Third item
+f. List item letter
+g. List item letter
+h. List item letter
+
+```md
+f. List item letter
+g. List item letter
+h. List item letter
+```
+
+## List with roman numerals
+
+i. List item roman
+ii. List item roman
+iii. List item roman
+
+```md
+i. List item roman
+ii. List item roman
+iii. List item roman
+```
+
+## Mixed list
+3. List item number
+4. List item number
+    a. List item letter
+    b. List item letter
+        i. List item roman
+        ii. List item roma
+
+```md
+3. List item number
+4. List item number
+    a. List item letter
+    b. List item letter
+        i. List item roman
+        ii. List item roma
+```
 
 ## Task Lists
 - [x] Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -78,3 +90,11 @@ III. List item
     * [ ] Praesent sed risus massa
 - [ ] Aenean pretium efficitur erat, donec pharetra, ligula non scelerisque
 
+```md
+- [x] Lorem ipsum dolor sit amet, consectetur adipiscing elit
+- [ ] Vestibulum convallis sit amet nisi a tincidunt
+    * [x] In hac habitasse platea dictumst
+    * [x] In scelerisque nibh non dolor mollis congue sed et metus
+    * [ ] Praesent sed risus massa
+- [ ] Aenean pretium efficitur erat, donec pharetra, ligula non scelerisque
+```

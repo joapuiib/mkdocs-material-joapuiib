@@ -1,6 +1,8 @@
 ---
 title: Time line
+icon: material/timeline
 ---
+
 ## Time line
 /// html | div.timeline.dashed
 ### Dashed line

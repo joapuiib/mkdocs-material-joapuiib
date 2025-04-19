@@ -1,5 +1,6 @@
 ---
 title: Badges
+icon: material/information-box
 ---
 ## Badges
 

@@ -1,5 +1,6 @@
 ---
 title: Captions
+icon: material/tooltip-text-outline
 ---
 
 ## Captions

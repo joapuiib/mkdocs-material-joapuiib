@@ -1,6 +1,8 @@
 ---
 title: Filters
+icon: material/filter
 ---
+
 # Filters
 
 Custom Jinja filters are provided by `material-joapuiib/filters` plugin.
