@@ -1,9 +1,9 @@
 ---
-title: Time line
+title: Steps
 icon: material/timeline
 ---
 
-## Time line
+## Steps
 <style>
 .md-typeset .mdx-switch button>code {
     background-color: var(--md-primary-fg-color);
@@ -54,57 +54,32 @@ icon: material/timeline
   })
 </script>
 
-/// html | div.timeline.dashed
-### Dashed line
-This is a timeline item with a dashed line.
+
+/// html | div.steps
+1. Wrap content in a div with the class `steps`.
+
+    === "HTML"
+        ```html
+        <div class="steps" markdown>
+
+        1. step 1
+
+        2. step 2
+
+        </div>
+        ```
+
+    === "`pymdownx.blocks` extension"
+        ```markdown
+        /// html | div.steps
+        1. step 1
+        2. step 2
+        ///
+        ```
+
+2. Congratulations! You have created a step list.
+
+    > Steps are automatically numbered.
+
+3. You are ready to share your work with others!
 ///
-
-/// html | div.timeline.check
-### Checked item
-This is a timeline item with a check mark.
-///
-
-/// html | div.timeline.info.dotted
-### Info item with dotted line
-This is a timeline item with an info color and dotted line.
-///
-
-/// html | div.timeline.error.cross
-### Error and dotted item
-This is a timeline item with an error and a cross mark.
-///
-
-/// html | div.timeline.success
-### Success item
-This is a timeline item with a success color.
-///
-
-
-??? example ":simple-markdown: MarkDown"
-    ```md
-    /// html | div.timeline.dashed
-    ### Dashed line
-    This is a timeline item with a dashed line.
-    ///
-
-    /// html | div.timeline.check.light
-    ### Checked item
-    This is a timeline item with a check mark.
-    ///
-
-    /// html | div.timeline.info.dotted
-    ### Info item with dotted line
-    This is a timeline item with an info color and dotted line.
-    ///
-
-    /// html | div.timeline.error.cross
-    ### Error and dotted item
-    This is a timeline item with an error and a cross mark.
-    ///
-
-    /// html | div.timeline.success
-    ### Success item
-    This is a timeline item with a success color.
-    ///
-    ```
-
