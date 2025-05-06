@@ -62,6 +62,11 @@
 
     {% block content %}
     <div class="reveal">
+      <div class="header">
+        <a href=".?print-pdf" class="header__item" target="_blank">
+          {% include ".icons/fontawesome/regular/file-pdf.svg" %}
+        </a>
+      </div>
       <div class="slides">
         <section data-markdown
                  data-separator="^\n---\n$"
