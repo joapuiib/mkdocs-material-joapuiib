@@ -3,10 +3,6 @@
   aspect-ratio: 16 / 9;
 }
 
-html.reveal-print .reveal {
-   aspect-ratio: unset;
-}
-
 /* column layout */
 .container{
     display: flex;
@@ -40,6 +36,17 @@ html.reveal-print .reveal {
 }
 .reveal .header__item svg {
   height: 100%;
+}
+
+/* Print styles */
+html.reveal-print .reveal {
+   aspect-ratio: unset;
+}
+
+html.reveal-print .reveal pre code {
+    overflow: unset;
+    text-wrap: auto;
+    max-height: unset;
 }
 
 html.reveal-print .reveal .header {
