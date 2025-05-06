@@ -3,6 +3,10 @@ div.reveal {
   aspect-ratio: 16 / 9;
 }
 
+html.reveal-print .reveal {
+   aspect-ratio: unset;
+}
+
 /* column layout */
 .container{
     display: flex;
