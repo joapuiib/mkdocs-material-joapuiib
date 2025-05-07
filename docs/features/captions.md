@@ -3,20 +3,26 @@ title: Captions
 icon: material/tooltip-text-outline
 ---
 
-## Captions
+# Captions
 
-Captions can be added to block elements
-using the [Caption Block Extension](#).
+> Reference [:octicons-link-external-16: Block Caption - PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/caption/)
 
-
-Generic text
+This is the figure.
 /// caption
-Generic Caption
+This is the caption.
 ///
 
-### Image caption
+??? example ":simple-markdown: Markdown"
+    ```markdown
+    This is the figure.
+    /// caption
+    This is the caption.
+    ///
+    ```
 
-![Image](https://via.placeholder.com/150)
+## Image caption
+
+![placeholder](img/placeholder-600x400.png)
 /// attribution
 Attribution
 ///
@@ -24,19 +30,43 @@ Attribution
 Caption for image
 ///
 
-![Image](https://via.placeholder.com/150)
+![placeholder](img/placeholder-600x400.png)
 /// figure-caption | ^1
 Virtual nested caption
 ///
 
-### Shadowed image caption
+??? example ":simple-markdown: Markdown"
+    ```markdown
+    ![placeholder](img/placeholder-600x400.png)
+    /// attribution
+    Attribution
+    ///
+    /// figure-caption
+    Caption for image
+    ///
 
-![Image](https://via.placeholder.com/150)
+    ![placeholder](img/placeholder-600x400.png)
+    /// figure-caption | ^1
+    Virtual nested caption
+    ///
+    ```
+
+## Shadowed image caption
+
+![placeholder](img/placeholder-600x400.png)
 /// shadow-figure-caption
 Shadow :material-box-shadow: image caption
 ///
 
-### Table caption
+??? example ":simple-markdown: Markdown"
+    ```markdown
+    ![placeholder](img/placeholder-600x400.png)
+    /// shadow-figure-caption
+    Shadow :material-box-shadow: image caption
+    ///
+    ```
+
+## Table caption
 
 | Header 1 | Header 2 |
 |----------|----------|
@@ -47,3 +77,16 @@ Attribution
 /// table-caption
 Caption for table
 ///
+
+??? example ":simple-markdown: Markdown"
+    ```markdown
+    | Header 1 | Header 2 |
+    |----------|----------|
+    | Cell 1   | Cell 2   |
+    /// attribution
+    Attribution
+    ///
+    /// table-caption
+    Caption for table
+    ///
+    ```

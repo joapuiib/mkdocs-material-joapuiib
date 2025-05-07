@@ -2,6 +2,8 @@
 title: Annotations
 icon: material/plus-circle
 ---
+# Annotations
+> Reference [:octicons-link-external-16: Admonitions - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
 
 ## Annotations in paragraphs
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. (1)

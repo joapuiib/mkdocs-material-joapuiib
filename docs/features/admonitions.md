@@ -2,6 +2,9 @@
 title: Admonitions
 icon: material/alert-outline
 ---
+# Admonitions
+> Reference [:octicons-link-external-16: Admonitions - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
+
 ## Built-in admonitions
 !!! note
     Alerta d'anotació `note`
@@ -38,54 +41,6 @@ icon: material/alert-outline
 
 !!! quote
     Alerta de cita `quote`
-
-## Admonition types
-!!! info "Títol de l'alerta"
-    Es pot afegir un títol a l'alerta.
-
-    ```markdown
-    !!! info "Títol de l'alerta"
-        Text de l'alerta.
-    ```
-
-!!! note ""
-    Alerta sense títol.
-
-    ```markdown
-    !!! note ""
-        Text de l'alerta.
-    ```
-
-??? note "Collapsible note"
-    Es pot afegir un botó per a col·lapsar l'alerta.
-
-    ```markdown
-    ??? note "Collapsible note"
-        Text de l'alerta.
-    ```
-
-???+ note "Collapsible note oberta"
-    Es pot afegir un botó per a col·lapsar l'alerta.
-
-    ```markdown
-    ???+ note "Collapsible note"
-        Text de l'alerta.
-    ```
-
-!!! note "Nested admonitions"
-    Les alertes es poden imbricar.
-
-    ???+ info "Nested admonitions"
-        Les alertes es poden imbricar.
-
-
-    ```markdown
-    !!! note "Nested admonitions"
-        Les alertes es poden imbricar.
-
-        ??? info "Nested admonitions"
-            Les alertes es poden imbricar.
-    ```
 
 
 ## Custom admonitions

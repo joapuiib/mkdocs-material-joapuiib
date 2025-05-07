@@ -2,9 +2,10 @@
 title: Code blocks
 icon: material/code-json
 ---
+# Code blocks
+> Reference [:octicons-link-external-16: Code blocks - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/)
 
-## Code blocks
-### Python block with line highlighting and line numbers
+## Python block with line highlighting and line numbers
 ```python hl_lines="2" linenums="1"
 def hello():
     print("Hello, world!")
@@ -18,7 +19,7 @@ lines in the code block.
 ```
 ````
 
-### JavaScript block
+## JavaScript block
 ```javascript
 function hello() {
     console.log("Hello, world!");
@@ -30,12 +31,12 @@ Hello, world!
 ```
 ///
 
-### Bash block
+## Bash block
 ```bash
 echo "Hello, world!"
 ```
 
-### Collapsable block
+## Collapsable block
 
 /// collapse-code
 ```java title="LongClass.java"
@@ -64,7 +65,7 @@ class LongClass {
 ```
 ///
 
-### Downloadable block
+## Downloadable block
 
 From file:
 ```java {title="HelloWorld.java" data-download="../../files/HelloWorld.java"}
@@ -87,7 +88,7 @@ From content:
 ```
 ````
 
-### Shell block
+## Shell block
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ echo "Hello world!"
 (venv) joapuiib@FP:~/git_tutorial (main) $ git diff
@@ -107,7 +108,7 @@ To /home/joapuiib/gitflow_example/remot
    0fb88ef..9e34bb0  develop -> develop
 ```
 
-#### Git log
+### Git log
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git lga
 * f853946 - (7 minutes ago) README: Afegits autors - Mar (origin/feature/author)
@@ -120,7 +121,7 @@ joapuiib@FP:~/git_tutorial (main) $ git lga
 (venv) [user@host ~] $ echo "Hello, world!"
 ```
 
-#### Git status
+### Git status
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git status
 On branch main
@@ -143,7 +144,7 @@ Changes to be committed:
         new file:   README.md
 ```
 
-#### Git show
+### Git show
 ```shellconsole
 joapuiib@FP:~/01_introduccio (main) $ git show 8e70293
 commit 8e702933d5dbec9ee71100a1599ae4491085e1aa (HEAD -> main, tag: v1, origin/main, origin/HEAD)
@@ -162,7 +163,7 @@ index 0000000..6d747b3
 +Estem aprenent a utilitzar Git!
 ```
 
-#### Git output with hints and errors
+### Git output with hints and errors
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git init
 hint: Using 'master' as the name for the initial branch. This default branch name
@@ -179,7 +180,7 @@ Initialized empty Git repository in /home/joapuiib/git_tutorial/.git/
 fatal: unable to auto-detect email address (got 'joapuiib@FP.(none)')
 ```
 
-### Keyboard keys
+## Keyboard keys
 ++ctrl+alt+del++
 
 ```md

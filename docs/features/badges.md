@@ -2,7 +2,8 @@
 title: Badges
 icon: material/information-box
 ---
-## Badges
+# Badges
+!!! example "Experimental"
 
 | Title | Definition | Rendered |
 | ----- | ---------- | -------- |
