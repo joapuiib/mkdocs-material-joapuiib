@@ -109,16 +109,16 @@
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/slides/"/>
     </url>
     <url>
+        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/steps/</loc>
+        <lastmod>2025-05-07</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/steps/"/>
+    </url>
+    <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/tables/</loc>
         <lastmod>2025-05-07</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/tables/"/>
-    </url>
-    <url>
-        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/time-line/</loc>
-        <lastmod>2025-05-07</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/time-line/"/>
     </url>
     <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/zoom_images/</loc>
