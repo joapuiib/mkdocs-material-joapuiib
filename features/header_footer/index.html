@@ -62,14 +62,23 @@
     
     <style>
         :root {
-            --md-document__header-height: 3rem;
+            --md-document__header-content-height: 3rem;
         }
     </style>
     
     
     <style>
         :root {
-            --md-document__footer-height: 3rem;
+            --md-document__footer-content-height: 3rem;
+        }
+    </style>
+    
+    
+    <style>
+        @media print {
+            :root {
+                --md-document__footer-print-height: 1rem;
+            }
         }
     </style>
     
@@ -1326,8 +1335,10 @@ Lloc web en construcció!
 
 <div class="md-document__header">
 
+<div class="md-document__header-content">
 <img src="../../img/logo_mislata.png" alt="">
 <img src="../../img/iso.png" alt="">
+</div>
 
 </div>
 
@@ -1668,6 +1679,14 @@ els blocks <code>content_header</code> i <code>content_footer</code> de la plant
 <p>La capçalera i el peu de pàgina es mostraran a totes les pàgines
 quan s'imprimisca la pàgina <span class="keys"><kbd class="key-control">Ctrl</kbd><span>+</span><kbd class="key-p">P</kbd></span>.</p>
 
+    <div class="md-document__print">
+    
+    <div><small>📌 Aquest document pot quedar desactualitzat després d’imprimir-lo. Pots consultar la versió més recent
+    a la <a href="https://joapuiib.github.io/mkdocs-material-joapuiib/" target="_blank" rel="noopener noreferrer">pàgina web</a>.</small></div>
+    <div><small> 🌿 Abans d’imprimir aquest document, considera si és realment necessari. Redueix el consum de paper i ajuda a protegir el nostre entorn. </small></div>
+    
+    </div>
+
 </main>
 
     </td></tr></tbody>
@@ -1679,7 +1698,32 @@ quan s'imprimisca la pàgina <span class="keys"><kbd class="key-control">Ctrl</k
 
 <div class="md-document__footer">
 
+<div class="md-document__footer-content">
 <img src="../../img/fse.png" alt="">
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="md-document__footer-print">
+  <a class="md-document__footer-print-copyright" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="" style="display: block">
+    CC BY-NC-SA 4.0
+    (Reconeixement - NoComercial - CompartirIgual) &#x1f16d;
+    Joan Puigcerver Ibáñez
+  </a>
+</div>
+
 
 </div>
 
