@@ -1,0 +1,77 @@
+.calendar {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  color: #000000de;
+}
+
+.cell {
+  padding: 0.25em;
+}
+
+.month-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.month-days .cell {
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+
+  width: 100%;
+  box-sizing: border-box;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.month-days :nth-child(7n) {
+  border-right: 1px solid #ccc;
+}
+
+.month .header {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.month-header {
+  border: 1px solid #ccc;
+  background-color: #ffff99;
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.calendar .weekend {
+  background-color: #f0f0f0;
+  color: var(--md-color-blue);
+  font-weight: bold;
+}
+.calendar .holiday {
+  background-color: #f0f0f0;
+  color: var(--md-color-red);
+  font-weight: bold;
+}
+.calendar .ud1 {
+  background-color: var(--md-color-light-green);
+}
+.calendar .ud2 {
+  background-color: var(--md-color-light-blue);
+}
+.calendar .ud3 {
+  background-color: var(--md-color-light-orange);
+}
+.calendar .ud4 {
+  background-color: var(--md-color-light-yellow);
+}
+.calendar .ud5 {
+  background-color: var(--md-color-light-red);
+}
+.calendar .ud6 {
+  background-color: var(--md-color-light-purple);
+}
+.calendar .ud7 {
+  background-color: var(--md-color-light-pink);
+}

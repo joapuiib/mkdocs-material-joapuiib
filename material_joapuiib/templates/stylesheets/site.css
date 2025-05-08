@@ -1,3 +1,23 @@
+:root {
+  --md-color-light-green: #a6e3b7;
+  --md-color-light-blue: #b3cefb;
+  --md-color-light-yellow: #fde49b;
+  --md-color-light-orange: #ffc599;
+  --md-color-light-pink: #d5a6bd;
+  --md-color-light-purple: #b4a7d6;
+  --md-color-light-red: #f7b4ae;
+  --md-color-light-cyan: #b5e3e8;
+  --md-color-light-brown: #c0b0a0;
+  --md-color-red: #ff4b4b;
+  --md-color-blue: #4976c7;
+  --md-color-green: #639b4c;
+  --md-color-orange: #f9a61a;
+  --md-color-yellow: #f9d616;
+  --md-color-purple: #8e7cc3;
+  --md-color-gray: #808080;
+  --md-color-white: #ffffff;
+}
+
 [data-md-color-scheme=slate] {
     --md-shadow-z1: 0 0.4rem 0.5rem #0001, 0 0 0.05rem #0004;
     --md-shadow-z2: 0 0.4rem 0.5rem #0004, 0 0 0.05rem #0006;
@@ -96,33 +116,68 @@ p:has(img.center) {
     text-align: center;
 }
 
-.red {
+.fg-red {
     color: #d85b5b;
 }
-.blue {
+.fg-blue {
     color: #4976c7;
 }
-.lightblue {
+.fg-lightblue {
     color: #6cb2eb;
 }
-.green {
+.fg-green {
     color: #639b4c;
 }
-.orange {
+.fg-orange {
     color: #f9a61a;
 }
-.yellow {
+.fg-yellow {
     color: #f9d616;
 }
-.purple {
+.fg-purple {
     color: #8e7cc3;
 }
-.white {
+.fg-white {
     color: white;
 }
-.gray {
+.fg-gray {
     color: gray;
 }
+
+.bg-md-color-light-green {
+    background-color: var(--md-color-light-green);
+}
+.bg-md-color-light-blue {
+    background-color: var(--md-color-light-blue);
+}
+.bg-md-color-light-yellow {
+    background-color: var(--md-color-light-yellow);
+}
+.bg-md-color-light-orange {
+    background-color: var(--md-color-light-orange);
+}
+.bg-md-color-light-pink {
+    background-color: var(--md-color-light-pink);
+}
+.bg-md-color-light-purple {
+    background-color: var(--md-color-light-purple);
+}
+.bg-md-color-light-red {
+    background-color: var(--md-color-light-red);
+}
+.bg-md-color-light-cyan {
+    background-color: var(--md-color-light-cyan);
+}
+.bg-md-color-light-brown {
+    background-color: var(--md-color-light-brown);
+}
+.bg-red {
+    background-color: var(--md-color-red);
+}
+.bg-white {
+    background-color: var(--md-color-white);
+}
+
 
 .opacity-25 {
     opacity: 0.25 !important;
