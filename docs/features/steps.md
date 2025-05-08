@@ -1,6 +1,6 @@
 ---
 title: Steps
-icon: material/timeline
+icon: octicons/list-ordered-16
 ---
 
 ## Steps
