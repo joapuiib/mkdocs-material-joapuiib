@@ -6,7 +6,8 @@ icon: material/book-open-variant
 
 | Icon | Markdown |
 |------|----------|
-| :simple-softcatala: | `:simple-softcatala:` |
+| :artificial-intelligence: | `:artificial-intelligence:` |
+| :artificial-intelligence-outline: | `:artificial-intelligence-outline:` |
 
 ### IntelliJ
 
