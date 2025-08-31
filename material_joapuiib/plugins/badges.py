@@ -25,6 +25,7 @@ class BadgesPlugin(BasePlugin):
             type, args = match.groups()
             args = args.strip()
             if type == "package":        return self._badge_for_package(args, page, files)
+            if type == "dir":            return self._badge_for_dir(args, page, files)
             if type == "eval":           return self._badge_for_eval(args, page, files)
             if type == "tag":            return self._badge_for_tag(args, page, files)
             if type == "branch":         return self._badge_for_branch(args, page, files)
@@ -82,6 +83,14 @@ class BadgesPlugin(BasePlugin):
         icon = "material-folder-zip"
         return self._badge(
             icon = f":{icon}:{{title=Package}}",
+            text = f"`{text}`",
+        )
+
+    # Create badge for directory
+    def _badge_for_dir(self, text: str, page: Page, files: Files):
+        icon = "octicons-file-directory-open-fill-24"
+        return self._badge(
+            icon = f":{icon}:{{title=Directori}}",
             text = f"`{text}`",
         )
 
