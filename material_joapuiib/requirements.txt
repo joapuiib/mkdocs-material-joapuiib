@@ -13,4 +13,5 @@ mkdocs-static-i18n~=1.2
 pygments-shell-console~=0.8
 pymdown-extensions~=10.12
 pymdown-rubric-extension~=0.1
+pymdownx-inline-blocks~=0.1
 unidecode~=1.3
