@@ -3,7 +3,7 @@ title: Annotations
 icon: material/plus-circle
 ---
 # Annotations
-> Reference [:octicons-link-external-16: Admonitions - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
+!!! docs "Reference [:octicons-link-external-16: Annotations - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/annotations/)"
 
 ## Annotations in paragraphs
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. (1)
@@ -35,3 +35,9 @@ def hello():
 
 1.  Annotations can be used in code blocks.
 ````
+
+## Footnotes tooltip
+També s'han habilitat per defecte les notes a peu de pàgina,
+que mostren el seu contingut en una finestra emergent quan es passa el cursor per sobre.[^1]
+
+[^1]: Aquesta és una nota a peu de pàgina que es mostra en una finestra emergent.

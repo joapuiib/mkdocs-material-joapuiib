@@ -86,7 +86,7 @@ if [ $DEV -eq 1 ]; then
     export SHOW_PROTECTED_CONTENT="false";
 fi
 
-COMMAND="serve --watch-theme"
+COMMAND="serve --watch-theme --livereload"
 if [ $BUILD -eq 1 ]; then
     COMMAND="build"
 fi

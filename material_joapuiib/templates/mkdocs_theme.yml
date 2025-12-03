@@ -12,6 +12,7 @@ features:
   - announce.dismiss
   - content.code.copy
   - content.code.annotate
+  - content.footnote.tooltips
   - content.tabs.link
   - content.tooltips
   - navigation.top

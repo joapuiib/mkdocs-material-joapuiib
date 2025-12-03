@@ -29,19 +29,6 @@ theme:
   icon:
     logo: octicons/book-16
 
-  features:
-    - announce.dismiss
-    - content.code.copy
-    - content.code.annotate
-    - content.tabs.link
-    - content.tooltips
-    - navigation.top
-    - navigation.footer
-    - navigation.indexes
-    - navigation.sections
-    - navigation.tabs
-    - toc.follow
-
   comments:
     repo: joapuiib/mkdocs-material-joapuiib
     repo_id: R_kgDOMUF9Jg
