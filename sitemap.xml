@@ -127,6 +127,12 @@
         <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/tables/"/>
     </url>
     <url>
+        <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/text/</loc>
+        <lastmod>2026-01-08</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="ca" href="https://joapuiib.github.io/mkdocs-material-joapuiib/features/text/"/>
+    </url>
+    <url>
         <loc>https://joapuiib.github.io/mkdocs-material-joapuiib/features/time-line/</loc>
         <lastmod>2026-01-08</lastmod>
         <changefreq>daily</changefreq>
