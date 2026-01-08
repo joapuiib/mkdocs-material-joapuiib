@@ -115,6 +115,7 @@ markdown_extensions:
   - abbr
   - admonition
   - attr_list
+  - span_attr
   - def_list
   - footnotes
   - inline_blocks

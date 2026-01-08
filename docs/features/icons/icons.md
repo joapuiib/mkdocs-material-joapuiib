@@ -11,7 +11,7 @@ icon: material/book-open-variant
 
 ```md
 :speedometer:{.difficulty .basic title="Basic"}
-:speedometer:{.difficulty .easy title="Easy"}
+:speedometer:{.difficulty .initial title="Inicial"}
 :speedometer:{.difficulty .intermediate title="Intermediate"}
 :speedometer:{.difficulty .advanced title="Advanced"}
 :speedometer:{.difficulty .expert title="Expert"}
@@ -19,7 +19,7 @@ icon: material/book-open-variant
 ```
 /// html | div.result
 :speedometer:{.difficulty .basic title="Basic"}
-:speedometer:{.difficulty .easy title="Easy"}
+:speedometer:{.difficulty .initial title="Inicial"}
 :speedometer:{.difficulty .intermediate title="Intermediate"}
 :speedometer:{.difficulty .advanced title="Advanced"}
 :speedometer:{.difficulty .expert title="Expert"}

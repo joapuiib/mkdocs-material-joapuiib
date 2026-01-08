@@ -1,3 +1,8 @@
+.difficulty.basic svg .needle {
+    transform-box: view-box;
+    transform-origin: 50px 50px;
+    transform: rotate(-40deg);
+}
 .difficulty.easy svg .needle {
     transform-box: view-box;
     transform-origin: 50px 50px;
@@ -24,19 +29,19 @@
     transform: rotate(225deg);
 }
 .difficulty.basic svg .meter {
-    fill: #9bff00;
+    fill: #8bc34b;
 }
-.difficulty.easy svg .meter {
-    fill: #00d200;
+.difficulty.initial svg .meter {
+    fill: #4cae4f;
 }
 .difficulty.intermediate svg .meter {
-    fill: #ffe600;
+    fill: #ffec3d;
 }
 .difficulty.advanced svg .meter {
-    fill: #ffaa32;
+    fill: #ffc105;
 }
 .difficulty.expert svg .meter {
-    fill: #ff1e5a;
+    fill: #ef5552;
 }
 .difficulty.extreme svg .meter {
     fill: #c40050;

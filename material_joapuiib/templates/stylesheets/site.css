@@ -112,6 +112,10 @@ p:has(img.center) {
 .gray {
     color: gray;
 }
+.tip {
+    color: #00bfa5;
+    font-weight: bold;
+}
 
 .opacity-25 {
     opacity: 0.25 !important;
