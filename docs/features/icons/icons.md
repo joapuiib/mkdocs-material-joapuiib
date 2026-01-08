@@ -9,6 +9,24 @@ icon: material/book-open-variant
 | :artificial-intelligence: | `:artificial-intelligence:` |
 | :artificial-intelligence-outline: | `:artificial-intelligence-outline:` |
 
+```md
+:speedometer:{.difficulty .basic title="Basic"}
+:speedometer:{.difficulty .easy title="Easy"}
+:speedometer:{.difficulty .intermediate title="Intermediate"}
+:speedometer:{.difficulty .advanced title="Advanced"}
+:speedometer:{.difficulty .expert title="Expert"}
+:speedometer:{.difficulty .extreme title="Extreme"}
+```
+/// html | div.result
+:speedometer:{.difficulty .basic title="Basic"}
+:speedometer:{.difficulty .easy title="Easy"}
+:speedometer:{.difficulty .intermediate title="Intermediate"}
+:speedometer:{.difficulty .advanced title="Advanced"}
+:speedometer:{.difficulty .expert title="Expert"}
+:speedometer:{.difficulty .extreme title="Extreme"}
+///
+
+
 ### IntelliJ
 
 
