@@ -109,6 +109,8 @@ plugins:
             prep: Preparació
             recommend: Recomanació
             picture: Imatge
+            construction: En construcció
+            deprecated: Obsolet
   - git-revision-date-localized # Després de i18n o falla
 
 markdown_extensions:

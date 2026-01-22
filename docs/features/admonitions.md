@@ -59,11 +59,17 @@ icon: material/alert-outline
 !!! notice
     Alerta de notícia `notice`
 
+!!! construction
+    Alerta de construcció `construction`
+
 !!! spoiler
     Alerta de spoiler `spoiler`
 
 !!! docs
     Alerta de documentació `docs`
+
+!!! deprecated
+    Alerta d'obsolet `deprecated`
 
 !!! picture
     Alerta d'imatge `picture`
