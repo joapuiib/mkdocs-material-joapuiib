@@ -58,6 +58,15 @@
   max-width: unset;
 }
 
+.md-typeset figure .highlight span.filename,
+.md-typeset figure code.md-code__content {
+  text-align: left;
+}
+.md-typeset figure:has(pre),
+.md-typeset figure:has(.highlight) {
+    width: 100%;
+}
+
 .mxgraph {
     margin-left: auto;
     margin-right: auto;
