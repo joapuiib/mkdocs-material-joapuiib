@@ -6,9 +6,16 @@
 [data-md-color-primary=brown] {
     --md-typeset-a-color: #c1775c;
 }
+[data-mx-topbar=glass] .md-container .md-tabs .md-tabs__item--active {
+    border-bottom: .1rem solid var(--md-primary-fg-color);
+}
 
 .md-main__inner {
     max-width: 84rem;
+}
+
+[dir="ltr"] .md-nav--secondary .md-nav__item .md-nav__list {
+    border-left: .05rem solid var(--md-default-fg-color--lighter);
 }
 
 .md-nav__title svg {
