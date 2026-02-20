@@ -54,7 +54,7 @@
     margin: 0;
 }
 .cover__title {
-    background-color: var(--md-primary-fg-color);
+    background-color: color-mix(in srgb, var(--md-primary-fg-color) 80%, var(--md-default-bg-color));
     color: var(--md-primary-bg-color);
     padding: 1rem;
     border-radius: 0.5rem;

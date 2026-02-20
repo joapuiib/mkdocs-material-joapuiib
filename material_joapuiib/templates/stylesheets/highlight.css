@@ -3,12 +3,6 @@
   font-size: 0.75rem;
 }
 
-/*
-.language-shellconsole.highlight pre {
-  line-height: 1.25;
-}
-*/
-
 .language-shellconsole.highlight code.md-code__content {
   color: var(--md-code-hl-generic-color);
   background-color: #2E3440;

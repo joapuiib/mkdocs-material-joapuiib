@@ -1,4 +1,4 @@
-extends: material
+extends: materialx
 
 language: ca
 
@@ -25,6 +25,8 @@ features:
 icon:
   admonition:
     example: material/format-list-numbered
+
+topbar_style: glass
 
 # Palette toggle for light mode
 palette:

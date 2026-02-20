@@ -27,7 +27,7 @@ theme:
   name: material-joapuiib
   under_construction: true
   icon:
-    logo: octicons/book-16
+    logo: material/book-open-variant
 
   comments:
     repo: joapuiib/mkdocs-material-joapuiib
@@ -53,7 +53,7 @@ theme:
         name: Switch to light mode
 
 plugins:
-  - material/search
+  - materialx/search
   - alias
   - awesome-nav # Navegació
   - drawio
@@ -78,7 +78,7 @@ plugins:
   - glightbox
   - macros
   # - material/social
-  - material/tags
+  - materialx/tags
   - material-joapuiib/badges
   - material-joapuiib/enviorment
   - material-joapuiib/sectionicons
