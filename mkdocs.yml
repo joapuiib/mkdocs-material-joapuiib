@@ -63,6 +63,7 @@ plugins:
       summary: 'Aquesta pàgina està protegida!'
       encryption_info_message: 'Introdueix la contrasenya per accedir al contingut protegit.'
       placeholder: 'Contrasenya'
+      show_password_text: 'Mostra la contrasenya'
       decryption_failure_message: 'Contrasenya incorrecta. Torna-ho a provar.'
       decryption_failure_timerange_message: 'Aquesta pàgina no està disponible en aquest moment.'
       input_class: 'md-encryption__input--password'
