@@ -1,4 +1,20 @@
 /* encryptcontent/decrypt-contents.tpl.js */
+// https://stackoverflow.com/a/50868276
+function fromHex(hexString) {
+    return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+}
+// https://stackoverflow.com/a/41106346
+function fromBase64(base64String) {
+    return Uint8Array.from(atob(base64String), c => c.charCodeAt(0));
+}
+
+async function digestSHA256toBase64(message) {
+  const data = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = new Uint8Array(hashBuffer);
+  const hashString = String.fromCharCode.apply(null, hashArray);
+  return btoa(hashString);
+};
 
 function base64url_decode(input) {
     try {
@@ -12,52 +28,75 @@ function base64url_decode(input) {
 }
 
 /* Decrypts the key from the key bundle. */
-function decrypt_key(pass, iv_b64, ciphertext_b64, salt_b64) {
-    let salt = CryptoJS.enc.Base64.parse(salt_b64),
-        kdfcfg = {keySize: 256 / 32,hasher: CryptoJS.algo.SHA256,iterations: encryptcontent_obfuscate ? 1 : 10000};
-    let kdfkey = CryptoJS.PBKDF2(pass, salt,kdfcfg);
-    let iv = CryptoJS.enc.Base64.parse(iv_b64),
-        ciphertext = CryptoJS.enc.Base64.parse(ciphertext_b64);
-    let encrypted = {ciphertext: ciphertext},
-        cfg = {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7};
-    let key = CryptoJS.AES.decrypt(encrypted, kdfkey, cfg);
-
+async function decrypt_key(pass, iv_b64, ciphertext_b64, salt_b64) {
+    const salt = fromBase64(salt_b64);
+    const encPassword = new TextEncoder().encode(pass);
+    const kdfkey = await window.crypto.subtle.importKey(
+        "raw",
+        encPassword,
+        "PBKDF2",
+        false,
+        ["deriveKey"],
+    );
+    const wckey = await window.crypto.subtle.deriveKey(
+        {
+          name: "PBKDF2",
+          salt,
+          iterations: encryptcontent_obfuscate ? 1 : 100000,
+          hash: "SHA-256",
+        },
+        kdfkey,
+        { name: "AES-CBC", length: 256 },
+        true,
+        ["decrypt"],
+    );
+    const ciphertext = fromBase64(ciphertext_b64);
+    const iv = fromBase64(iv_b64);
     try {
-        let keystore = JSON.parse(key.toString(CryptoJS.enc.Utf8));
+        const decrypted = await window.crypto.subtle.decrypt(
+            {
+                name: "AES-CBC",
+                iv: iv
+            },
+            wckey,
+            ciphertext
+        );
+        const keystore = JSON.parse(new TextDecoder().decode(decrypted));
         if (encryptcontent_id in keystore) {
             return keystore;
         } else {
             //id not found in keystore
             return false;
         }
-    } catch (err) {
-        // encoding failed; wrong password
+    }
+    catch (err) {
+        // encoding failed; wrong key
         return false;
     }
 };
 
 /* Split key bundle and try to decrypt it */
-function decrypt_key_from_bundle(password, ciphertext_bundle, username) {
+async function decrypt_key_from_bundle(password, ciphertext_bundle, username) {
     // grab the ciphertext bundle and try to decrypt it
     let user, pass;
     let parts, keys, userhash;
     if (ciphertext_bundle) {
         if (username) {
             user = encodeURIComponent(username.toLowerCase());
-            userhash = CryptoJS.SHA256(user).toString(CryptoJS.enc.Base64);
+            userhash = await digestSHA256toBase64(user);
         }
         for (let i = 0; i < ciphertext_bundle.length; i++) {
             pass = encodeURIComponent(password);
             parts = ciphertext_bundle[i].split(';');
             if (parts.length == 3) {
-                keys = decrypt_key(pass, parts[0], parts[1], parts[2]);
+                keys = await decrypt_key(pass, parts[0], parts[1], parts[2]);
                 if (keys) {
                     
                     return keys;
                 }
             } else if (parts.length == 4 && username) {
                 if (parts[3] == userhash) {
-                    keys = decrypt_key(pass, parts[0], parts[1], parts[2]);
+                    keys = await decrypt_key(pass, parts[0], parts[1], parts[2]);
                     if (keys) {
                         
                         return keys;
@@ -70,32 +109,42 @@ function decrypt_key_from_bundle(password, ciphertext_bundle, username) {
 };
 
 /* Decrypts the content from the ciphertext bundle. */
-function decrypt_content(key, iv_b64, ciphertext_b64) {
-    let iv = CryptoJS.enc.Base64.parse(iv_b64),
-        ciphertext = CryptoJS.enc.Base64.parse(ciphertext_b64);
-    let encrypted = {ciphertext: ciphertext},
-        cfg = {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7};
-    let plaintext = CryptoJS.AES.decrypt(encrypted, CryptoJS.enc.Hex.parse(key), cfg);
-    if(plaintext.sigBytes >= 0) {
-        try {
-            return plaintext.toString(CryptoJS.enc.Utf8)
-        } catch (err) {
-            // encoding failed; wrong key
-            return false;
-        }
-    } else {
-        // negative sigBytes; wrong key
+async function decrypt_content(key, iv_b64, ciphertext_b64) {
+    const rawKey = fromHex(key);
+    const iv = fromBase64(iv_b64);
+    const ciphertext = fromBase64(ciphertext_b64);
+    try {
+        const wckey = await window.crypto.subtle.importKey(           
+            "raw",
+            rawKey,                                                 
+            "AES-CBC",
+            true,
+            ["decrypt"]
+        );
+        const decrypted = await window.crypto.subtle.decrypt(
+            {
+                name: "AES-CBC",
+                iv: iv
+            },
+            wckey,
+            ciphertext
+        );
+        const decoder = new TextDecoder();
+        return decoder.decode(decrypted);
+    }
+    catch (err) {
+        // encoding failed; wrong key
         return false;
     }
 };
 
 /* Split cyphertext bundle and try to decrypt it */
-function decrypt_content_from_bundle(key, ciphertext_bundle) {
+async function decrypt_content_from_bundle(key, ciphertext_bundle) {
     // grab the ciphertext bundle and try to decrypt it
     if (ciphertext_bundle) {
         let parts = ciphertext_bundle.split(';');
         if (parts.length == 2) {
-            return decrypt_content(key, parts[0], parts[1]);
+            return await decrypt_content(key, parts[0], parts[1]);
         }
     }
     return false;
@@ -104,7 +153,7 @@ function decrypt_content_from_bundle(key, ciphertext_bundle) {
 
 
 /* Reload scripts src after decryption process */
-function reload_js(src) {
+async function reload_js(src) {
     let script_src, script_tag, new_script_tag;
     let head = document.getElementsByTagName('head')[0];
 
@@ -141,10 +190,8 @@ function reload_js(src) {
     }
 };
 
-
-
 /* Decrypt speficique html entry from mkdocs configuration */
-function decrypt_somethings(key, encrypted_something) {
+async function decrypt_somethings(key, encrypted_something) {
     var html_item = '';
     for (const [name, tag] of Object.entries(encrypted_something)) {
         if (tag[1] == 'id') {
@@ -157,8 +204,8 @@ function decrypt_somethings(key, encrypted_something) {
         if (html_item[0]) {
             for (let i = 0; i < html_item.length; i++) {
                 // grab the cipher bundle if something exist
-                if (html_item[i].style.display == "none") {
-                    let content = decrypt_content_from_bundle(key, html_item[i].innerHTML);
+                if (String(html_item[i].style.display).startsWith("none")) {
+                    let content = await decrypt_content_from_bundle(key, html_item[i].innerHTML);
                     if (content !== false) {
                         // success; display the decrypted content
                         html_item[i].innerHTML = content;
@@ -173,7 +220,7 @@ function decrypt_somethings(key, encrypted_something) {
 };
 
 /* Decrypt content of a page */
-function decrypt_action(username_input, password_input, encrypted_content, decrypted_content, key_from_storage=false) {
+async function decrypt_action(username_input, password_input, encrypted_content, decrypted_content, key_from_storage=false) {
     let key=false;
     let keys_from_keystore=false;
 
@@ -185,7 +232,7 @@ function decrypt_action(username_input, password_input, encrypted_content, decry
     if (key_from_storage !== false) {
         key = key_from_storage;
     } else {
-        keys_from_keystore = decrypt_key_from_bundle(password_input.value, encryptcontent_keystore, user);
+        keys_from_keystore = await decrypt_key_from_bundle(password_input.value, encryptcontent_keystore, user);
         if (keys_from_keystore) {
             key = keys_from_keystore[encryptcontent_id];
         }
@@ -193,7 +240,7 @@ function decrypt_action(username_input, password_input, encrypted_content, decry
 
     let content = false;
     if (key) {
-        content = decrypt_content_from_bundle(key, encrypted_content.innerHTML);
+        content = await decrypt_content_from_bundle(key, encrypted_content.innerHTML);
     }
     if (content !== false) {
         // success; display the decrypted content
@@ -211,7 +258,7 @@ function decrypt_action(username_input, password_input, encrypted_content, decry
 };
 
 /* Decrypt content of a page */
-function decrypt_config_action(username_input, password_input, encrypted_config, key_from_storage=false) {
+async function decrypt_config_action(username_input, password_input, encrypted_config, key_from_storage=false) {
     let key=false;
     let keys_from_keystore=false;
 
@@ -223,7 +270,7 @@ function decrypt_config_action(username_input, password_input, encrypted_config,
     if (key_from_storage !== false) {
         key = key_from_storage;
     } else {
-        keys_from_keystore = decrypt_key_from_bundle(password_input.value, encryptcontent_keystore, user);
+        keys_from_keystore = await decrypt_key_from_bundle(password_input.value, encryptcontent_keystore, user);
         if (keys_from_keystore) {
             key = keys_from_keystore[encryptcontent_id];
         }
@@ -231,7 +278,7 @@ function decrypt_config_action(username_input, password_input, encrypted_config,
 
     let content = false;
     if (key) {
-        content = decrypt_content_from_bundle(key, encrypted_config.innerHTML);
+        content = await decrypt_content_from_bundle(key, encrypted_config.innerHTML);
     }
     if (content !== false) {
       config = JSON.parse(content);
@@ -259,12 +306,11 @@ function decrypt_config_action(username_input, password_input, encrypted_config,
     }
 };
 
-function decryptor_reaction(key_or_keys, password_input, decrypted_content, fallback_used=false) {
+async function decryptor_reaction(key_or_keys, password_input, decrypted_content, fallback_used=false) {
     if (key_or_keys) {
         let key;
         if (typeof key_or_keys === "object") {
             key = key_or_keys[encryptcontent_id];
-            
             
         } else {
             key = key_or_keys;
@@ -274,7 +320,7 @@ function decryptor_reaction(key_or_keys, password_input, decrypted_content, fall
         let encrypted_something = {'mkdocs-encrypted-toc': ['nav', 'class']};
         decrypt_somethings(key, encrypted_something);
         if (typeof inject_something !== 'undefined') {
-            decrypted_content = decrypt_somethings(key, inject_something);
+            decrypted_content = await decrypt_somethings(key, inject_something);
         }
         if (typeof delete_something !== 'undefined') {
             let el = document.getElementById(delete_something)
@@ -293,6 +339,9 @@ function decryptor_reaction(key_or_keys, password_input, decrypted_content, fall
         if (window.location.hash) { //jump to anchor if hash given after decryption
             window.location.href = window.location.hash;
         }
+        //If we got keys then dispatch encryptcontent_event
+        encryptcontent_done = true;
+        window.dispatchEvent(encryptcontent_event);
     } else {
         // remove item on sessionStorage if decryption process fail (Invalid item)
         if (!fallback_used) {
@@ -309,7 +358,7 @@ function decryptor_reaction(key_or_keys, password_input, decrypted_content, fall
 }
 
 /* Trigger decryption process */
-function init_decryptor() {
+async function init_decryptor() {
     let username_input = document.getElementById('mkdocs-content-user');
     let password_input = document.getElementById('mkdocs-content-password');
     // adjust password field width to placeholder length
@@ -321,17 +370,22 @@ function init_decryptor() {
     let decrypted_content = document.getElementById('mkdocs-decrypted-content');
     let content_decrypted;
     
+    if (!content_decrypted) {
+        //If nothing got decrypted, still dispatch encryptcontent_event
+        encryptcontent_done = true;
+        window.dispatchEvent(encryptcontent_event);
+    }
     
     /* Default, try decrypt content when key enter is press */
-    password_input.addEventListener('keypress', function(event) {
+    password_input.addEventListener('keypress', async function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-            inside_time_range = decrypt_config_action(
+            inside_time_range = await decrypt_config_action(
                 username_input, password_input, encrypted_config
             );
 
             if (inside_time_range) {
-              key = decrypt_action(
+              key = await decrypt_action(
                   username_input, password_input, encrypted_content, decrypted_content
               );
               decryptor_reaction(key, password_input, decrypted_content);
@@ -343,6 +397,7 @@ function init_decryptor() {
             }
         }
     });
+    decrypted_content.style.display = '';
 }
 if (document.readyState === "loading") {
   // Loading hasn't finished yet
