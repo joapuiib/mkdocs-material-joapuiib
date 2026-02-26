@@ -10,3 +10,14 @@ code, strong, div.allow-copy {
     user-select: text;
 }
 
+@media print {
+    body {
+        display: none;
+        visibility: hidden;
+
+        * {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+    }
