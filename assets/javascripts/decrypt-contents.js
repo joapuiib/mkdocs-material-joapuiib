@@ -281,7 +281,7 @@ async function decrypt_config_action(username_input, password_input, encrypted_c
         content = await decrypt_content_from_bundle(key, encrypted_config.innerHTML);
     }
     if (content !== false) {
-      config = JSON.parse(content);
+      const config = JSON.parse(content);
       let start_time = null;
       if (config.start_time) {
         start_time = new Date(config.start_time);
@@ -380,7 +380,7 @@ async function init_decryptor() {
     password_input.addEventListener('keypress', async function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-            inside_time_range = await decrypt_config_action(
+            const inside_time_range = await decrypt_config_action(
                 username_input, password_input, encrypted_config
             );
 
