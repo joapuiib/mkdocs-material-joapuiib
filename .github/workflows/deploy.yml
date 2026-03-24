@@ -27,6 +27,8 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Install this package
+        run: pip install .
       - name: Build
         run: properdocs build --clean
       - name: Upload static files as artifact
