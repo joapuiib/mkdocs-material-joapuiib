@@ -1,1 +1,5 @@
-__version__ = '3.0.1'
+import properdocs.replacement_warning
+
+properdocs.replacement_warning.setup()
+
+__version__ = '3.1.0'

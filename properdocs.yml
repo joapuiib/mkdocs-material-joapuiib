@@ -19,6 +19,7 @@ extra:
 draft_docs: |
   *_unpublished.md
   *_draft.md
+  _*
 
 exclude_docs: |
   *_excluded.md
@@ -169,6 +170,10 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - rubric
+  - pymdown_multimd_table:
+      rowspan: true
+      attr_list: true
+      multiline: true
   - toc:
       permalink: true
       toc_depth: 4

@@ -10,3 +10,9 @@ Les pàgines es poden marcar com a __esborranys__ de les següents maneres:
 - Si acaben en `_draft.md` o `_unpublished.md`.
 - Si comencen en `_`.
 
+```yml title="properdocs.yml"
+draft_docs: |
+  *_unpublished.md
+  *_draft.md
+  _*
+```

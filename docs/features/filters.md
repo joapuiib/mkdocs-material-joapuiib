@@ -7,7 +7,7 @@ icon: material/filter
 
 Custom Jinja filters are provided by `material-joapuiib/filters` plugin.
 
-```yml title="mkdocs.yml"
+```yml title="properdocs.yml"
 plugins:
   - material-joapuiib/filters
 ```

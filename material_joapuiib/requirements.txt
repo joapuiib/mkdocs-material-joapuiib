@@ -1,6 +1,6 @@
 markdown-captions~=2.1
 markdown_grid_tables~=0.3
-mkdocs~=1.6
+properdocs~=1.6
 mkdocs-alias-plugin~=0.8
 mkdocs-awesome-nav~=3.0
 mkdocs-drawio~=1.7
@@ -13,6 +13,7 @@ mkdocs-materialx~=10.0
 mkdocs-static-i18n~=1.2
 pygments-shell-console~=0.8
 pymdown-extensions~=10.12
+pymdown-multimd-table~=0.1
 pymdown-rubric-extension~=0.1
 pymdownx-inline-blocks~=0.1
 unidecode~=1.3

@@ -7,7 +7,7 @@ icon: material/function
 
 Functions are provided by `material-joapuiib/functions` plugin.
 
-```yml title="mkdocs.yml"
+```yml title="properdocs.yml"
 plugins:
   - material-joapuiib/functions:
       load_file:

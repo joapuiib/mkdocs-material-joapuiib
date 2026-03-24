@@ -136,7 +136,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
         deleted:    README.md
-	    modified:   mkdocs.yml
+	    modified:   properdocs.yml
 	    modified:   requirements.txt
 
 Changes to be committed:

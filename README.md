@@ -2,7 +2,7 @@
 [![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 [![PyPi](https://img.shields.io/badge/pypi-3775A9?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/mkdocs-material-joapuiib/)
 
-Tema de [MkDocs](https://www.mkdocs.org/) basat en [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+Tema de [ProperDocs](https://properdocs.org/) basat en [MaterialX](https://jaywhj.github.io/mkdocs-materialx/)
 per a la creació de material didàctic.
 
 Podeu veure una demostració del tema a [joapuiib.github.io/mkdocs-material-joapuiib](https://joapuiib.github.io/mkdocs-material-joapuiib/).
@@ -24,7 +24,7 @@ Aquest tema es pot instal·lar a través de pip:
 pip install mkdocs-material-joapuiib
 ```
 
-Afegeix el següent al teu fitxer de configuració `mkdocs.yml`:
+Afegeix el següent al teu fitxer de configuració `properdocs.yml`:
 
 ```yaml
 theme:
