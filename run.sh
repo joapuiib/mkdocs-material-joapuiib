@@ -94,7 +94,7 @@ fi
 
 source $VENV_DIR/bin/activate
 
-COMMAND="serve --livereload"
+COMMAND="serve --livereload --watch-theme"
 if [ $BUILD -eq 1 ]; then
     COMMAND="build"
 fi

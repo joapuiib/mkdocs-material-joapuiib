@@ -44,6 +44,12 @@ icon: material/alert-outline
 
 
 ## Custom admonitions
+!!! spoiler
+    Alerta de spoiler `spoiler`
+
+!!! recommend
+    Alerta de recomanació `recommend`
+
 !!! prep
     Alerta de preparació `prep`
 
@@ -53,24 +59,18 @@ icon: material/alert-outline
 !!! solution
     Alerta de solució `solution`
 
-!!! recommend
-    Alerta de recomanació `recommend`
+!!! construction
+    Alerta de construcció `construction`
 
 !!! notice
     Alerta de notícia `notice`
 
-!!! construction
-    Alerta de construcció `construction`
+!!! picture
+    Alerta d'imatge `picture`
 
-!!! spoiler
-    Alerta de spoiler `spoiler`
-
-!!! docs
-    Alerta de documentació `docs`
 
 !!! deprecated
     Alerta d'obsolet `deprecated`
 
-!!! picture
-    Alerta d'imatge `picture`
-
+!!! docs
+    Alerta de documentació `docs`
