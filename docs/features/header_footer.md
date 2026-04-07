@@ -6,7 +6,10 @@ icon: material/page-layout-header-footer
 
 ## Programació
 La plantilla `programacio.html` és una plantilla que inclou un header
-i un footer.
+i un footer. (1)
+{.annotate}
+
+1. La plantilla `programacio.html` es pot trobar a la carpeta `templates` del repositori de la documentació.
 
 Es pot configurar la pàgina perquè utilitze aquesta plantilla afegint
 la següent capçalera al fitxer de la pàgina:

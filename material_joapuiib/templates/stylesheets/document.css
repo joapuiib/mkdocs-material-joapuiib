@@ -37,6 +37,10 @@
     justify-content: space-between;
 }
 
+.md-document__main {
+     position: relative;
+ }
+
 @media screen and (max-width: 44.9844em) {
     .md-document__main>.highlight {
         margin: 1em -.8rem;
