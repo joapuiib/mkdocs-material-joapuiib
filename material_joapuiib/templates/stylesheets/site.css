@@ -197,6 +197,9 @@ p:has(img.center) {
     page-break-inside: avoid;
     break-inside: avoid;
 }
+.md-typeset code {
+    font-size: 0.9em;
+}
 
 @media print {
     .md-main__inner, .md-content__inner {

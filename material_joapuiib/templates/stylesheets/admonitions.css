@@ -1,6 +1,7 @@
 .md-typeset .admonition,
 .md-typeset details {
   --md-admonition-title-bg-color: color-mix(in srgb, var(--md-admonition-color), transparent 80%);
+  overflow: hidden; /* See https://github.com/jaywhj/mkdocs-materialx/issues/44 */
 }
 
 :root{
