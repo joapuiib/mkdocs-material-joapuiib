@@ -29,6 +29,7 @@ theme:
   under_construction: true
   icon:
     logo: material/book-open-variant
+  favicon: material/book-open-variant
 
   comments:
     repo: joapuiib/mkdocs-material-joapuiib
