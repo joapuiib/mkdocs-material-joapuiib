@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
+{% block site_meta %}
+  {{ super() }}
+  <!-- Print title -->
+  {% if page.meta and page.meta.print_title %}
+    <meta name="print-title" content="{{ page.meta.print_title }}" />
+  {% endif %}
+{% endblock %}
+
+
 {% block styles %}
   {{ super() }}
   <link rel="stylesheet" href="{{'stylesheets/site.css' | url}}">
