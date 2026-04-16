@@ -18,6 +18,11 @@
     <meta name="author" content="{{ config.site_author }}" />
   {% endif %}
 
+  <!-- Print title -->
+  {% if page.meta and page.meta.print_title %}
+    <meta name="print-title" content="{{ page.meta.print_title }}" />
+  {% endif %}
+
   <!-- Canonical -->
   {% if page.canonical_url %}
     <link rel="canonical" href="{{ page.canonical_url }}" />
@@ -103,6 +108,7 @@
   <script src="{{ 'javascript/download-button.js' | url }}"></script>
   <script src="{{ 'javascript/carousel.js' | url }}"></script>
   <script src="{{ 'javascript/encrypt-content.js' | url }}"></script>
+  <script src="{{ 'javascript/print-title.js' | url }}"></script>
   {% if page.is_page %}
     {% for script in page.meta.extra_javascript %}
       {{ script | script_tag }}

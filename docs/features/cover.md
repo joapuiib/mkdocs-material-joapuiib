@@ -4,6 +4,7 @@ icon: material/file-star-outline
 cover:
     icon: material/file-star-outline
 title: Cover
+print_title: cover-document
 subtitle: Custom subtitle
 curs: '24/25'
 original_author: Carmen
@@ -66,9 +67,11 @@ license_image: False
 ```yml
 ---
 template: document.html
+icon: material/file-star-outline
 cover:
     icon: material/file-star-outline
 title: Cover
+print_title: cover-document
 subtitle: Custom subtitle
 curs: '24/25'
 original_author: Carmen
@@ -78,3 +81,5 @@ license_image: False
 cover_logo: 'img/cover/other-logo.png'
 ---
 ```
+
+`print_title` permet definir el títol que s'utilitzarà en imprimir o guardar la pàgina en PDF, sense canviar el títol normal de la pàgina al navegador.

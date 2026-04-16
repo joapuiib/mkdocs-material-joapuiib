@@ -17,6 +17,10 @@
         <meta name="author" content="{{ config.site_author }}" />
     {% endif %}
 
+    {% if page.meta and page.meta.print_title %}
+        <meta name="print-title" content="{{ page.meta.print_title }}" />
+    {% endif %}
+
     <!-- Canonical -->
     {% if page.canonical_url %}
         <link rel="canonical" href="{{ page.canonical_url }}" />
@@ -87,6 +91,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/zoom/zoom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/math/math.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/highlight.min.js"></script>
+        <script src="{{ 'javascript/print-title.js' | url }}"></script>
     {% endblock %}
 
     {% block reveal_script %}
