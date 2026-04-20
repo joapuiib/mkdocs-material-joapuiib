@@ -15,6 +15,7 @@ VENV_DIR=".venv"
 BUILD=0
 CI=0
 INSTALL_VENV=0
+UPGRADE=0
 SPELL=0
 ACT=''
 ALL=0
@@ -30,8 +31,11 @@ while [ $# -gt 0 ] ; do
         --ci)
             CI=1
             ;;
-        --install-venv)
+        -i | --install-venv)
             INSTALL_VENV=1
+            ;;
+        -u | --upgrade)
+            UPGRADE=1
             ;;
         --spell)
             BUILD=1
@@ -90,6 +94,11 @@ if [ $INSTALL_VENV -eq 1 ]; then
     $VENV_DIR/bin/pip install -r requirements.txt
     print "Install this package..."
     $VENV_DIR/bin/pip install -e .
+elif [ $UPGRADE -eq 1 ]; then
+    print "Upgrading dependencies..."
+    $VENV_DIR/bin/pip install --upgrade -r requirements.txt
+    print "Upgrading this package..."
+    $VENV_DIR/bin/pip install --upgrade -e .
 fi
 
 source $VENV_DIR/bin/activate
