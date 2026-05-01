@@ -37,6 +37,10 @@
     gap: 0.5em;
 }
 
+.md-typeset figure:has(.mermaid) {
+    width: 100%;                                                                                                                                                                            
+}
+
 .md-typeset figcaption {
   color: var(--md-default-fg-color--light);
 }
