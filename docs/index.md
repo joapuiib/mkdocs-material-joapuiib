@@ -12,7 +12,7 @@ landing: true
 Tema MkDocs
 { .eyebrow }
 
-# MaterialX for MkDocs by [@joapuiib](https://github.com/joapuiib)
+# MaterialX for MkDocs per [@joapuiib](https://github.com/joapuiib)
 
 Tema personalitzat basat en MaterialX, dissenyat per al material didàctic dels mòduls professionals. Configuracions, extensions i components reutilitzables.
 { .subtitle }

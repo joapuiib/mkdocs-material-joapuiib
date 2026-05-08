@@ -1,20 +1,50 @@
+:root > * {
+  --md-timeline-accent: var(--md-default-fg-color--lighter);
+  --md-timeline-line-color: var(--md-default-fg-color--lighter);
+  --md-timeline-card-bg: var(--md-default-bg-color);
+  --md-timeline-card-border: var(--md-default-fg-color--lightest);
+  --md-timeline-bullet-bg: var(--md-steps-bg-color);
+  --md-timeline-bullet-fg: var(--md-steps-fg-color);
+  --md-timeline-bullet-border: var(--md-steps-border-color);
+  --md-timeline-ring: var(--md-default-bg-color);
+}
+
+:root > *[data-md-color-scheme="slate"] {
+  --md-timeline-card-bg: hsla(232, 15%, 18%, 0.5);
+}
+
 :nth-child(1 of .timeline) {
   counter-reset: timeline-item;
 }
 
-/* Timeline card style */
+/* Card */
 .timeline {
   position: relative;
-  margin-left: 3rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: var(--md-shadow-z1);
-  border: 1px solid var(--md-default-fg-color--lightest);
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin: 1rem 0 1rem 3.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.85rem;
+  background-color: var(--md-timeline-card-bg);
+  border: 1px solid var(--md-timeline-card-border);
+  box-shadow:
+    inset 0 0 0 0 transparent,
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 
-  --md-timeline__bullet-top: 0.8em; /* 1rem (padding top) + 1.6em (line height) / 2 - 1rem (height of the bullet / 2) */
+  --md-timeline__bullet-top: 0.95em;
   --md-timeline__bullet-size: 2rem;
+}
+
+.timeline:hover {
+  transform: translateY(-2px);
+  border-color: var(--md-timeline-accent);
+  box-shadow:
+    inset 3px 0 0 0 var(--md-timeline-accent),
+    0 4px 10px rgba(0, 0, 0, 0.06),
+    0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
 /* Numbered bullet */
@@ -22,22 +52,64 @@
   counter-increment: timeline-item;
   content: counter(timeline-item);
   position: absolute;
-  left: -3rem;
+  left: -3.25rem;
   top: var(--md-timeline__bullet-top);
   width: var(--md-timeline__bullet-size);
   height: var(--md-timeline__bullet-size);
-  background-color: var(--md-steps-bg-color);
-  color: var(--md-steps-fg-color);
-  border: 1px solid var(--md-steps-border-color);
-  font-weight: bold;
+  background-color: var(--md-timeline-bullet-bg);
+  color: var(--md-timeline-bullet-fg);
+  border: 2px solid var(--md-timeline-bullet-border);
+  font-weight: 700;
+  font-size: 0.9em;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: var(--md-shadow-z2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   z-index: 2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.timeline:hover::before {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Connecting line */
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: calc(-3.25rem + var(--md-timeline__bullet-size) / 2 - 1px);
+  --md-timeline__bullet-line-space: 0.5rem;
+  top: calc(var(--md-timeline__bullet-top) + var(--md-timeline__bullet-size) + var(--md-timeline__bullet-line-space));
+  bottom: calc(-1rem - var(--md-timeline__bullet-top) + var(--md-timeline__bullet-line-space));
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--md-timeline-accent) 0,
+    var(--md-timeline-line-color) 60%
+  );
+  z-index: 1;
+}
+
+.timeline.dashed::after {
+  background: none;
+  border-left: 2px dashed var(--md-timeline-line-color);
+  width: 0;
+}
+
+.timeline.dotted::after {
+  background: none;
+  border-left: 2px dotted var(--md-timeline-line-color);
+  width: 0;
+}
+
+/* Last item: no line */
+:nth-last-child(1 of .timeline)::after {
+  display: none;
+}
+
+/* Marker variants */
 .timeline.check::before {
   counter-increment: none;
   content: '✓';
@@ -48,69 +120,53 @@
   content: '✕';
 }
 
-.timeline.primary::before {
-  background-color: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
-  border: unset;
+/* Color variants */
+.timeline.primary {
+  --md-timeline-accent: var(--md-primary-fg-color);
+  --md-timeline-bullet-bg: var(--md-primary-fg-color);
+  --md-timeline-bullet-fg: var(--md-primary-bg-color);
+  --md-timeline-bullet-border: transparent;
 }
 
-.timeline.light::before {
-  background-color: var(--md-primary-fg-color--light);
-  border: unset;
+.timeline.light {
+  --md-timeline-accent: var(--md-primary-fg-color--light);
+  --md-timeline-bullet-bg: var(--md-primary-fg-color--light);
+  --md-timeline-bullet-fg: var(--md-primary-bg-color);
+  --md-timeline-bullet-border: transparent;
 }
 
-.timeline.dark::before {
-  background-color: var(--md-primary-fg-color--dark);
-  border: unset;
+.timeline.dark {
+  --md-timeline-accent: var(--md-primary-fg-color--dark);
+  --md-timeline-bullet-bg: var(--md-primary-fg-color--dark);
+  --md-timeline-bullet-fg: var(--md-primary-bg-color);
+  --md-timeline-bullet-border: transparent;
 }
 
-.timeline.success::before {
-  background-color: #4cae4f;
-  color: #fff;
-  border: unset;
+.timeline.success {
+  --md-timeline-accent: #4cae4f;
+  --md-timeline-bullet-bg: #4cae4f;
+  --md-timeline-bullet-fg: #fff;
+  --md-timeline-bullet-border: transparent;
 }
 
-.timeline.error::before {
-  background-color: #ef5552;
-  color: #fff;
-  border: unset;
+.timeline.error {
+  --md-timeline-accent: #ef5552;
+  --md-timeline-bullet-bg: #ef5552;
+  --md-timeline-bullet-fg: #fff;
+  --md-timeline-bullet-border: transparent;
 }
 
-.timeline.info::before {
-  background-color: #02a6f2;
-  color: #fff;
-  border: unset;
+.timeline.info {
+  --md-timeline-accent: #02a6f2;
+  --md-timeline-bullet-bg: #02a6f2;
+  --md-timeline-bullet-fg: #fff;
+  --md-timeline-bullet-border: transparent;
 }
 
-/* Full vertical line going through the bullet */
-.timeline::after {
-  content: '';
-  position: absolute;
-  left: -2rem;
-  --md-timeline__bullet-line-space: 0.5rem;
-  top: calc(var(--md-timeline__bullet-top) + var(--md-timeline__bullet-line-space) + var(--md-timeline__bullet-size));
-  bottom: calc(-1rem - var(--md-timeline__bullet-top) + var(--md-timeline__bullet-line-space));
-  width: 2px;
-  border-left: 2px solid var(--md-default-fg-color--lighter);
-  z-index: 1;
-}
-
-.timeline.dashed::after {
-    border-left-style: dashed;
-}
-
-.timeline.dotted::after {
-    border-left-style: dotted;
-}
-
-/* Remove the line for the last item */
-:nth-last-child(1 of .timeline)::after {
-  border-left: none;
-}
-
-.timeline>:first-child {
+.timeline > :first-child {
   margin-top: 0;
 }
-.timeline>:last-child {
+
+.timeline > :last-child {
   margin-bottom: 0;
 }
