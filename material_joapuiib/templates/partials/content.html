@@ -2,14 +2,7 @@
   {% include "partials/tags.html" %}
 {% endif %}
 {% include "partials/actions.html" %}
-{% set is_landing = page.meta and page.meta.landing %}
-{% if is_landing %}
-<div class="landing">
-{% endif %}
 {{ page.content }}
-{% if is_landing %}
-</div>
-{% endif %}
 {% include "partials/source-file.html" %}
 {% include "partials/feedback.html" %}
 {% include "partials/comments.html" %}

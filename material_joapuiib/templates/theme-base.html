@@ -66,9 +66,12 @@ Lloc web en construcció!
   {% if page.is_page and page.meta['spell-ignore'] %}
     {% set spell_ignore = " spell-ignore" %}
   {% endif %}
+  {% if page.meta and page.meta.landing %}
+    {% set landing_class = " landing" %}
+  {% endif %}
 
   <div class="md-content{{ spell_ignore }}" data-md-component="content">
-    <article class="md-content__inner md-typeset">
+    <article class="md-content__inner md-typeset{{ landing_class }}">
       {% block content %}
         {% include "partials/content.html" %}
       {% endblock %}
