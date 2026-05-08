@@ -1,8 +1,10 @@
 ---
 template: programacio.html
-title: Header i footer
+title: Capçalera i peu
 icon: material/page-layout-header-footer
 ---
+
+# Capçalera i peu
 
 ## Programació
 La plantilla `programacio.html` és una plantilla que inclou un header

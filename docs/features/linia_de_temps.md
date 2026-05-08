@@ -1,18 +1,11 @@
 ---
-template: document.html
-icon: material/file-star-outline
-cover:
-    icon: material/file-star-outline
-title: Cover
-print_title: cover-document
-subtitle: Custom subtitle
-curs: '24/25'
-original_author: Carmen
-license_type: Copyright
-license_text: "All rights reserved &copy; 2021"
-license_image: False
+title: Línia de temps
+icon: material/timeline
 ---
 
+# Línia de temps
+
+Component per a mostrar esdeveniments en ordre cronològic. Suporta variants amb diferents colors, estils de línia (`dashed`, `dotted`) i marcadors (`check`, `cross`).
 <style>
 .md-typeset .mdx-switch button>code {
     background-color: var(--md-primary-fg-color);
@@ -63,23 +56,57 @@ license_image: False
   })
 </script>
 
-## Frontmatter
-```yml
----
-template: document.html
-icon: material/file-star-outline
-cover:
-    icon: material/file-star-outline
-title: Cover
-print_title: cover-document
-subtitle: Custom subtitle
-curs: '24/25'
-original_author: Carmen
-license_type: Copyright
-license_text: "All rights reserved &copy; 2021"
-license_image: False
-cover_logo: 'img/cover/other-logo.png'
----
-```
+/// html | div.timeline.dashed
+### Línia discontínua
+Element de línia de temps amb línia discontínua.
+///
 
-`print_title` permet definir el títol que s'utilitzarà en imprimir o guardar la pàgina en PDF, sense canviar el títol normal de la pàgina al navegador.
+/// html | div.timeline.primary
+### Element marcat
+Element de línia de temps amb una marca de verificació.
+///
+
+/// html | div.timeline.info.dotted
+### Element informatiu amb línia puntejada
+Element amb color `info` i línia puntejada.
+///
+
+/// html | div.timeline.error.cross
+### Element d'error
+Element amb color d'error i una creu com a marcador.
+///
+
+/// html | div.timeline.success
+### Element d'èxit
+Element amb color d'èxit.
+///
+
+
+??? example ":simple-markdown: Markdown"
+    ```md
+    /// html | div.timeline.dashed
+    ### Línia discontínua
+    Element de línia de temps amb línia discontínua.
+    ///
+
+    /// html | div.timeline.check.light
+    ### Element marcat
+    Element de línia de temps amb una marca de verificació.
+    ///
+
+    /// html | div.timeline.info.dotted
+    ### Element informatiu amb línia puntejada
+    Element amb color `info` i línia puntejada.
+    ///
+
+    /// html | div.timeline.error.cross
+    ### Element d'error
+    Element amb color d'error i una creu com a marcador.
+    ///
+
+    /// html | div.timeline.success
+    ### Element d'èxit
+    Element amb color d'èxit.
+    ///
+    ```
+

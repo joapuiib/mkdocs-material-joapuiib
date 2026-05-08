@@ -93,6 +93,12 @@
     box-shadow: unset;
 }
 
+.md-typeset a.md-button,
+.md-typeset a.md-button:hover,
+.md-typeset a.md-button:focus {
+    text-decoration: none;
+}
+
 .center {
     text-align: center;
 }

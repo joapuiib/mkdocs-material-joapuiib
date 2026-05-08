@@ -1,21 +1,23 @@
 ---
-title: Math
+title: Matemàtiques
 icon: material/alphabet-greek
 ---
 
-# Math
-KaTex està configurat a aquest tema i pot ser
-utilitzat de diferents maneres.
+# Matemàtiques
 
-## Sinatxi inline
+> Referència: [:octicons-link-external-16: Math &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/math.html)
+
+KaTeX està configurat al tema i es pot fer servir de diferents maneres.
+
+## Sintaxi inline
 ```markdown
-La fóruma de l'àrea del cercle és $A = \pi r^2$.
+La fórmula de l'àrea del cercle és $A = \pi r^2$.
 ```
 /// html | div.result
 La fórmula de l'àrea del cercle és $A = \pi r^2$.
 ///
 
-## Sinatxi block
+## Sintaxi en bloc
 ```markdown
 La fórmula de l'àrea del cercle és:
 
@@ -31,7 +33,7 @@ A = \pi r^2
 $$
 ///
 
-## Sintaxi bloc de codi
+## Sintaxi en bloc de codi
 ````markdown
 La fórmula de l'àrea del cercle és:
 

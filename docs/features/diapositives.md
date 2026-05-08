@@ -1,22 +1,22 @@
 ---
 template: slides.html
-title: Slides
+title: Diapositives
 icon: material/presentation
 ---
 
-# Slides
+# Diapositives
 
-### From Reveal
+### Des de Reveal
 
 ---
 
-# Slide 2
+# Diapositiva 2
 
 --
 
 ### Vertical
 
-TODO
+PER FER
 
 ---
 
@@ -25,8 +25,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 ---
 
-## Equation
-Cauchy's integral formula [@dixon1971brief]
+## Equació
+Fórmula integral de Cauchy [@dixon1971brief]
 
 <div class="fragment">
 $$f(a)=\frac{1}{2πi}∮_γ\frac{f(z)}{z-a}\,dz.$$
@@ -42,7 +42,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 ---
 
-# Syntax highlighting
+# Ressaltat de sintaxi
 
 ```js [1-2|3|4]
 let a = 1;
@@ -53,6 +53,6 @@ c(3);
 
 --
 
-> Some stuff
+> Algun comentari
 
 ---

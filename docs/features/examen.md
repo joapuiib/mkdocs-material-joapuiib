@@ -1,14 +1,17 @@
 ---
 template: exam.html
-title: Exam
+title: Examen
 icon: material/file-lock
 inject_id: protected
 password: 1234
 start_time: 2024-10-21 12:30:00
 ---
 
-## Exam
-La contrasenya és `1234`.
+# Examen
+
+Plantilla per a exàmens amb contingut protegit per contrasenya. Utilitza la plantilla `exam.html` i defineix el contingut protegit dins d'un bloc amb l'`inject_id` configurat al front matter.
+
+La contrasenya d'aquest exemple és `1234`.
 
 ---
 

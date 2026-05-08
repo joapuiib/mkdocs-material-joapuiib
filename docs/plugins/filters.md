@@ -5,16 +5,20 @@ icon: material/filter
 
 # Filters
 
-Custom Jinja filters are provided by `material-joapuiib/filters` plugin.
+Plugin que registra filtres Jinja personalitzats per a les plantilles del tema.
+
+## Configuració
 
 ```yml title="properdocs.yml"
 plugins:
   - material-joapuiib/filters
 ```
 
+## Filtres disponibles
 
-## `remove_accents`
-This filter removes accents from a string.
+### `remove_accents`
+
+Elimina els accents d'una cadena.
 
 ```
 {{ '{{ "áéíóúàèìòù" | remove_accents }}' }}

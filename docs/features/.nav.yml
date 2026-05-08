@@ -1,5 +1,6 @@
 nav:
+    - index.md
     - "*"
-    - ":material/pencil-outline: Icon section":
-      - icons/icons.md
-      - ":material/web: Icon in external link": https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/
+    - ":material/pencil-outline: Icones":
+      - icones/icones.md
+      - ":material/web: Icones a MaterialX": https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html

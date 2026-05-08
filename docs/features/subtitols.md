@@ -1,92 +1,92 @@
 ---
-title: Captions
+title: Subtítols
 icon: material/tooltip-text-outline
 ---
 
-# Captions
+# Subtítols
 
-> Reference [:octicons-link-external-16: Block Caption - PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/caption/)
+> Referència: [:octicons-link-external-16: Block Caption &mdash; PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/caption/)
 
-This is the figure.
+Aquesta és la figura.
 /// caption
-This is the caption.
+Aquest és el subtítol.
 ///
 
 ??? example ":simple-markdown: Markdown"
     ```markdown
-    This is the figure.
+    Aquesta és la figura.
     /// caption
-    This is the caption.
+    Aquest és el subtítol.
     ///
     ```
 
-## Image caption
+## Subtítol d'imatge
 
 ![placeholder](img/placeholder-600x400.png)
 /// attribution
-Attribution
+Atribució
 ///
 /// figure-caption
-Caption for image
+Subtítol de la imatge
 ///
 
 ![placeholder](img/placeholder-600x400.png)
 /// figure-caption | ^1
-Virtual nested caption
+Subtítol niat virtual
 ///
 
 ??? example ":simple-markdown: Markdown"
     ```markdown
     ![placeholder](img/placeholder-600x400.png)
     /// attribution
-    Attribution
+    Atribució
     ///
     /// figure-caption
-    Caption for image
+    Subtítol de la imatge
     ///
 
     ![placeholder](img/placeholder-600x400.png)
     /// figure-caption | ^1
-    Virtual nested caption
+    Subtítol niat virtual
     ///
     ```
 
-## Shadowed image caption
+## Subtítol d'imatge amb ombra
 
 ![placeholder](img/placeholder-600x400.png)
 /// shadow-figure-caption
-Shadow :material-box-shadow: image caption
+Subtítol :material-box-shadow: amb ombra
 ///
 
 ??? example ":simple-markdown: Markdown"
     ```markdown
     ![placeholder](img/placeholder-600x400.png)
     /// shadow-figure-caption
-    Shadow :material-box-shadow: image caption
+    Subtítol :material-box-shadow: amb ombra
     ///
     ```
 
-## Table caption
+## Subtítol de taula
 
-| Header 1 | Header 2 |
-|----------|----------|
-| Cell 1   | Cell 2   |
+| Capçalera 1 | Capçalera 2 |
+|-------------|-------------|
+| Cel·la 1    | Cel·la 2    |
 /// attribution
-Attribution
+Atribució
 ///
 /// table-caption
-Caption for table
+Subtítol de la taula
 ///
 
 ??? example ":simple-markdown: Markdown"
     ```markdown
-    | Header 1 | Header 2 |
-    |----------|----------|
-    | Cell 1   | Cell 2   |
+    | Capçalera 1 | Capçalera 2 |
+    |-------------|-------------|
+    | Cel·la 1    | Cel·la 2    |
     /// attribution
-    Attribution
+    Atribució
     ///
     /// table-caption
-    Caption for table
+    Subtítol de la taula
     ///
     ```

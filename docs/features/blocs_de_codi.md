@@ -1,25 +1,26 @@
 ---
-title: Code blocks
+title: Blocs de codi
 icon: material/code-json
 ---
-# Code blocks
-> Reference [:octicons-link-external-16: Code blocks - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/code-blocks/)
 
-## Python block with line highlighting and line numbers
+# Blocs de codi
+
+> Referència: [:octicons-link-external-16: Code blocks &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/code-blocks.html)
+
+## Bloc Python amb ressaltat de línies i numeració
 ```python hl_lines="2" linenums="1"
 def hello():
     print("Hello, world!")
 ```
 
-Using the `hl_lines` attribute, you can highlight specific
-lines in the code block.
+L'atribut `hl_lines` permet ressaltar línies específiques del bloc de codi.
 ````md
 ```python hl_lines="2" linenums="1"
 ...
 ```
 ````
 
-## JavaScript block
+## Bloc JavaScript
 ```javascript
 function hello() {
     console.log("Hello, world!");
@@ -31,12 +32,14 @@ Hello, world!
 ```
 ///
 
-## Bash block
+## Bloc Bash
 ```bash
 echo "Hello, world!"
 ```
 
-## Collapsable block
+## Bloc col·lapsable
+
+Veure [Codi col·lapsable](../extensions/codi_collapsable.md).
 
 /// collapse-code
 ```java title="LongClass.java"
@@ -65,9 +68,9 @@ class LongClass {
 ```
 ///
 
-## Downloadable block
+## Bloc descarregable
 
-From file:
+Des d'un fitxer:
 ```java {title="HelloWorld.java" data-download="../../files/HelloWorld.java"}
 --8<-- "docs/files/HelloWorld.java"
 ```
@@ -78,7 +81,7 @@ From file:
 ```
 ````
 
-From content:
+Des del contingut del bloc:
 ```java {title="HelloWorld.java" data-download="1"}
 --8<-- "docs/files/HelloWorld.java"
 ```
@@ -88,7 +91,7 @@ From content:
 ```
 ````
 
-## Shell block
+## Bloc de consola
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ echo "Hello world!"
 (venv) joapuiib@FP:~/git_tutorial (main) $ git diff
@@ -163,7 +166,7 @@ index 0000000..6d747b3
 +Estem aprenent a utilitzar Git!
 ```
 
-### Git output with hints and errors
+### Sortida de Git amb hints i errors
 ```shellconsole
 joapuiib@FP:~/git_tutorial (main) $ git init
 hint: Using 'master' as the name for the initial branch. This default branch name
@@ -180,7 +183,7 @@ Initialized empty Git repository in /home/joapuiib/git_tutorial/.git/
 fatal: unable to auto-detect email address (got 'joapuiib@FP.(none)')
 ```
 
-## Keyboard keys
+## Tecles de teclat
 ++ctrl+alt+del++
 
 ```md

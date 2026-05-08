@@ -1,9 +1,22 @@
 ---
-title: Time line
-icon: material/timeline
+template: document.html
+icon: material/file-star-outline
+cover:
+    icon: material/file-star-outline
+title: Portada
+print_title: cover-document
+subtitle: Subtítol personalitzat
+curs: '24/25'
+original_author: Carmen
+license_type: Copyright
+license_text: "Tots els drets reservats &copy; 2021"
+license_image: False
 ---
 
-## Time line
+# Portada
+
+Plantilla de portada per a documents imprimibles. La pàgina utilitza la plantilla `document.html` i pren les metadades del front matter per generar la capçalera i el peu del document.
+
 <style>
 .md-typeset .mdx-switch button>code {
     background-color: var(--md-primary-fg-color);
@@ -54,57 +67,23 @@ icon: material/timeline
   })
 </script>
 
-/// html | div.timeline.dashed
-### Dashed line
-This is a timeline item with a dashed line.
-///
+## Front matter
+```yml
+---
+template: document.html
+icon: material/file-star-outline
+cover:
+    icon: material/file-star-outline
+title: Cover
+print_title: cover-document
+subtitle: Custom subtitle
+curs: '24/25'
+original_author: Carmen
+license_type: Copyright
+license_text: "All rights reserved &copy; 2021"
+license_image: False
+cover_logo: 'img/cover/other-logo.png'
+---
+```
 
-/// html | div.timeline.primary
-### Checked item
-This is a timeline item with a check mark.
-///
-
-/// html | div.timeline.info.dotted
-### Info item with dotted line
-This is a timeline item with an info color and dotted line.
-///
-
-/// html | div.timeline.error.cross
-### Error and dotted item
-This is a timeline item with an error and a cross mark.
-///
-
-/// html | div.timeline.success
-### Success item
-This is a timeline item with a success color.
-///
-
-
-??? example ":simple-markdown: MarkDown"
-    ```md
-    /// html | div.timeline.dashed
-    ### Dashed line
-    This is a timeline item with a dashed line.
-    ///
-
-    /// html | div.timeline.check.light
-    ### Checked item
-    This is a timeline item with a check mark.
-    ///
-
-    /// html | div.timeline.info.dotted
-    ### Info item with dotted line
-    This is a timeline item with an info color and dotted line.
-    ///
-
-    /// html | div.timeline.error.cross
-    ### Error and dotted item
-    This is a timeline item with an error and a cross mark.
-    ///
-
-    /// html | div.timeline.success
-    ### Success item
-    This is a timeline item with a success color.
-    ///
-    ```
-
+`print_title` permet definir el títol que s'utilitzarà en imprimir o guardar la pàgina en PDF, sense canviar el títol normal de la pàgina al navegador.

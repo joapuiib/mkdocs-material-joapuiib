@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="{{'stylesheets/time-line.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/steps.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/carousel.css' | url}}">
+  {% if page.meta and page.meta.landing %}
+    <link rel="stylesheet" href="{{'stylesheets/landing.css' | url}}">
+  {% endif %}
   <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
   {% if page.is_page %}
     {% for path in page.meta.extra_stylesheets %}

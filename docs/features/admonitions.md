@@ -1,76 +1,78 @@
 ---
-title: Admonitions
+title: Admonicions
 icon: material/alert-outline
 ---
-# Admonitions
-> Reference [:octicons-link-external-16: Admonitions - :simple-materialformkdocs: Material for MkDocs](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
 
-## Built-in admonitions
+# Admonicions
+
+> Referència: [:octicons-link-external-16: Admonitions &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/admonitions.html)
+
+## Admonicions per defecte
+
 !!! note
-    Alerta d'anotació `note`
+    Admonició de tipus `note`
 
 !!! abstract
-    Alerta de resum `abstract`
+    Admonició de tipus `abstract`
 
 !!! info
-    Alerta d'informació `info`
+    Admonició de tipus `info`
 
 !!! tip
-    Alerta de consell `tip`
+    Admonició de tipus `tip`
 
 !!! success
-    Alerta d'èxit `success`
+    Admonició de tipus `success`
 
 !!! question
-    Alerta de pregunta `question`
+    Admonició de tipus `question`
 
 !!! warning
-    Alerta d'avís `warning`
+    Admonició de tipus `warning`
 
 !!! failure
-    Alerta de fracàs `failure`
+    Admonició de tipus `failure`
 
 !!! danger
-    Alerta de perill `danger`
+    Admonició de tipus `danger`
 
 !!! bug
-    Alerta de problema `bug`
+    Admonició de tipus `bug`
 
 !!! example
-    Alerta d'exemple `example`
+    Admonició de tipus `example`
 
 !!! quote
-    Alerta de cita `quote`
+    Admonició de tipus `quote`
 
+## Admonicions personalitzades
 
-## Custom admonitions
 !!! spoiler
-    Alerta de spoiler `spoiler`
+    Admonició de tipus `spoiler`
 
 !!! recommend
-    Alerta de recomanació `recommend`
+    Admonició de tipus `recommend`
 
 !!! prep
-    Alerta de preparació `prep`
+    Admonició de tipus `prep`
 
 !!! important
-    Alerta de important `important`
+    Admonició de tipus `important`
 
 !!! solution
-    Alerta de solució `solution`
+    Admonició de tipus `solution`
 
 !!! construction
-    Alerta de construcció `construction`
+    Admonició de tipus `construction`
 
 !!! notice
-    Alerta de notícia `notice`
+    Admonició de tipus `notice`
 
 !!! picture
-    Alerta d'imatge `picture`
-
+    Admonició de tipus `picture`
 
 !!! deprecated
-    Alerta d'obsolet `deprecated`
+    Admonició de tipus `deprecated`
 
 !!! docs
-    Alerta de documentació `docs`
+    Admonició de tipus `docs`

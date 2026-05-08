@@ -2,10 +2,13 @@
 title: Text
 icon: material/format-letter-case
 ---
+
 # Text
 
-## Text class styles
+> Referència: [:octicons-link-external-16: Formatting &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/formatting.html)
 
-| Markdown Syntax | Rendered Output |
-|-----------------|-----------------|
-| `This is a [:material-fire: Tip!]{.tip}.` | This is a [:material-fire: Tip!]{.tip}. |
+## Estils de classe de text
+
+| Sintaxi Markdown | Resultat |
+|------------------|----------|
+| `Açò és un [:material-fire: consell!]{.tip}.` | Açò és un [:material-fire: consell!]{.tip}. |

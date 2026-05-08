@@ -1,11 +1,11 @@
 ---
-title: Carousel
+title: Carrusel
 icon: material/view-carousel
 ---
 
-## Carousel
+# Carrusel
 
-> Based on [:octicons-link-external-16: How TO - Slideshow - :simple-w3schools: W3Schools](https://www.w3schools.com/howto/howto_js_slideshow.asp)
+> Basat en: [:octicons-link-external-16: How TO &mdash; Slideshow &mdash; :simple-w3schools: W3Schools](https://www.w3schools.com/howto/howto_js_slideshow.asp)
 
 /// html | div.carousel
 ![placeholder](img/placeholder-600x400-image1.png)
