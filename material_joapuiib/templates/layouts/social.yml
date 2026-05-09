@@ -1,0 +1,326 @@
+# Generalized social-card layout for the material-joapuiib theme.
+#
+# Sites consume this layout by adding the `material-joapuiib/social` plugin,
+# which points `materialx/social` at the bundled layouts directory.
+#
+# Color resolution order (highest priority first):
+#   1. `extra.social_card.<key>` in mkdocs.yml (explicit per-site override)
+#   2. `theme.palette[*].primary` mapped through Material's color name → hex
+#      table (e.g. "deep orange" → "#ff6e42") — drives accent + footer.
+#   3. Layout defaults (dark base, white text, deep-orange accent).
+#
+# Override keys (all optional):
+#   extra:
+#     social_card:
+#       accent_color: "#ff6e42"
+#       background_color: "#1e2029"
+#       text_color: "#ffffff"
+#       muted_color: "#b8bcc4"
+#       footer_color: "#ff8a63"
+#       watermark_icon: simple/git   # default: theme.icon.logo
+#
+# Logo chip falls back to `theme.icon.logo`. Footer combines `site_author`
+# and `site_url`.
+#
+# Homepage handling: on the site index the page title ("Inici"/"Home") is
+# suppressed and the site name is rendered large instead. Detection covers
+# both `page.is_homepage` and pages that opt in via `template: home.html`.
+
+# -----------------------------------------------------------------------------
+# Configuration
+# -----------------------------------------------------------------------------
+
+definitions:
+
+  # Palette — explicit overrides win, then theme palette, then defaults.
+  # The Material color name → hex table mirrors the upstream `default.yml`.
+  - &background_color >-
+    {{ config.extra.get("social_card", {}).get("background_color", "#1e2029") }}
+  - &text_color >-
+    {{ config.extra.get("social_card", {}).get("text_color", "#ffffff") }}
+  - &muted_color >-
+    {{ config.extra.get("social_card", {}).get("muted_color", "#b8bcc4") }}
+  - &accent_color >-
+    {%- set sc = config.extra.get("social_card", {}) -%}
+    {%- if sc.get("accent_color") -%}
+      {{ sc.accent_color }}
+    {%- else -%}
+      {%- set palette = config.theme.palette or {} -%}
+      {%- if palette is not mapping -%}
+        {%- set palette = (palette | selectattr("primary") | list | first) or palette[0] -%}
+      {%- endif -%}
+      {%- set primary = (palette.get("primary") or "indigo") | replace(" ", "-") -%}
+      {{ {
+        "red":         "#ef5552",
+        "pink":        "#e92063",
+        "purple":      "#ab47bd",
+        "deep-purple": "#7e56c2",
+        "indigo":      "#4051b5",
+        "blue":        "#2094f3",
+        "light-blue":  "#02a6f2",
+        "cyan":        "#00bdd6",
+        "teal":        "#009485",
+        "green":       "#4cae4f",
+        "light-green": "#8bc34b",
+        "lime":        "#cbdc38",
+        "yellow":      "#ffec3d",
+        "amber":       "#ffc105",
+        "orange":      "#ffa724",
+        "deep-orange": "#ff6e42",
+        "brown":       "#795649",
+        "grey":        "#757575",
+        "blue-grey":   "#546d78",
+        "black":       "#000000",
+        "white":       "#ffffff"
+      }[primary] or "#4051b5" }}
+    {%- endif -%}
+  - &accent_soft >-
+    {%- set sc = config.extra.get("social_card", {}) -%}
+    {%- if sc.get("accent_color") -%}
+      {{ sc.accent_color }}22
+    {%- else -%}
+      {%- set palette = config.theme.palette or {} -%}
+      {%- if palette is not mapping -%}
+        {%- set palette = (palette | selectattr("primary") | list | first) or palette[0] -%}
+      {%- endif -%}
+      {%- set primary = (palette.get("primary") or "indigo") | replace(" ", "-") -%}
+      {{ {
+        "red":         "#ef5552",
+        "pink":        "#e92063",
+        "purple":      "#ab47bd",
+        "deep-purple": "#7e56c2",
+        "indigo":      "#4051b5",
+        "blue":        "#2094f3",
+        "light-blue":  "#02a6f2",
+        "cyan":        "#00bdd6",
+        "teal":        "#009485",
+        "green":       "#4cae4f",
+        "light-green": "#8bc34b",
+        "lime":        "#cbdc38",
+        "yellow":      "#ffec3d",
+        "amber":       "#ffc105",
+        "orange":      "#ffa724",
+        "deep-orange": "#ff6e42",
+        "brown":       "#795649",
+        "grey":        "#757575",
+        "blue-grey":   "#546d78",
+        "black":       "#000000",
+        "white":       "#ffffff"
+      }[primary] or "#4051b5" }}22
+    {%- endif -%}
+  - &footer_color >-
+    {%- set sc = config.extra.get("social_card", {}) -%}
+    {%- if sc.get("footer_color") -%}
+      {{ sc.footer_color }}
+    {%- else -%}
+      {%- set palette = config.theme.palette or {} -%}
+      {%- if palette is not mapping -%}
+        {%- set palette = (palette | selectattr("primary") | list | first) or palette[0] -%}
+      {%- endif -%}
+      {%- set primary = (palette.get("primary") or "indigo") | replace(" ", "-") -%}
+      {{ {
+        "red":         "#ef5552",
+        "pink":        "#e92063",
+        "purple":      "#ab47bd",
+        "deep-purple": "#7e56c2",
+        "indigo":      "#4051b5",
+        "blue":        "#2094f3",
+        "light-blue":  "#02a6f2",
+        "cyan":        "#00bdd6",
+        "teal":        "#009485",
+        "green":       "#4cae4f",
+        "light-green": "#8bc34b",
+        "lime":        "#cbdc38",
+        "yellow":      "#ffec3d",
+        "amber":       "#ffc105",
+        "orange":      "#ffa724",
+        "deep-orange": "#ff6e42",
+        "brown":       "#795649",
+        "grey":        "#757575",
+        "blue-grey":   "#546d78",
+        "black":       "#000000",
+        "white":       "#ffffff"
+      }[primary] or "#4051b5" }}
+    {%- endif -%}
+
+  # Typography — uses the theme's text font, falling back to Roboto
+  - &font_family >-
+    {%- if layout.font_family -%}
+      {{ layout.font_family }}
+    {%- elif config.theme.font is mapping -%}
+      {{ config.theme.font.get("text", "Roboto") }}
+    {%- else -%}
+      Roboto
+    {%- endif -%}
+
+  # Homepage flag — true for the site index or any page using home.html
+  - &is_homepage >-
+    {%- if page.is_homepage or page.meta.get("template", "") == "home.html" -%}
+      true
+    {%- endif -%}
+
+  # Site name — hidden on the homepage so the title takes the spotlight
+  - &site_name >-
+    {%- if not (page.is_homepage or page.meta.get("template", "") == "home.html") -%}
+      {{ config.site_name }}
+    {%- endif -%}
+
+  # Page title — on the homepage, swap in the site name so it renders big
+  - &page_title >-
+    {%- if layout.title -%}
+      {{ layout.title }}
+    {%- elif page.is_homepage or page.meta.get("template", "") == "home.html" -%}
+      {{ config.site_name }}
+    {%- else -%}
+      {{ page.meta.get("title", page.title) }}
+    {%- endif -%}
+
+  # Page title with site name (used for og/twitter meta)
+  - &page_title_with_site_name >-
+    {%- if not (page.is_homepage or page.meta.get("template", "") == "home.html") -%}
+      {{ page.meta.get("title", page.title) }} - {{ config.site_name }}
+    {%- else -%}
+      {{ config.site_name }}
+    {%- endif -%}
+
+  # Page description
+  - &page_description >-
+    {%- if layout.description -%}
+      {{ layout.description }}
+    {%- else -%}
+      {{ page.meta.get("description", config.site_description) | x }}
+    {%- endif -%}
+
+  # Footer (author + URL)
+  - &footer_text >-
+    {{ config.site_author }} · {{ config.site_url | replace("https://", "") | replace("http://", "") | trim("/") }}
+
+  # Watermark icon — large decorative background. Defaults to theme logo.
+  - &watermark_icon >-
+    {%- set sc = config.extra.get("social_card", {}) -%}
+    {%- if sc.get("watermark_icon") -%}
+      {{ sc.watermark_icon }}
+    {%- elif config.theme.icon and config.theme.icon.logo -%}
+      {{ config.theme.icon.logo | x }}
+    {%- else -%}
+      material/file-document
+    {%- endif -%}
+
+  # Logo icon (top-left chip) — defaults to theme logo
+  - &logo_icon >-
+    {%- if config.theme.icon and config.theme.icon.logo -%}
+      {{ config.theme.icon.logo | x }}
+    {%- else -%}
+      material/file-document
+    {%- endif -%}
+
+# -----------------------------------------------------------------------------
+# Meta tags
+# -----------------------------------------------------------------------------
+
+tags:
+  og:type: website
+  og:title: *page_title_with_site_name
+  og:description: *page_description
+  og:image: "{{ image.url }}"
+  og:image:type: "{{ image.type }}"
+  og:image:width: "{{ image.width }}"
+  og:image:height: "{{ image.height }}"
+  og:url: "{{ page.canonical_url }}"
+
+  twitter:card: summary_large_image
+  twitter:title: *page_title_with_site_name
+  twitter:description: *page_description
+  twitter:image: "{{ image.url }}"
+
+# -----------------------------------------------------------------------------
+# Specification
+# -----------------------------------------------------------------------------
+
+size: { width: 1200, height: 630 }
+
+layers:
+
+  # 1. Dark base background
+  - background:
+      color: *background_color
+
+  # 2. Watermark icon — large, semi-transparent on the right
+  - size: { width: 560, height: 560 }
+    offset: { x: 700, y: 35 }
+    icon:
+      value: *watermark_icon
+      color: *accent_soft
+
+  # 3. Top accent bar
+  - size: { width: 1200, height: 8 }
+    offset: { x: 0, y: 0 }
+    background:
+      color: *accent_color
+
+  # 4. Logo chip (top-left)
+  - size: { width: 56, height: 56 }
+    offset: { x: 64, y: 64 }
+    icon:
+      value: *logo_icon
+      color: *accent_color
+
+  # 5. Site name (next to logo) — empty on homepage
+  - size: { width: 900, height: 56 }
+    offset: { x: 140, y: 72 }
+    typography:
+      content: *site_name
+      align: start
+      color: *text_color
+      overflow: shrink
+      font:
+        family: *font_family
+        style: Bold
+
+  # 6. Accent divider under header
+  - size: { width: 80, height: 4 }
+    offset: { x: 64, y: 188 }
+    background:
+      color: *accent_color
+
+  # 7. Page title — large, bold, multi-line
+  - size: { width: 1000, height: 280 }
+    offset: { x: 64, y: 220 }
+    typography:
+      content: *page_title
+      align: start
+      color: *text_color
+      overflow: shrink
+      line:
+        amount: 3
+        height: 1.2
+      font:
+        family: *font_family
+        style: Bold
+
+  # 8. Page description — muted, two lines
+  - size: { width: 1000, height: 64 }
+    offset: { x: 64, y: 510 }
+    typography:
+      content: *page_description
+      align: start
+      color: *muted_color
+      overflow: shrink
+      line:
+        amount: 2
+        height: 1.4
+      font:
+        family: *font_family
+        style: Regular
+
+  # 9. Footer — author + URL in accent color
+  - size: { width: 1072, height: 32 }
+    offset: { x: 64, y: 580 }
+    typography:
+      content: *footer_text
+      align: start
+      color: *footer_color
+      overflow: shrink
+      font:
+        family: *font_family
+        style: Regular

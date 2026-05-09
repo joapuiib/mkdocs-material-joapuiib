@@ -49,4 +49,12 @@ Plugins de [MkDocs](https://www.mkdocs.org/dev-guide/plugins/) que afegeixen fun
     Filtres Jinja per a extreure icones del títol de seccions a la navegació.
 
     [:octicons-arrow-right-24: Documentació](sectionicons.md)
+
+-   :material-share-variant:{ .lg .middle } __Social cards__
+
+    ---
+
+    Disposició compartida per a les targetes socials, amb colors derivats de la paleta del tema.
+
+    [:octicons-arrow-right-24: Documentació](social.md)
 ///

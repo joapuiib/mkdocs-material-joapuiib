@@ -1,4 +1,4 @@
-site_name: "Material joapuiib"
+site_name: MaterialX for MkDocs per @joapuiib
 site_author: "Joan Puigcerver Ibáñez"
 site_email: "j.puigcerveribanez@edu.gva.es"
 site_url: "https://joapuiib.github.io/mkdocs-material-joapuiib/"
@@ -80,7 +80,9 @@ plugins:
 
   - glightbox
   - macros
-  # - material/social
+  - material-joapuiib/social
+  - materialx/social:
+      enabled: !ENV [CI, false]
   - materialx/tags
   - material-joapuiib/badges
   - material-joapuiib/enviorment
