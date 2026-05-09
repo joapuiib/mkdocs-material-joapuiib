@@ -35,6 +35,14 @@ Extensions de [Python-Markdown](https://python-markdown.github.io/extensions/) q
     Índex d'emojis i icones personalitzades del tema integrades amb pymdownx.
 
     [:octicons-arrow-right-24: Documentació](emoji.md)
+
+-   :material-calendar-month:{ .lg .middle } __Calendar__
+
+    ---
+
+    Bloc `/// calendar` que renderitza calendaris a partir de configuració TOML, amb dies festius, rangs i suport multi-idioma.
+
+    [:octicons-arrow-right-24: Documentació](calendar.md)
 ///
 
 ## Extensions de tercers

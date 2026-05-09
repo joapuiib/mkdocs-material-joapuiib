@@ -1,0 +1,494 @@
+/* Calendar extension – baseline styles bundled with the theme.
+ *
+ * Custom properties drive every color/size hook so projects can retheme by
+ * overriding them in `extra.css` instead of forking this file.
+ */
+
+.md-calendar {
+  --md-cal-cell-size: 2.25rem;
+  --md-cal-gap: 0.25rem;
+  --md-cal-bg: transparent;
+  --md-cal-fg: currentColor;
+  --md-cal-border: rgba(0, 0, 0, 0.1);
+  --md-cal-muted: rgba(0, 0, 0, 0.45);
+  --md-cal-weekend: rgba(0, 0, 0, 0.55);
+  --md-cal-holiday: #d23f31;
+  --md-cal-out: rgba(0, 0, 0, 0.25);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0;
+  color: var(--md-cal-fg);
+  background: var(--md-cal-bg);
+}
+
+[data-md-color-scheme="slate"] .md-calendar,
+.md-calendar.is-dark {
+  --md-cal-border: rgba(255, 255, 255, 0.12);
+  --md-cal-muted: rgba(255, 255, 255, 0.45);
+  --md-cal-weekend: rgba(255, 255, 255, 0.6);
+  --md-cal-out: rgba(255, 255, 255, 0.2);
+}
+
+.md-calendar-month-block {
+  border: 1px solid var(--md-cal-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background: var(--md-cal-bg);
+}
+
+.md-calendar-month-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.md-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--md-cal-gap);
+}
+
+.md-calendar-no-weekends .md-calendar-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.md-calendar-weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--md-cal-muted);
+  padding: 0.25rem 0;
+}
+
+.md-calendar-day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--md-cal-cell-size);
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+  background: transparent;
+  transition: background 120ms ease;
+}
+
+.md-calendar-day-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* In-cell labels: small badges stacked in the top-right corner of the cell. */
+.md-calendar-day-label {
+  position: absolute;
+  top: 0.15rem;
+  right: 0.2rem;
+  font-size: 0.55rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.1rem 0.25rem;
+  border-radius: 0.2rem;
+  background: var(--md-cal-bullet, var(--md-default-fg-color, currentColor));
+  color: var(--md-default-bg-color, #fff);
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: calc(100% - 0.4rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.md-calendar-day-label + .md-calendar-day-label {
+  top: auto;
+  bottom: 0.15rem;
+}
+
+/* Per-class label colours mirror the bullet palette. */
+.md-calendar-day-label.holiday { background: var(--md-cal-holiday, #d23f31); }
+.md-calendar-day-label.red     { background: var(--md-cal-hue-red-fg, #990000); }
+.md-calendar-day-label.orange  { background: var(--md-cal-hue-orange-fg, #b45f06); }
+.md-calendar-day-label.yellow  { background: var(--md-cal-hue-yellow-fg, #7f6000); }
+.md-calendar-day-label.green   { background: var(--md-cal-hue-green-fg, #38761d); }
+.md-calendar-day-label.teal    { background: var(--md-cal-hue-teal-fg, #134f5c); }
+.md-calendar-day-label.blue    { background: var(--md-cal-hue-blue-fg, #1c4587); }
+.md-calendar-day-label.purple  { background: var(--md-cal-hue-purple-fg, #351c75); }
+.md-calendar-day-label.pink    { background: var(--md-cal-hue-pink-fg, #741b47); }
+
+.md-calendar-day-empty {
+  visibility: hidden;
+}
+
+.md-calendar-day-outside {
+  color: var(--md-cal-out);
+}
+
+/* `weekends = "show"` exposes a per-day hook to style Sat/Sun. */
+.md-calendar-day.weekend {
+  color: var(--md-cal-weekend);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.md-calendar-day.holiday {
+  color: var(--md-cal-holiday);
+  font-weight: 700;
+}
+
+/* Today marker — bold number with a thin underline using the cell's own
+ * text colour. Inherits hue when the day carries a palette class so the
+ * marker harmonises instead of clashing with it. */
+.md-calendar-day.today .md-calendar-day-number {
+  font-weight: 700;
+  border-bottom: 0.1rem solid currentColor;
+  padding-bottom: 1px;
+  line-height: 1;
+}
+
+/* Example range hooks – override per project as needed. */
+.md-calendar-day.vacation {
+  background: rgba(46, 160, 67, 0.18);
+}
+.md-calendar-day.sprint {
+  background: rgba(54, 116, 217, 0.18);
+}
+
+/* ---------------------------------------------------------------------------
+ * Hue palette — eight distinct, accessible color classes for use as
+ * `class = "blue"` (or any other hue) in `ranges` / `days`. Each pair has
+ * light- and dark-mode variants; override the variables to retune.
+ * ------------------------------------------------------------------------- */
+
+.md-calendar {
+  /* Light backgrounds */
+  --md-cal-hue-red-bg: #f4cccc;
+  --md-cal-hue-red-fg: #990000;
+  --md-cal-hue-orange-bg: #fce5cd;
+  --md-cal-hue-orange-fg: #b45f06;
+  --md-cal-hue-yellow-bg: #fff2cc;
+  --md-cal-hue-yellow-fg: #7f6000;
+  --md-cal-hue-green-bg: #d9ead3;
+  --md-cal-hue-green-fg: #38761d;
+  --md-cal-hue-teal-bg: #d0e0e3;
+  --md-cal-hue-teal-fg: #134f5c;
+  --md-cal-hue-blue-bg: #cfe2f3;
+  --md-cal-hue-blue-fg: #1c4587;
+  --md-cal-hue-purple-bg: #d9d2e9;
+  --md-cal-hue-purple-fg: #351c75;
+  --md-cal-hue-pink-bg: #ead1dc;
+  --md-cal-hue-pink-fg: #741b47;
+}
+
+[data-md-color-scheme="slate"] .md-calendar,
+.md-calendar.is-dark {
+  /* Darker hues — keep enough chroma without washing out text. */
+  --md-cal-hue-red-bg: #5a2828;
+  --md-cal-hue-red-fg: #ffb8b8;
+  --md-cal-hue-orange-bg: #5a3d1f;
+  --md-cal-hue-orange-fg: #ffd0a8;
+  --md-cal-hue-yellow-bg: #524818;
+  --md-cal-hue-yellow-fg: #ffe89a;
+  --md-cal-hue-green-bg: #2f4f2a;
+  --md-cal-hue-green-fg: #c4e8b8;
+  --md-cal-hue-teal-bg: #1f4a52;
+  --md-cal-hue-teal-fg: #b0dde2;
+  --md-cal-hue-blue-bg: #2a4368;
+  --md-cal-hue-blue-fg: #b8d4f0;
+  --md-cal-hue-purple-bg: #3d2f60;
+  --md-cal-hue-purple-fg: #d0c2ee;
+  --md-cal-hue-pink-bg: #58284a;
+  --md-cal-hue-pink-fg: #f0bcd8;
+}
+
+.md-calendar-day.red    { background: var(--md-cal-hue-red-bg);    color: var(--md-cal-hue-red-fg); }
+.md-calendar-day.orange { background: var(--md-cal-hue-orange-bg); color: var(--md-cal-hue-orange-fg); }
+.md-calendar-day.yellow { background: var(--md-cal-hue-yellow-bg); color: var(--md-cal-hue-yellow-fg); }
+.md-calendar-day.green  { background: var(--md-cal-hue-green-bg);  color: var(--md-cal-hue-green-fg); }
+.md-calendar-day.teal   { background: var(--md-cal-hue-teal-bg);   color: var(--md-cal-hue-teal-fg); }
+.md-calendar-day.blue   { background: var(--md-cal-hue-blue-bg);   color: var(--md-cal-hue-blue-fg); }
+.md-calendar-day.purple { background: var(--md-cal-hue-purple-bg); color: var(--md-cal-hue-purple-fg); }
+.md-calendar-day.pink   { background: var(--md-cal-hue-pink-bg);   color: var(--md-cal-hue-pink-fg); }
+
+/* ---------------------------------------------------------------------------
+ * Two-class stripe combinations.
+ *
+ * When a day picks up two palette classes (overlapping ranges, range + day
+ * annotation, etc.) the cell shows diagonal stripes mixing both backgrounds
+ * so neither hue is hidden. Text colour falls back to the default so it stays
+ * readable on either band.
+ * ------------------------------------------------------------------------- */
+
+.md-calendar-day.red.orange,
+.md-calendar-day.red.yellow,
+.md-calendar-day.red.green,
+.md-calendar-day.red.teal,
+.md-calendar-day.red.blue,
+.md-calendar-day.red.purple,
+.md-calendar-day.red.pink,
+.md-calendar-day.orange.yellow,
+.md-calendar-day.orange.green,
+.md-calendar-day.orange.teal,
+.md-calendar-day.orange.blue,
+.md-calendar-day.orange.purple,
+.md-calendar-day.orange.pink,
+.md-calendar-day.yellow.green,
+.md-calendar-day.yellow.teal,
+.md-calendar-day.yellow.blue,
+.md-calendar-day.yellow.purple,
+.md-calendar-day.yellow.pink,
+.md-calendar-day.green.teal,
+.md-calendar-day.green.blue,
+.md-calendar-day.green.purple,
+.md-calendar-day.green.pink,
+.md-calendar-day.teal.blue,
+.md-calendar-day.teal.purple,
+.md-calendar-day.teal.pink,
+.md-calendar-day.blue.purple,
+.md-calendar-day.blue.pink,
+.md-calendar-day.purple.pink {
+  color: var(--md-default-fg-color, currentColor);
+}
+
+.md-calendar-day.red.orange    { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-orange-bg) 6px 12px); }
+.md-calendar-day.red.yellow    { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-yellow-bg) 6px 12px); }
+.md-calendar-day.red.green     { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-green-bg) 6px 12px); }
+.md-calendar-day.red.teal      { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-teal-bg) 6px 12px); }
+.md-calendar-day.red.blue      { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-blue-bg) 6px 12px); }
+.md-calendar-day.red.purple    { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-purple-bg) 6px 12px); }
+.md-calendar-day.red.pink      { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-red-bg) 0 6px,    var(--md-cal-hue-pink-bg) 6px 12px); }
+.md-calendar-day.orange.yellow { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-orange-bg) 0 6px, var(--md-cal-hue-yellow-bg) 6px 12px); }
+.md-calendar-day.orange.green  { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-orange-bg) 0 6px, var(--md-cal-hue-green-bg) 6px 12px); }
+.md-calendar-day.orange.teal   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-orange-bg) 0 6px, var(--md-cal-hue-teal-bg) 6px 12px); }
+.md-calendar-day.orange.blue   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-orange-bg) 0 6px, var(--md-cal-hue-blue-bg) 6px 12px); }
+.md-calendar-day.orange.purple { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-orange-bg) 0 6px, var(--md-cal-hue-purple-bg) 6px 12px); }
+.md-calendar-day.orange.pink   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-orange-bg) 0 6px, var(--md-cal-hue-pink-bg) 6px 12px); }
+.md-calendar-day.yellow.green  { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-yellow-bg) 0 6px, var(--md-cal-hue-green-bg) 6px 12px); }
+.md-calendar-day.yellow.teal   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-yellow-bg) 0 6px, var(--md-cal-hue-teal-bg) 6px 12px); }
+.md-calendar-day.yellow.blue   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-yellow-bg) 0 6px, var(--md-cal-hue-blue-bg) 6px 12px); }
+.md-calendar-day.yellow.purple { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-yellow-bg) 0 6px, var(--md-cal-hue-purple-bg) 6px 12px); }
+.md-calendar-day.yellow.pink   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-yellow-bg) 0 6px, var(--md-cal-hue-pink-bg) 6px 12px); }
+.md-calendar-day.green.teal    { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-green-bg) 0 6px,  var(--md-cal-hue-teal-bg) 6px 12px); }
+.md-calendar-day.green.blue    { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-green-bg) 0 6px,  var(--md-cal-hue-blue-bg) 6px 12px); }
+.md-calendar-day.green.purple  { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-green-bg) 0 6px,  var(--md-cal-hue-purple-bg) 6px 12px); }
+.md-calendar-day.green.pink    { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-green-bg) 0 6px,  var(--md-cal-hue-pink-bg) 6px 12px); }
+.md-calendar-day.teal.blue     { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-teal-bg) 0 6px,   var(--md-cal-hue-blue-bg) 6px 12px); }
+.md-calendar-day.teal.purple   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-teal-bg) 0 6px,   var(--md-cal-hue-purple-bg) 6px 12px); }
+.md-calendar-day.teal.pink     { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-teal-bg) 0 6px,   var(--md-cal-hue-pink-bg) 6px 12px); }
+.md-calendar-day.blue.purple   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-blue-bg) 0 6px,   var(--md-cal-hue-purple-bg) 6px 12px); }
+.md-calendar-day.blue.pink     { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-blue-bg) 0 6px,   var(--md-cal-hue-pink-bg) 6px 12px); }
+.md-calendar-day.purple.pink   { background: repeating-linear-gradient(-45deg, var(--md-cal-hue-purple-bg) 0 6px, var(--md-cal-hue-pink-bg) 6px 12px); }
+
+/* Swatch element for documentation tables — reuses the same palette vars. */
+.md-calendar-swatch {
+  display: inline-block;
+  min-width: 4rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+.md-calendar-swatch.red    { background: #f4cccc; color: #990000; }
+.md-calendar-swatch.orange { background: #fce5cd; color: #b45f06; }
+.md-calendar-swatch.yellow { background: #fff2cc; color: #7f6000; }
+.md-calendar-swatch.green  { background: #d9ead3; color: #38761d; }
+.md-calendar-swatch.teal   { background: #d0e0e3; color: #134f5c; }
+.md-calendar-swatch.blue   { background: #cfe2f3; color: #1c4587; }
+.md-calendar-swatch.purple { background: #d9d2e9; color: #351c75; }
+.md-calendar-swatch.pink   { background: #ead1dc; color: #741b47; }
+
+[data-md-color-scheme="slate"] .md-calendar-swatch.red    { background: #5a2828; color: #ffb8b8; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.orange { background: #5a3d1f; color: #ffd0a8; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.yellow { background: #524818; color: #ffe89a; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.green  { background: #2f4f2a; color: #c4e8b8; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.teal   { background: #1f4a52; color: #b0dde2; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.blue   { background: #2a4368; color: #b8d4f0; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.purple { background: #3d2f60; color: #d0c2ee; }
+[data-md-color-scheme="slate"] .md-calendar-swatch.pink   { background: #58284a; color: #f0bcd8; }
+
+.md-calendar-error {
+  border: 1px solid var(--md-cal-holiday, #d23f31);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--md-cal-holiday, #d23f31);
+  background: rgba(210, 63, 49, 0.06);
+}
+
+.md-calendar-error-message {
+  margin: 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+/* Tooltip popover.
+ *
+ * Styled to match Material's look without subclassing `.md-tooltip2` (which
+ * would fight Material's own positioning logic). Hidden by default; the
+ * `calendar-tooltips.js` shim toggles `[hidden]` and the `.is-open` class.
+ */
+
+.md-calendar-tooltip[hidden] {
+  display: none;
+}
+
+.md-calendar-tooltip {
+  position: fixed;
+  z-index: 1000;
+  max-width: min(20rem, calc(100vw - 1.6rem));
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition: opacity 150ms ease, transform 150ms ease;
+  font-family: var(--md-text-font-family, inherit);
+  font-size: 0.6rem;
+  line-height: 1.4;
+}
+
+.md-calendar-tooltip.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.md-calendar-tooltip.is-pinned {
+  /* Visual cue that the tooltip is pinned — a subtle accent ring. */
+  filter: drop-shadow(0 0 0 var(--md-accent-fg-color, transparent));
+}
+
+.md-calendar-tooltip__inner {
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #111);
+  border-radius: 0.35rem;
+  box-shadow: var(--md-shadow-z2, 0 4px 12px rgba(0, 0, 0, 0.18));
+  padding: 0.4rem 0.6rem;
+  max-height: 40vh;
+  overflow: auto;
+}
+
+.md-calendar-tooltip.is-pinned .md-calendar-tooltip__inner {
+  box-shadow:
+    0 0 0 2px var(--md-accent-fg-color, #4a90e2),
+    var(--md-shadow-z2, 0 4px 12px rgba(0, 0, 0, 0.18));
+}
+
+.md-calendar-tooltip__inner > :first-child {
+  margin-top: 0;
+}
+
+.md-calendar-tooltip__inner > :last-child {
+  margin-bottom: 0;
+}
+
+/* Right-size inline content (code, strong, em, links) for the small popover.
+ * Material's `.md-typeset code` ships big padding + sizing intended for body
+ * copy; inside a 0.6rem tooltip it overwhelms the line. */
+.md-calendar-tooltip__inner code,
+.md-calendar-tooltip__inner kbd {
+  font-size: 0.92em;
+  padding: 0.05em 0.25em;
+  border-radius: 0.2rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.md-calendar-tooltip__inner a {
+  color: var(--md-accent-fg-color, var(--md-primary-fg-color, #4a90e2));
+  text-decoration: underline;
+}
+
+.md-calendar-tooltip__inner strong {
+  font-weight: 700;
+}
+
+.md-calendar-tooltip__inner em {
+  font-style: italic;
+}
+
+/* Bulleted tooltip lines — one entry per source (holiday / range / day).
+ * Uses plain divs (not <ul>/<li>) so Material's md-typeset list styling
+ * doesn't stack a second bullet on top of ours. */
+.md-calendar-tooltip-items {
+  margin: 0;
+  padding: 0;
+}
+
+.md-calendar-tooltip-item {
+  padding: 0.1rem 0;
+  margin: 0;
+}
+
+.md-calendar-tooltip-item + .md-calendar-tooltip-item {
+  margin-top: 0.1rem;
+}
+
+/* Bullet rendered inline so it shares the first text line's metrics.
+ * `vertical-align: middle` snaps it to the line's optical centre without
+ * fragile em math. Avoids `display: flex` on the item, which would split
+ * surrounding text and inline elements (`<code>`, `<a>`, …) into separate
+ * flex items and break sentence flow. */
+.md-calendar-tooltip-item::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  /* Compensate for `vertical-align: middle` aligning to baseline + x-height/2,
+   * which sits a hair below the actual visual centre at our font size. */
+  position: relative;
+  top: -0.06em;
+  border-radius: 50%;
+  background: var(--md-cal-bullet, var(--md-default-fg-color, currentColor));
+}
+
+/* Bullet colours mirror the palette swatches. Falls back to the foreground
+ * variant of the matching hue. */
+.md-calendar-tooltip-item.holiday::before { background: var(--md-cal-holiday, #d23f31); }
+.md-calendar-tooltip-item.red::before     { background: var(--md-cal-hue-red-fg, #990000); }
+.md-calendar-tooltip-item.orange::before  { background: var(--md-cal-hue-orange-fg, #b45f06); }
+.md-calendar-tooltip-item.yellow::before  { background: var(--md-cal-hue-yellow-fg, #7f6000); }
+.md-calendar-tooltip-item.green::before   { background: var(--md-cal-hue-green-fg, #38761d); }
+.md-calendar-tooltip-item.teal::before    { background: var(--md-cal-hue-teal-fg, #134f5c); }
+.md-calendar-tooltip-item.blue::before    { background: var(--md-cal-hue-blue-fg, #1c4587); }
+.md-calendar-tooltip-item.purple::before  { background: var(--md-cal-hue-purple-fg, #351c75); }
+.md-calendar-tooltip-item.pink::before    { background: var(--md-cal-hue-pink-fg, #741b47); }
+
+.md-calendar-day[data-cal-tip] {
+  cursor: pointer;
+}
+
+.md-calendar-day[data-cal-tip][aria-expanded="true"] {
+  outline: 2px solid var(--md-accent-fg-color, #4a90e2);
+  outline-offset: 1px;
+}
+
+/* Respect users who opted out of motion. */
+@media (prefers-reduced-motion: reduce) {
+  .md-calendar-tooltip {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Print: expose every tooltip body inline so nothing is hidden on paper. */
+@media print {
+  .md-calendar-tooltip {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    display: block !important;
+    margin: 0.25rem 0 0.5rem;
+    page-break-inside: avoid;
+  }
+  .md-calendar-tooltip[hidden] {
+    display: block !important;
+  }
+  .md-calendar-tooltip__inner {
+    box-shadow: none;
+    border: 1px solid var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.2));
+    max-height: none;
+  }
+  .md-calendar-day[data-cal-tip] {
+    cursor: default;
+  }
+}

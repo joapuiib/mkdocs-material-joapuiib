@@ -183,3 +183,5 @@ markdown_extensions:
       expand_title: ''
       collapse_text: ''
       collapse_title: ''
+  - material_joapuiib.extensions.calendar:
+      locale: ca
