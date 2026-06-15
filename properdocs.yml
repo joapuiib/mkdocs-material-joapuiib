@@ -180,10 +180,5 @@ markdown_extensions:
   - toc:
       permalink: true
       toc_depth: 4
-  - material_joapuiib.extensions.collapse_code:
-      expand_text: ''
-      expand_title: ''
-      collapse_text: ''
-      collapse_title: ''
   - material_joapuiib.extensions.calendar:
       locale: ca

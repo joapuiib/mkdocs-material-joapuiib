@@ -20,14 +20,6 @@ Extensions de [Python-Markdown](https://python-markdown.github.io/extensions/) q
 
     [:octicons-arrow-right-24: Documentació](numeracio_capcaleres.md)
 
--   :material-arrow-collapse-vertical:{ .lg .middle } __Codi col·lapsable__
-
-    ---
-
-    Bloc per a embolicar codi llarg amb un toggle d'expandir/col·lapsar.
-
-    [:octicons-arrow-right-24: Documentació](codi_collapsable.md)
-
 -   :material-emoticon-happy:{ .lg .middle } __Emoji__
 
     ---

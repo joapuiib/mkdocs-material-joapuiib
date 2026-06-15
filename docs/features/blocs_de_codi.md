@@ -37,38 +37,9 @@ Hello, world!
 echo "Hello, world!"
 ```
 
-## Bloc col·lapsable
-
-Veure [Codi col·lapsable](../extensions/codi_collapsable.md).
-
-/// collapse-code
-```java title="LongClass.java"
-class LongClass {
-    private int a;
-    public LongClass() {
-        a = 0;
-    }
-
-    public void increment() {
-        a++;
-    }
-
-    public void decrement() {
-        a--;
-    }
-
-    public int getA() {
-        return a;
-    }
-
-    public void setA(int a) {
-        this.a = a;
-    }
-}
-```
-///
-
 ## Bloc descarregable
+
+> Referència: [:octicons-link-external-16: Code download button &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/code-blocks.html#code-download-button)
 
 Des d'un fitxer:
 ```java {title="HelloWorld.java" data-download="../../files/HelloWorld.java"}
@@ -82,11 +53,11 @@ Des d'un fitxer:
 ````
 
 Des del contingut del bloc:
-```java {title="HelloWorld.java" data-download="1"}
+```java {title="HelloWorld.java" data-download="blob"}
 --8<-- "docs/files/HelloWorld.java"
 ```
 ````md
-```java {title="HelloWorld.java" data-download="1"}
+```java {title="HelloWorld.java" data-download="blob"}
 \--8<-- "docs/files/HelloWorld.java"
 ```
 ````

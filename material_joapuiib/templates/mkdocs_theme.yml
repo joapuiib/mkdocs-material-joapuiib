@@ -8,6 +8,11 @@ cover:
 
 under_construction: false
 
+code:
+  fold:
+    enabled: true
+    lines: 0
+
 features:
   - announce.dismiss
   - content.code.copy

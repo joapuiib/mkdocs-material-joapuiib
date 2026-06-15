@@ -90,11 +90,9 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
                 log.error(f"{page.file.src_path}. File not found {path}")
 
             template = (
-                f'/// collapse-code',
-                f'```{language} {{title="{title}" {classes} data-download="1"}}',
+                f'```{language} {{title="{title}" {classes} data-fold="10" data-download="blob"}}',
                 f'--8<-- "{absolute_path}"',
                 f'```',
-                f'///',
             )
             template = ''.join([indent + line + '\n' for line in template])
             output.append(template)
