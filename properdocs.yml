@@ -55,8 +55,11 @@ theme:
         name: Switch to light mode
 
 plugins:
-  - materialx/search
-  - alias
+  - materialx/search:
+      provider: lunr
+  - alias:
+      open_tag: "[$"
+      close_tag: "$]"
   - awesome-nav # Navegació
   - drawio
   - exclude-search
@@ -80,7 +83,8 @@ plugins:
 
   - glightbox
   - macros
-  - material-joapuiib/social
+  - material-joapuiib/social:
+      enabled: !ENV [CI, false]
   - materialx/social:
       enabled: !ENV [CI, false]
   - materialx/tags

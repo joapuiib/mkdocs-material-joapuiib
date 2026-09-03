@@ -4,7 +4,7 @@
  * overriding them in `extra.css` instead of forking this file.
  */
 
-.md-calendar {
+:root {
   --md-cal-cell-size: 2.25rem;
   --md-cal-gap: 0.25rem;
   --md-cal-bg: transparent;
@@ -14,21 +14,23 @@
   --md-cal-weekend: rgba(0, 0, 0, 0.55);
   --md-cal-holiday: #d23f31;
   --md-cal-out: rgba(0, 0, 0, 0.25);
+}
 
+[data-md-color-scheme="slate"],
+.md-calendar.is-dark {
+  --md-cal-border: rgba(255, 255, 255, 0.12);
+  --md-cal-muted: rgba(255, 255, 255, 0.45);
+  --md-cal-weekend: rgba(255, 255, 255, 0.6);
+  --md-cal-out: rgba(255, 255, 255, 0.2);
+}
+
+.md-calendar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: 1.5rem;
   margin: 1rem 0;
   color: var(--md-cal-fg);
   background: var(--md-cal-bg);
-}
-
-[data-md-color-scheme="slate"] .md-calendar,
-.md-calendar.is-dark {
-  --md-cal-border: rgba(255, 255, 255, 0.12);
-  --md-cal-muted: rgba(255, 255, 255, 0.45);
-  --md-cal-weekend: rgba(255, 255, 255, 0.6);
-  --md-cal-out: rgba(255, 255, 255, 0.2);
 }
 
 .md-calendar-month-block {
@@ -157,7 +159,7 @@
  * light- and dark-mode variants; override the variables to retune.
  * ------------------------------------------------------------------------- */
 
-.md-calendar {
+:root {
   /* Light backgrounds */
   --md-cal-hue-red-bg: #f4cccc;
   --md-cal-hue-red-fg: #990000;
@@ -177,7 +179,7 @@
   --md-cal-hue-pink-fg: #741b47;
 }
 
-[data-md-color-scheme="slate"] .md-calendar,
+[data-md-color-scheme="slate"],
 .md-calendar.is-dark {
   /* Darker hues — keep enough chroma without washing out text. */
   --md-cal-hue-red-bg: #5a2828;
@@ -287,23 +289,14 @@
   text-align: center;
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
-.md-calendar-swatch.red    { background: #f4cccc; color: #990000; }
-.md-calendar-swatch.orange { background: #fce5cd; color: #b45f06; }
-.md-calendar-swatch.yellow { background: #fff2cc; color: #7f6000; }
-.md-calendar-swatch.green  { background: #d9ead3; color: #38761d; }
-.md-calendar-swatch.teal   { background: #d0e0e3; color: #134f5c; }
-.md-calendar-swatch.blue   { background: #cfe2f3; color: #1c4587; }
-.md-calendar-swatch.purple { background: #d9d2e9; color: #351c75; }
-.md-calendar-swatch.pink   { background: #ead1dc; color: #741b47; }
-
-[data-md-color-scheme="slate"] .md-calendar-swatch.red    { background: #5a2828; color: #ffb8b8; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.orange { background: #5a3d1f; color: #ffd0a8; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.yellow { background: #524818; color: #ffe89a; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.green  { background: #2f4f2a; color: #c4e8b8; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.teal   { background: #1f4a52; color: #b0dde2; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.blue   { background: #2a4368; color: #b8d4f0; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.purple { background: #3d2f60; color: #d0c2ee; }
-[data-md-color-scheme="slate"] .md-calendar-swatch.pink   { background: #58284a; color: #f0bcd8; }
+.md-calendar-swatch.red    { background: var(--md-cal-hue-red-bg);    color: var(--md-cal-hue-red-fg); }
+.md-calendar-swatch.orange { background: var(--md-cal-hue-orange-bg); color: var(--md-cal-hue-orange-fg); }
+.md-calendar-swatch.yellow { background: var(--md-cal-hue-yellow-bg); color: var(--md-cal-hue-yellow-fg); }
+.md-calendar-swatch.green  { background: var(--md-cal-hue-green-bg);  color: var(--md-cal-hue-green-fg); }
+.md-calendar-swatch.teal   { background: var(--md-cal-hue-teal-bg);   color: var(--md-cal-hue-teal-fg); }
+.md-calendar-swatch.blue   { background: var(--md-cal-hue-blue-bg);   color: var(--md-cal-hue-blue-fg); }
+.md-calendar-swatch.purple { background: var(--md-cal-hue-purple-bg); color: var(--md-cal-hue-purple-fg); }
+.md-calendar-swatch.pink   { background: var(--md-cal-hue-pink-bg);   color: var(--md-cal-hue-pink-fg); }
 
 .md-calendar-error {
   border: 1px solid var(--md-cal-holiday, #d23f31);
