@@ -55,6 +55,15 @@
   {% endif %}
 {% endif %}
 
+{% set license_type_lower = (license_type or '') | lower %}
+{% if 'copyleft' in license_type_lower %}
+  {% set license_icon = 'material/copyleft' %}
+{% elif 'creative commons' in license_type_lower or ' cc ' in (' ' ~ license_type_lower ~ ' ') or license_type_lower.startswith('cc') %}
+  {% set license_icon = 'material/creative-commons' %}
+{% else %}
+  {% set license_icon = 'material/copyright' %}
+{% endif %}
+
 
 <div class="cover">
 
@@ -98,42 +107,60 @@
 </div>
 {% endblock %}
 
+<div class="cover__cards">
+
 {% block cover_details %}
-<div class="cover__details">
-    {% if author %}
-    <p><strong>{{ author }}</strong></p>
-    {% endif %}
-    {% if email %}
-    <p><a href="mailto:{{ email }}">{{ email }}</a></p>
-    {% endif %}
-    {% if curs %}
-    <p><strong>Curs:</strong> {{ curs }}</p>
-    {% endif %}
+{% if author or email %}
+<div class="cover__card">
+    <span class="cover__card-icon"><span class="twemoji">{% include ".icons/material/account.svg" %}</span></span>
+    <div class="cover__card-body">
+        {% if author %}
+        <p><strong>{{ author }}</strong></p>
+        {% endif %}
+        {% if email %}
+        <p><a href="mailto:{{ email }}">{{ email }}</a></p>
+        {% endif %}
+    </div>
 </div> <!--details-->
+{% endif %}
+{% if curs %}
+<div class="cover__card">
+    <span class="cover__card-icon"><span class="twemoji">{% include ".icons/material/calendar.svg" %}</span></span>
+    <div class="cover__card-body">
+        <p><strong>Curs</strong></p>
+        <p>{{ curs }}</p>
+    </div>
+</div> <!--curs-->
+{% endif %}
 {% endblock %}
 
 {% block cover_license %}
-<div class="cover__license">
+<div class="cover__card">
+    <span class="cover__card-icon"><span class="twemoji">{% include ".icons/" ~ license_icon ~ ".svg" %}</span></span>
+    <div class="cover__card-body">
 
-{% if original_author %}
-<p>Aquest material és una obra derivada a partir del material de: <strong>{{ original_author }}</strong></p>
-{% endif %}
+    {% if original_author %}
+    <p>Aquest material és una obra derivada a partir del material de: <strong>{{ original_author }}</strong></p>
+    {% endif %}
 
-<p><strong>Llicència: {{ license_type }}</strong></p>
-{% if license_text %}
-<p class="">{{license_text}}</p>
-{% endif %}
+    <p><strong>Llicència: {{ license_type }}</strong></p>
+    {% if license_text %}
+    <p class="">{{license_text}}</p>
+    {% endif %}
 
-{% if license_image %}
-<div class="cover__license-img">
-<a href="{{ license_link }}" target="_blank">
-  <img class="" src="{{ license_image | url }}" alt="License" height="50" />
-</a>
-</div>
-{% endif %}
+    {% if license_image %}
+    <div class="cover__license-img">
+    <a href="{{ license_link }}" target="_blank">
+      <img class="" src="{{ license_image | url }}" alt="License" height="50" />
+    </a>
+    </div>
+    {% endif %}
 
+    </div>
 </div><!--license-->
 {% endblock %}
+
+</div><!--cards-->
 
 {% block cover_footer %}
 {% endblock %}

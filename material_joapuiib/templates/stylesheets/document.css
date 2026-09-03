@@ -83,7 +83,10 @@
         display: block;
     }
     .cover {
-      /* Substract 1.5rem (if not, license image goes to different page) */
-      height: calc(100vh - 1.5rem - var(--md-document__header-content-height, 0px) - var(--md-document__footer-content-height, 0px) - var(--md-document__footer-print-height, 0px));
+      /* min-height (not height): fills a short cover but lets a tall one
+         (extra cover_footer content, long license text, ...) grow instead
+         of being clipped by Chrome's print pagination.
+         Substract 1.5rem (if not, license image goes to different page) */
+      min-height: calc(100vh - 1.5rem - var(--md-document__header-content-height, 0px) - var(--md-document__footer-content-height, 0px) - var(--md-document__footer-print-height, 0px));
     }
 }
