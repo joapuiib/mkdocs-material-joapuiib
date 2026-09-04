@@ -8,6 +8,10 @@
   background-color: #2E3440;
 }
 
+.language-shellconsole.highlight .md-code__nav {
+  display: none;
+}
+
 .language-shellconsole.highlight .gh,
 .language-shellconsole.highlight .p,
 .language-shellconsole.highlight .go {
