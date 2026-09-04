@@ -462,19 +462,15 @@
   }
 }
 
-/* Print: expose every tooltip body inline so nothing is hidden on paper. */
+/* Print: tooltips stay hidden unless pinned open at print time. */
 @media print {
-  .md-calendar-tooltip {
+  .md-calendar-tooltip:not([hidden]) {
     position: static !important;
     opacity: 1 !important;
     transform: none !important;
     pointer-events: auto !important;
-    display: block !important;
     margin: 0.25rem 0 0.5rem;
     page-break-inside: avoid;
-  }
-  .md-calendar-tooltip[hidden] {
-    display: block !important;
   }
   .md-calendar-tooltip__inner {
     box-shadow: none;
@@ -483,5 +479,9 @@
   }
   .md-calendar-day[data-cal-tip] {
     cursor: default;
+  }
+  .md-calendar-month-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 }
