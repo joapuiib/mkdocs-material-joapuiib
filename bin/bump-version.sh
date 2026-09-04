@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 # Bump the project version, commit, and tag it.
 #
-# Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-f|--force] [--dry]
+# Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-f|--force] [-n|--new-commit] [--dry]
+#
+# By default, if HEAD has no tag pointing at it, the version bump is folded
+# into HEAD via `git commit --amend`. Pass -n/--new-commit to always create a
+# separate commit instead. If HEAD already has a tag, a new commit is always
+# created (amending a tagged commit would orphan the tag).
 
 set -euo pipefail
 
@@ -9,7 +14,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION_FILE="$REPO_ROOT/material_joapuiib/__init__.py"
 
 usage() {
-    echo "Usage: $(basename "$0") [major|minor|patch] [-p|--push] [-f|--force] [--dry]" >&2
+    echo "Usage: $(basename "$0") [major|minor|patch] [-p|--push] [-f|--force] [-n|--new-commit] [--dry]" >&2
     exit 1
 }
 
@@ -17,6 +22,7 @@ BUMP=""
 PUSH=""
 FORCE=""
 DRY=""
+NEW_COMMIT=""
 
 for arg in "$@"; do
     case "$arg" in
@@ -28,6 +34,9 @@ for arg in "$@"; do
             ;;
         -f|--force)
             FORCE="yes"
+            ;;
+        -n|--new-commit)
+            NEW_COMMIT="yes"
             ;;
         --dry)
             DRY="yes"
@@ -84,7 +93,15 @@ if git rev-parse "$TAG" >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "Bumping version: $CURRENT_VERSION -> $NEW_VERSION (tag $TAG)"
+if [[ -n "$NEW_COMMIT" ]]; then
+    MODE="new"
+elif [[ -n "$(git tag --points-at HEAD)" ]]; then
+    MODE="new"
+else
+    MODE="amend"
+fi
+
+echo "Bumping version: $CURRENT_VERSION -> $NEW_VERSION (tag $TAG, $MODE commit)"
 
 if [[ -n "$DRY" ]]; then
     echo "Dry run: no changes made."
@@ -105,10 +122,14 @@ fi
 sed -i "s/__version__ = '$CURRENT_VERSION'/__version__ = '$NEW_VERSION'/" "$VERSION_FILE"
 
 git add "$VERSION_FILE"
-git commit -m "chore: bump version to $NEW_VERSION"
+if [[ "$MODE" == "amend" ]]; then
+    git commit --amend --no-edit
+else
+    git commit -m "chore: bump version to $NEW_VERSION"
+fi
 git tag -a "$TAG" -m "$TAG"
 
-echo "Created commit and tag $TAG."
+echo "Created $MODE commit and tag $TAG."
 
 if [[ -z "$PUSH" ]]; then
     read -r -p "Push commit and tag to origin? [y/N] " REPLY
@@ -123,9 +144,17 @@ if [[ -z "$PUSH" ]]; then
 fi
 
 if [[ "$PUSH" == "yes" ]]; then
-    git push origin main
+    if [[ "$MODE" == "amend" ]]; then
+        git push --force-with-lease origin main
+    else
+        git push origin main
+    fi
     git push origin "$TAG"
     echo "Pushed main and $TAG."
 else
-    echo "Skipped push. Run 'git push origin main && git push origin $TAG' when ready."
+    if [[ "$MODE" == "amend" ]]; then
+        echo "Skipped push. Run 'git push --force-with-lease origin main && git push origin $TAG' when ready."
+    else
+        echo "Skipped push. Run 'git push origin main && git push origin $TAG' when ready."
+    fi
 fi
