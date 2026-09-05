@@ -2,4 +2,4 @@ import properdocs.replacement_warning
 
 properdocs.replacement_warning.setup()
 
-__version__ = '3.7.2'
+__version__ = '3.8.0'

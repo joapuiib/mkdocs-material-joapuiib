@@ -34,6 +34,7 @@ El cos del bloc és [TOML](https://toml.io); les dates es declaren com a _local-
 | `start` | data | _obligatori_ | Primer dia del període. |
 | `end` | data | _obligatori_ | Últim dia (inclusiu, `>= start`). |
 | `weekends` | `"show"` \| `"plain"` \| `"hide"` | `"show"` | Tractament de dissabtes i diumenges. |
+| `size` | `"sm"` \| `"md"` \| `"lg"` \| `"xl"` \| `"xxl"` | `"lg"` | Mida del calendari, de més petit a més gran. Vegeu [_Mida_](#mida). |
 | `locale` | string | _hereta_ | Codi de llengua. |
 | `month_names` | llista de 12 strings | — | Noms de mes personalitzats. |
 | `weekday_labels` | llista de 7 strings | — | Noms de dia personalitzats. |
@@ -114,6 +115,7 @@ Cada `[[ranges]]` aplica una classe CSS (i opcionalment un _tooltip_) a un inter
 | `class` | string | Classe CSS aplicada a cada dia. |
 | `tooltip` | string (opc.) | Text de tooltip (Markdown) repetit a cada dia del rang. |
 | `label` | string (opc.) | Etiqueta curta repetida a cada dia del rang. |
+| `exclude` | llista de `"weekends"` \| `"holidays"` (opc.) | Dies que no reben la classe/_tooltip_/etiqueta d'aquest rang. Per defecte `[]` (cap dia exclòs). |
 
 Quan diversos rangs es solapen, totes les classes s'apliquen i els _tooltips_ es combinen en un mateix popover amb un punt per font.
 
@@ -153,6 +155,42 @@ class = "green"
 tooltip = "Suport sprint"
 ///
 
+### Excloure caps de setmana i festius
+
+`exclude` fa que els tipus de dia indicats, dins del rang, no rebin la classe, el _tooltip_ ni l'etiqueta d'aquest rang. Afecta només aquest rang, a diferència de `weekends = "plain"` i `[holiday].plain`, que són globals per a tot el calendari.
+
+````markdown
+/// calendar
+start = 2026-02-01
+end = 2026-02-28
+
+[holiday]
+dates = [2026-02-14]
+
+[[ranges]]
+from = 2026-02-02
+to = 2026-02-20
+class = "blue"
+tooltip = "Sprint (dies laborables)"
+exclude = ["weekends", "holidays"]
+///
+````
+
+/// calendar
+start = 2026-02-01
+end = 2026-02-28
+
+[holiday]
+dates = [2026-02-14]
+
+[[ranges]]
+from = 2026-02-02
+to = 2026-02-20
+class = "blue"
+tooltip = "Sprint (dies laborables)"
+exclude = ["weekends", "holidays"]
+///
+
 ## Anotacions per dia
 
 `[[days]]` afegeix classe i/o _tooltip_ a un dia concret sense haver de declarar un `[[ranges]]` d'un sol dia:
@@ -163,6 +201,7 @@ tooltip = "Suport sprint"
 | `class` | string | no | Classe CSS afegida a la cel·la. |
 | `tooltip` | string | no | Text de tooltip (Markdown). |
 | `label` | string | no | Etiqueta curta visible a la cantonada de la cel·la. Pintat amb la classe del `class`. |
+| `override` | booleà | no (per defecte `false`) | Si `true`, substitueix la classe, el _tooltip_ i l'etiqueta que el dia rebria d'un cap de setmana, festiu o `[[ranges]]` per les d'aquesta anotació, en lloc de sumar-s'hi. |
 
 Les anotacions per dia s'apliquen sempre, també sobre festius i caps de setmana en mode `plain`.
 
@@ -198,9 +237,49 @@ label = "R"
 tooltip = "Recordatori: informe"
 ///
 
+### Substituir un rang o festiu del tot
+
+Per defecte, la classe, el _tooltip_ i l'etiqueta d'una anotació de dia se sumen als que ja tingués el dia (per exemple, un dia dins d'un rang). Amb `override = true`, els substitueixen del tot en comptes de sumar-s'hi — útil per marcar una excepció puntual dins d'un rang o festiu.
+
+````markdown
+/// calendar
+start = 2026-01-01
+end = 2026-01-31
+
+[[ranges]]
+from = 2026-01-10
+to = 2026-01-20
+class = "sprint"
+tooltip = "Sprint"
+
+[[days]]
+date = 2026-01-15
+class = "holiday"
+tooltip = "Dia lliure excepcional"
+override = true
+///
+````
+
+/// calendar
+start = 2026-01-01
+end = 2026-01-31
+
+[[ranges]]
+from = 2026-01-10
+to = 2026-01-20
+class = "sprint"
+tooltip = "Sprint"
+
+[[days]]
+date = 2026-01-15
+class = "holiday"
+tooltip = "Dia lliure excepcional"
+override = true
+///
+
 ## Tooltips
 
-Cada `[[ranges]]`, `[[days]]` i `[holiday].tooltip` admet **Markdown complet**: negretes, links, codi inline, etc. El tema renderitza les cadenes amb un `markdown.Markdown` independent i les emet en una `<div class="md-tooltip2">` paral·lela al calendari, reaprofitant l'estil de tooltip de Material. Un script lleuger (`calendar-tooltips.js`) gestiona obrir/tancar al passar el ratolí o donar-li focus per teclat.
+Cada `[[ranges]]`, `[[days]]` i `[holiday].tooltip` admet **Markdown complet**: negretes, links, codi inline, etc. El _tooltip_ s'obre passant el ratolí per sobre del dia o donant-li focus per teclat.
 
 Quan diversos rangs/anotacions toquen el mateix dia, totes les cadenes s'apilen com a paràgrafs separats dins el mateix tooltip.
 
@@ -300,6 +379,44 @@ weekends = "hide"
 start = 2026-04-01
 end = 2026-04-30
 weekends = "hide"
+///
+
+## Mida
+
+| Valor | Descripció |
+|-------|-------------|
+| `"xxl"` | La mida més gran. |
+| `"xl"` | Una mica més petit que `"xxl"`. |
+| `"lg"` | Mida per defecte del calendari. |
+| `"md"` | Més petit que `"lg"`. |
+| `"sm"` | La mida més petita, per a encabir-ne molts junts en poc espai. |
+
+Com més petita la mida, més mesos hi caben per fila (útil, per exemple, a una guia de curs on cal mostrar el calendari al costat d'una taula d'unitats):
+
+````markdown
+/// calendar
+start = 2026-01-01
+end = 2026-02-28
+size = "sm"
+
+[[ranges]]
+from = 2026-01-05
+to = 2026-01-16
+class = "blue"
+tooltip = "Període d'exàmens"
+///
+````
+
+/// calendar
+start = 2026-01-01
+end = 2026-02-28
+size = "sm"
+
+[[ranges]]
+from = 2026-01-05
+to = 2026-01-16
+class = "blue"
+tooltip = "Període d'exàmens"
 ///
 
 ## Localització

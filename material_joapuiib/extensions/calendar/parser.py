@@ -13,7 +13,14 @@ except ModuleNotFoundError:  # pragma: no cover
 
 from .errors import CalendarError
 from .i18n import DEFAULT_LOCALE, Locale, get_locale
-from .models import CalendarConfig, DateRange, DayAnnotation, VALID_WEEKENDS
+from .models import (
+    CalendarConfig,
+    DateRange,
+    DayAnnotation,
+    VALID_RANGE_EXCLUDE,
+    VALID_SIZES,
+    VALID_WEEKENDS,
+)
 
 
 _INCLUDE_RE = re.compile(r'^[ \t]*!include[ \t]+"([^"\n]+)"[ \t]*$', re.MULTILINE)
@@ -129,6 +136,7 @@ def _build_config(data: Mapping[str, Any], default_locale: Locale) -> CalendarCo
         raise CalendarError(f"'end' ({end}) must be on or after 'start' ({start})")
 
     weekends = _enum(data, "weekends", VALID_WEEKENDS, default="show")
+    size = _enum(data, "size", VALID_SIZES, default="lg")
 
     holidays, holidays_plain, holiday_tooltip = _parse_holiday_section(
         data.get("holiday", {})
@@ -138,6 +146,7 @@ def _build_config(data: Mapping[str, Any], default_locale: Locale) -> CalendarCo
         start=start,
         end=end,
         weekends=weekends,
+        size=size,
         holidays=holidays,
         holidays_plain=holidays_plain,
         holiday_tooltip=holiday_tooltip,
@@ -303,7 +312,11 @@ def _parse_day(idx: int, item: Mapping[str, Any]) -> DayAnnotation:
     if not isinstance(label, str):
         raise CalendarError(f"days[{idx}] 'label' must be a string")
 
-    extra = set(item) - {"date", "class", "tooltip", "label"}
+    override = item.get("override", False)
+    if not isinstance(override, bool):
+        raise CalendarError(f"days[{idx}] 'override' must be a boolean")
+
+    extra = set(item) - {"date", "class", "tooltip", "label", "override"}
     if extra:
         raise CalendarError(
             f"days[{idx}] unknown fields: {sorted(extra)}"
@@ -314,6 +327,7 @@ def _parse_day(idx: int, item: Mapping[str, Any]) -> DayAnnotation:
         css_class=css_class.strip(),
         tooltip=tooltip.strip(),
         label=label.strip(),
+        override=override,
     )
 
 
@@ -333,7 +347,7 @@ def _parse_range(idx: int, item: Mapping[str, Any]) -> DateRange:
         if required not in item:
             raise CalendarError(f"ranges[{idx}] missing field '{required}'")
 
-    extra = set(item) - {"from", "to", "class", "tooltip", "label"}
+    extra = set(item) - {"from", "to", "class", "tooltip", "label", "exclude"}
     if extra:
         raise CalendarError(f"ranges[{idx}] unknown fields: {sorted(extra)}")
 
@@ -355,6 +369,7 @@ def _parse_range(idx: int, item: Mapping[str, Any]) -> DateRange:
         raise CalendarError(f"ranges[{idx}] 'tooltip' must be a string")
     if not isinstance(label, str):
         raise CalendarError(f"ranges[{idx}] 'label' must be a string")
+    exclude = _parse_range_exclude(idx, item.get("exclude", []))
 
     return DateRange(
         start=r_start,
@@ -362,4 +377,17 @@ def _parse_range(idx: int, item: Mapping[str, Any]) -> DateRange:
         css_class=css_class.strip(),
         tooltip=tooltip.strip(),
         label=label.strip(),
+        exclude=exclude,
     )
+
+
+def _parse_range_exclude(idx: int, value: Any) -> frozenset[str]:
+    if not isinstance(value, list):
+        raise CalendarError(f"ranges[{idx}] 'exclude' must be a list of strings")
+    for item in value:
+        if not isinstance(item, str) or item not in VALID_RANGE_EXCLUDE:
+            raise CalendarError(
+                f"ranges[{idx}] 'exclude' entries must be one of {list(VALID_RANGE_EXCLUDE)}, "
+                f"got {item!r}"
+            )
+    return frozenset(value)

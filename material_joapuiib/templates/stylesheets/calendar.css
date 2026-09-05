@@ -145,6 +145,49 @@
   line-height: 1;
 }
 
+/* `size` shrinks the whole calendar for dense layouts (e.g. a
+ * course-planning grid embedded next to other content). Default is `xxl`
+ * (the unscaled base rules above); `sm` < `md` < `lg` < `xl` < `xxl`. */
+.md-calendar-xl {
+  --md-cal-cell-size: 1.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.md-calendar-xl .md-calendar-month-block { padding: 0.55rem; }
+.md-calendar-xl .md-calendar-month-title { font-size: 0.9rem; margin-bottom: 0.4rem; }
+.md-calendar-xl .md-calendar-weekday { font-size: 0.68rem; padding: 0.18rem 0; }
+.md-calendar-xl .md-calendar-day { font-size: 0.75rem; border-radius: 0.32rem; }
+.md-calendar-xl .md-calendar-day-label { font-size: 0.5rem; padding: 0.08rem 0.2rem; }
+
+.md-calendar-lg {
+  --md-cal-cell-size: 1.35rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+}
+.md-calendar-lg .md-calendar-month-block { padding: 0.4rem; }
+.md-calendar-lg .md-calendar-month-title { font-size: 0.8rem; margin-bottom: 0.3rem; }
+.md-calendar-lg .md-calendar-weekday { font-size: 0.6rem; padding: 0.1rem 0; }
+.md-calendar-lg .md-calendar-day { font-size: 0.65rem; border-radius: 0.25rem; }
+.md-calendar-lg .md-calendar-day-label { font-size: 0.45rem; padding: 0.05rem 0.15rem; }
+
+.md-calendar-md {
+  --md-cal-cell-size: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+.md-calendar-md .md-calendar-month-block { padding: 0.3rem; }
+.md-calendar-md .md-calendar-month-title { font-size: 0.7rem; margin-bottom: 0.25rem; }
+.md-calendar-md .md-calendar-weekday { font-size: 0.52rem; padding: 0.08rem 0; }
+.md-calendar-md .md-calendar-day { font-size: 0.55rem; border-radius: 0.2rem; }
+.md-calendar-md .md-calendar-day-label { font-size: 0.4rem; padding: 0.04rem 0.12rem; }
+
+.md-calendar-sm {
+  --md-cal-cell-size: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+}
+.md-calendar-sm .md-calendar-month-block { padding: 0.2rem; }
+.md-calendar-sm .md-calendar-month-title { font-size: 0.6rem; margin-bottom: 0.2rem; }
+.md-calendar-sm .md-calendar-weekday { font-size: 0.45rem; padding: 0.05rem 0; }
+.md-calendar-sm .md-calendar-day { font-size: 0.45rem; border-radius: 0.15rem; }
+.md-calendar-sm .md-calendar-day-label { font-size: 0.35rem; padding: 0.03rem 0.1rem; }
+
 /* Example range hooks – override per project as needed. */
 .md-calendar-day.vacation {
   background: rgba(46, 160, 67, 0.18);

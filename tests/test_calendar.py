@@ -96,6 +96,21 @@ class TestParser:
         )
         assert cfg.weekends == "plain"
 
+    def test_size_defaults_to_lg(self):
+        cfg = parse_calendar("start = 2026-01-01\nend = 2026-01-31\n")
+        assert cfg.size == "lg"
+
+    @pytest.mark.parametrize("size", ["sm", "md", "lg", "xl", "xxl"])
+    def test_size_accepted(self, size):
+        cfg = parse_calendar(
+            f'start = 2026-01-01\nend = 2026-01-31\nsize = "{size}"\n'
+        )
+        assert cfg.size == size
+
+    def test_invalid_size(self):
+        with pytest.raises(CalendarError, match="'size' must be one of"):
+            parse_calendar('start = 2026-01-01\nend = 2026-01-31\nsize = "tiny"\n')
+
     def test_holiday_section_plain_and_tooltip(self):
         cfg = parse_calendar(
             "start = 2026-01-01\nend = 2026-01-31\n"
@@ -192,6 +207,60 @@ class TestParser:
                 "tooltip = 42\n"
             )
 
+    def test_range_exclude_weekends(self):
+        cfg = parse_calendar(
+            "start = 2026-01-01\nend = 2026-01-31\n"
+            "[[ranges]]\n"
+            "from = 2026-01-10\n"
+            "to = 2026-01-12\n"
+            'class = "vacation"\n'
+            'exclude = ["weekends"]\n'
+        )
+        assert cfg.ranges[0].exclude == frozenset({"weekends"})
+
+    def test_range_exclude_both(self):
+        cfg = parse_calendar(
+            "start = 2026-01-01\nend = 2026-01-31\n"
+            "[[ranges]]\n"
+            "from = 2026-01-10\n"
+            "to = 2026-01-12\n"
+            'class = "vacation"\n'
+            'exclude = ["weekends", "holidays"]\n'
+        )
+        assert cfg.ranges[0].exclude == frozenset({"weekends", "holidays"})
+
+    def test_range_exclude_default(self):
+        cfg = parse_calendar(
+            "start = 2026-01-01\nend = 2026-01-31\n"
+            "[[ranges]]\n"
+            "from = 2026-01-10\n"
+            "to = 2026-01-12\n"
+            'class = "vacation"\n'
+        )
+        assert cfg.ranges[0].exclude == frozenset()
+
+    def test_range_exclude_not_a_list(self):
+        with pytest.raises(CalendarError, match="'exclude' must be a list of strings"):
+            parse_calendar(
+                "start = 2026-01-01\nend = 2026-01-31\n"
+                "[[ranges]]\n"
+                "from = 2026-01-10\n"
+                "to = 2026-01-12\n"
+                'class = "vacation"\n'
+                'exclude = "weekends"\n'
+            )
+
+    def test_range_exclude_invalid_entry(self):
+        with pytest.raises(CalendarError, match="'exclude' entries must be one of"):
+            parse_calendar(
+                "start = 2026-01-01\nend = 2026-01-31\n"
+                "[[ranges]]\n"
+                "from = 2026-01-10\n"
+                "to = 2026-01-12\n"
+                'class = "vacation"\n'
+                'exclude = ["someday"]\n'
+            )
+
     def test_day_annotation_full(self):
         cfg = parse_calendar(
             "start = 2026-01-01\nend = 2026-01-31\n"
@@ -215,6 +284,35 @@ class TestParser:
         )
         assert cfg.days[0].css_class == ""
         assert cfg.days[0].tooltip == "Note"
+
+    def test_day_annotation_override(self):
+        cfg = parse_calendar(
+            "start = 2026-01-01\nend = 2026-01-31\n"
+            "[[days]]\n"
+            "date = 2026-01-15\n"
+            'class = "milestone"\n'
+            "override = true\n"
+        )
+        assert cfg.days[0].override is True
+
+    def test_day_annotation_override_default(self):
+        cfg = parse_calendar(
+            "start = 2026-01-01\nend = 2026-01-31\n"
+            "[[days]]\n"
+            "date = 2026-01-15\n"
+            'class = "milestone"\n'
+        )
+        assert cfg.days[0].override is False
+
+    def test_day_annotation_override_invalid_type(self):
+        with pytest.raises(CalendarError, match="'override' must be a boolean"):
+            parse_calendar(
+                "start = 2026-01-01\nend = 2026-01-31\n"
+                "[[days]]\n"
+                "date = 2026-01-15\n"
+                'class = "milestone"\n'
+                'override = "yes"\n'
+            )
 
     def test_day_annotation_missing_date(self):
         with pytest.raises(CalendarError, match="missing field 'date'"):
@@ -318,6 +416,147 @@ class TestConfigBehaviour:
         # Default behaviour: sprint class still applied on holiday
         assert "sprint" in cfg.classes_for(date(2026, 1, 6))
 
+    def test_exclude_weekends_skips_range_on_weekends(self):
+        cfg = self.make(
+            weekends="show",
+            ranges=(
+                DateRange(
+                    date(2026, 1, 1), date(2026, 1, 31), "sprint",
+                    exclude=frozenset({"weekends"}),
+                ),
+            ),
+        )
+        # Saturday — sprint class excluded from the range, weekend class kept.
+        sat_classes = cfg.classes_for(date(2026, 1, 3))
+        assert "sprint" not in sat_classes
+        assert "weekend" in sat_classes
+        # Tuesday — sprint class applies normally.
+        assert "sprint" in cfg.classes_for(date(2026, 1, 6))
+
+    def test_exclude_holidays_skips_range_on_holidays(self):
+        cfg = self.make(
+            holidays=frozenset({date(2026, 1, 6)}),
+            ranges=(
+                DateRange(
+                    date(2026, 1, 1), date(2026, 1, 31), "sprint",
+                    exclude=frozenset({"holidays"}),
+                ),
+            ),
+        )
+        # Holiday day — sprint class excluded, holiday class kept.
+        cls = cfg.classes_for(date(2026, 1, 6))
+        assert "sprint" not in cls
+        assert "holiday" in cls
+        # Non-holiday day — sprint class applies normally.
+        assert "sprint" in cfg.classes_for(date(2026, 1, 7))
+
+    def test_exclude_holidays_off_by_default(self):
+        cfg = self.make(
+            holidays=frozenset({date(2026, 1, 6)}),
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint"),),
+        )
+        assert "sprint" in cfg.classes_for(date(2026, 1, 6))
+
+    def test_exclude_weekends_off_by_default(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint"),),
+        )
+        assert "sprint" in cfg.classes_for(date(2026, 1, 3))
+
+    def test_exclude_both_weekends_and_holidays(self):
+        cfg = self.make(
+            holidays=frozenset({date(2026, 1, 7)}),
+            ranges=(
+                DateRange(
+                    date(2026, 1, 1), date(2026, 1, 31), "sprint",
+                    exclude=frozenset({"weekends", "holidays"}),
+                ),
+            ),
+        )
+        # Saturday excluded.
+        assert "sprint" not in cfg.classes_for(date(2026, 1, 3))
+        # Holiday (a Wednesday) excluded.
+        assert "sprint" not in cfg.classes_for(date(2026, 1, 7))
+        # Regular weekday applies.
+        assert "sprint" in cfg.classes_for(date(2026, 1, 6))
+
+    def test_day_override_replaces_range_class(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint"),),
+            days=(DayAnnotation(date(2026, 1, 15), css_class="holiday-swap", override=True),),
+        )
+        assert cfg.classes_for(date(2026, 1, 15)) == ["holiday-swap"]
+
+    def test_day_override_replaces_weekend_and_holiday_classes(self):
+        cfg = self.make(
+            weekends="show",
+            holidays=frozenset({date(2026, 1, 3)}),
+            days=(DayAnnotation(date(2026, 1, 3), css_class="special", override=True),),
+        )
+        # Saturday + holiday would normally add "weekend" and "holiday".
+        assert cfg.classes_for(date(2026, 1, 3)) == ["special"]
+
+    def test_day_override_without_class_clears_cell(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint"),),
+            days=(DayAnnotation(date(2026, 1, 15), override=True),),
+        )
+        assert cfg.classes_for(date(2026, 1, 15)) == []
+
+    def test_day_override_off_by_default(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint"),),
+            days=(DayAnnotation(date(2026, 1, 15), css_class="milestone"),),
+        )
+        assert cfg.classes_for(date(2026, 1, 15)) == ["sprint", "milestone"]
+
+    def test_day_override_drops_range_tooltip(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint", "Sprint"),),
+            days=(
+                DayAnnotation(
+                    date(2026, 1, 15), css_class="holiday-swap",
+                    tooltip="Dia lliure", override=True,
+                ),
+            ),
+        )
+        tips = [text for _, text in cfg.tooltips_for(date(2026, 1, 15))]
+        assert tips == ["Dia lliure"]
+
+    def test_day_override_drops_holiday_tooltip(self):
+        cfg = self.make(
+            holidays=frozenset({date(2026, 1, 15)}),
+            holiday_tooltip="Festiu",
+            days=(
+                DayAnnotation(
+                    date(2026, 1, 15), tooltip="Excepció", override=True,
+                ),
+            ),
+        )
+        tips = [text for _, text in cfg.tooltips_for(date(2026, 1, 15))]
+        assert tips == ["Excepció"]
+
+    def test_day_override_drops_range_label(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint", label="S"),),
+            days=(
+                DayAnnotation(
+                    date(2026, 1, 15), css_class="holiday-swap",
+                    label="H", override=True,
+                ),
+            ),
+        )
+        labels = [text for _, text in cfg.labels_for(date(2026, 1, 15))]
+        assert labels == ["H"]
+
+    def test_day_override_off_by_default_keeps_range_tooltip(self):
+        cfg = self.make(
+            ranges=(DateRange(date(2026, 1, 1), date(2026, 1, 31), "sprint", "Sprint"),),
+            days=(DayAnnotation(date(2026, 1, 15), tooltip="Nota"),),
+        )
+        tips = [text for _, text in cfg.tooltips_for(date(2026, 1, 15))]
+        assert tips == ["Sprint", "Nota"]
+
     def test_plain_skips_range_tooltips_on_weekends(self):
         cfg = self.make(
             weekends="plain",
@@ -400,7 +639,7 @@ class TestRender:
             ///
             """
         )
-        assert 'class="md-calendar"' in html
+        assert 'class="md-calendar md-calendar-lg"' in html
         assert "January 2026" in html
         assert 'data-date="2026-01-01"' in html
         assert 'data-date="2026-01-31"' in html
@@ -521,6 +760,41 @@ class TestRender:
         assert "Demo" in html
         assert 'class="md-calendar-tooltip"' in html
 
+    def test_day_annotation_override_replaces_range_class_in_html(self):
+        html = render(
+            """
+            /// calendar
+            start = 2026-01-01
+            end = 2026-01-31
+
+            [[ranges]]
+            from = 2026-01-10
+            to = 2026-01-20
+            class = "sprint"
+            tooltip = "Sprint"
+
+            [[days]]
+            date = 2026-01-15
+            class = "milestone"
+            tooltip = "Excepció"
+            override = true
+            ///
+            """
+        )
+        # 2026-01-15 carries only the day annotation's class, not "sprint".
+        assert 'class="md-calendar-day milestone"' in html
+
+        # The range's tooltip doesn't leak into the overridden day's own popover
+        # (other days in the range still carry it in theirs).
+        marker = html.find('data-date="2026-01-15"')
+        tag_start = html.rfind("<div", 0, marker)
+        tag_end = html.find(">", marker)
+        cell_tag = html[tag_start:tag_end]
+        tip_id = cell_tag.split('data-cal-tip="')[1].split('"')[0]
+        tip_node = html.split(f'id="{tip_id}"')[1].split("</div>\n</div>")[0]
+        assert "Excepció" in tip_node
+        assert "Sprint" not in tip_node
+
     def test_overlapping_tooltips_joined(self):
         html = render(
             """
@@ -597,6 +871,30 @@ class TestRender:
         # Weekday header drops Sat/Sun
         assert html.count('"md-calendar-weekday">Sat') == 0
         assert html.count('"md-calendar-weekday">Sun') == 0
+
+    @pytest.mark.parametrize("size", ["sm", "md", "lg", "xl", "xxl"])
+    def test_size_adds_class(self, size):
+        html = render(
+            f"""
+            /// calendar
+            start = 2026-01-01
+            end = 2026-01-31
+            size = "{size}"
+            ///
+            """
+        )
+        assert f"md-calendar-{size}" in html
+
+    def test_size_defaults_to_lg_class(self):
+        html = render(
+            """
+            /// calendar
+            start = 2026-01-01
+            end = 2026-01-31
+            ///
+            """
+        )
+        assert "md-calendar-lg" in html
 
     def test_outside_window(self):
         html = render(

@@ -93,7 +93,7 @@ class _RenderState:
 # ---------------------------------------------------------------------------
 
 def _root_classes(config: CalendarConfig) -> list[str]:
-    classes = ["md-calendar"]
+    classes = ["md-calendar", f"md-calendar-{config.size}"]
     if config.weekends == "hide":
         classes.append("md-calendar-no-weekends")
     return classes
