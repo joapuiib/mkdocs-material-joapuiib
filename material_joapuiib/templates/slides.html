@@ -11,7 +11,6 @@
   {{ super() }}
   <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/monokai.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/white.min.css">
   <link rel="stylesheet" href="{{ 'stylesheets/slides.css' | url }}">
 {% endblock %}
@@ -70,15 +69,27 @@
     Prem <kbd>Ctrl</kbd> + <kbd>P</kbd> per imprimir a PDF
   </button>
   <div class="reveal">
-    <div class="slides">
-      <section data-markdown
-               data-separator="^\n---\n$"
-               data-separator-vertical="^\n--\n$"
-               data-notes="^Note:">
-        <script type="text/template">
-          {{ page.markdown }}
-        </script>
-      </section>
+    {#- Material scopes nearly all of its typography CSS (icons, admonitions,
+        tables, tabs...) under .md-typeset; without it on an ancestor here,
+        that CSS silently doesn't apply to slide content. -#}
+    <div class="slides md-typeset">
+      {% for slide in page.slides %}
+        {#- A CSS class, not a :first-child selector, marks the title slide:
+            reveal's print-pdf layout moves every section into a new
+            .pdf-page wrapper div, so it stops being .slides' direct child
+            there — a structural selector would silently lose the hero
+            styling in exports, a class survives the move. -#}
+        {% set title_class = ' class="slide-title"' if loop.first else '' %}
+        {% if slide | length > 1 %}
+          <section{{ title_class }}>
+            {% for html in slide %}
+              <section>{{ html }}</section>
+            {% endfor %}
+          </section>
+        {% else %}
+          <section{{ title_class }}>{{ slide[0] }}</section>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
@@ -93,11 +104,9 @@
 {% block scripts %}
   {{ super() }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/markdown/markdown.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/zoom/zoom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/math/math.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/highlight/highlight.min.js"></script>
   <script src="{{ 'javascript/print-title.js' | url }}"></script>
   <script>
     var printPdfHint = document.querySelector('.print-pdf-hint');
@@ -105,6 +114,43 @@
       printPdfHint.addEventListener('click', function () {
         window.print();
       });
+    }
+
+    // Clicking anywhere outside the nav drawer while it's open should close
+    // it, same as on every other page. Listens on document in the capture
+    // phase instead of relying on the .md-overlay label's native
+    // click-toggles-its-checkbox behavior directly: reveal.js's own
+    // pointer/touch handling on .reveal sits in between visually, and
+    // whichever element actually ends up receiving the click, a capture
+    // listener at the document root sees it first regardless.
+    var drawer = document.getElementById('__drawer');
+    // The whole toolbar (palette toggle, PDF export), not just the drawer
+    // toggle button itself — those controls stay usable while nav is open
+    // (see the z-index comment in slides.css), so clicking them must not
+    // count as "outside" either.
+    var toolbar = document.querySelector('.slides-toolbar');
+    var sidebar = document.querySelector('.md-sidebar--primary');
+    if (drawer) {
+      document.addEventListener('click', function (event) {
+        if (event.target === drawer) {
+          // The toggle label's native default action forwards a second,
+          // separate click straight onto the checkbox itself (not onto
+          // the label), after already flipping its `checked` per spec —
+          // that's the click that opened it, never one to act on here.
+          return;
+        }
+        if (!drawer.checked) {
+          return;
+        }
+        if (sidebar && sidebar.contains(event.target)) {
+          return;
+        }
+        if (toolbar && toolbar.contains(event.target)) {
+          return;
+        }
+        drawer.checked = false;
+        drawer.dispatchEvent(new Event('change', { bubbles: true }));
+      }, true);
     }
 
     // Ctrl/Cmd+P on the normal deck opens the print-pdf layout in a new tab
@@ -137,6 +183,54 @@
         });
       }
 
+      // Progressive line reveal (`{data-line-numbers="1-2|3|4"}` on a fenced
+      // code block, same step syntax reveal.js's own highlight plugin uses)
+      // on top of Pygments-rendered code, not reveal's bundled hljs plugin:
+      // hljs re-tokenizes from .textContent and replaces .innerHTML on every
+      // `pre code` it finds with no way to opt individual blocks out, which
+      // destroys the (differently-styled) Pygments markup. This reuses the
+      // per-line <span id="__span-N-M"> markup pymdownx.highlight already
+      // emits (line_spans: __span in the theme's markdown_extensions), and
+      // drives the steps off an invisible chain of reveal fragments so the
+      // normal fragment/slide-number/progress-bar navigation counts them.
+      // Must run before Reveal.initialize() so the fragments it appends are
+      // included in reveal's initial indexing.
+      document.querySelectorAll('.reveal [data-line-numbers]').forEach(function (block) {
+        var code = block.querySelector('code');
+        var section = block.closest('section');
+        if (!code || !section) {
+          return;
+        }
+
+        var lines = Array.prototype.filter.call(code.children, function (el) {
+          return el.tagName === 'SPAN';
+        });
+        var steps = block.getAttribute('data-line-numbers').split('|').map(function (step) {
+          return step.split(',').map(function (range) {
+            var bounds = range.split('-').map(Number);
+            return { start: bounds[0], end: bounds[1] || bounds[0] };
+          });
+        });
+
+        function applyStep(ranges) {
+          lines.forEach(function (line, i) {
+            var active = ranges.some(function (r) { return i + 1 >= r.start && i + 1 <= r.end; });
+            line.classList.toggle('line-highlight', active);
+            line.classList.toggle('line-dim', !active);
+          });
+        }
+
+        applyStep(steps[0]);
+
+        steps.slice(1).forEach(function (ranges, i) {
+          var marker = document.createElement('span');
+          marker.className = 'fragment line-numbers-step';
+          section.appendChild(marker);
+          marker.addEventListener('visible', function () { applyStep(ranges); });
+          marker.addEventListener('hidden', function () { applyStep(steps[i]); });
+        });
+      });
+
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
@@ -152,11 +246,10 @@
 
         transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [ RevealMarkdown, RevealNotes, RevealZoom, RevealMath, RevealHighlight ]
+        plugins: [ RevealNotes, RevealZoom, RevealMath ]
       }).then(function () {
-        // Small language chip on every highlighted code block (no filename
-        // metadata is available: fenced code is parsed client-side by
-        // markdown-it, which doesn't support pymdown's `title="..."` syntax).
+        // Small language chip on every highlighted code block (Pygments
+        // already applies the language- class server-side).
         document.querySelectorAll('.reveal pre code[class*="language-"]').forEach(function (code) {
           var match = code.className.match(/language-(\S+)/);
           var pre = code.closest('pre');

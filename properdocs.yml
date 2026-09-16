@@ -120,6 +120,7 @@ plugins:
             picture: Imatge
             construction: En construcció
             deprecated: Obsolet
+  - material-joapuiib/slides # Després de i18n i functions, perquè renderitza el markdown ja expandit
   - git-revision-date-localized # Després de i18n o falla
 
 markdown_extensions:

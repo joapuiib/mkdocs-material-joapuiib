@@ -35,6 +35,14 @@ html:has(.reveal),
 body:has(.reveal) {
   height: 100%;
 }
+
+/* reveal.js tags <body> with .reveal-viewport and its core CSS hardcodes
+   color:#000 on it — fine for the deck itself (.reveal sets its own color),
+   but that black cascades into everything outside .reveal too (sidebar,
+   tabs...) no matter the site's light/dark scheme. Restore it. */
+body.reveal-viewport {
+  color: var(--md-default-fg-color);
+}
 .md-main:has(.reveal),
 .md-container:has(.reveal),
 .md-main__inner:has(.reveal) {
@@ -50,22 +58,66 @@ body:has(.reveal) {
   aspect-ratio: 16 / 9;
 }
 
-/* Accent bar under the leading heading of each slide */
-.reveal .slides section > h1:first-child,
-.reveal .slides section > h2:first-child {
+/* toc.permalink anchors make sense on a normal page, not on a slide title */
+.reveal .headerlink {
+  display: none;
+}
+
+/* .md-typeset sets its own (much smaller) document-body font-size/line-height
+   on .slides, overriding the font-size: var(--r-main-font-size) it would
+   otherwise inherit from .reveal — restore reveal's presentation scale. */
+.reveal .slides.md-typeset {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* .md-typeset pins several components (admonitions, tables, tabs...) to a
+   fixed small rem font-size/icon size meant for normal reading scale, which
+   ignores the much bigger em-based scale the rest of the deck now inherits
+   from .reveal. Rescale to em so it follows suit — 0.8em matches Material's
+   own ratio (.64rem admonition vs .8rem body = 0.8). */
+.reveal .md-typeset .admonition,
+.reveal .md-typeset details {
+  font-size: 0.8em;
+}
+.reveal .md-typeset .admonition-title::before,
+.reveal .md-typeset summary::before {
+  height: 1em;
+  width: 1em;
+}
+.reveal .md-typeset table:not([class]) {
+  font-size: 0.55em;
+}
+.reveal .md-typeset .footnote {
+  font-size: 0.8em;
+}
+.reveal .md-typeset .tabbed-labels > label {
+  /* Material's own ratio here is .7rem/.8rem = 0.875 */
+  font-size: 0.875em;
+}
+
+/* Accent bar under the leading heading of each slide. Excludes .slide-title
+   so its own styling below never has to out-specificity this (a logo image
+   before the heading, or any other markup, can't reintroduce the underline). */
+.reveal .slides section:not(.slide-title) > h1:first-child,
+.reveal .slides section:not(.slide-title) > h2:first-child {
   padding-bottom: 0.3em;
   border-bottom: 0.15rem solid var(--md-primary-fg-color);
 }
 
-/* ---------- Title slide (first slide of the deck) — landing-page hero ---------- */
+/* ---------- Title slide (first slide of the deck) — landing-page hero ----------
+   Targeted by the .slide-title class (set in slides.html), not :first-child:
+   reveal's print-pdf layout moves every section into a new .pdf-page wrapper
+   div, so it stops being .slides' direct child there — a class survives
+   that move, a structural selector wouldn't. */
 
-.reveal .slides > section:first-child {
+.reveal .slide-title {
   position: relative;
   isolation: isolate;
 }
 
 /* Decorative gradient blob behind the title, same recipe as the landing hero */
-.reveal .slides > section:first-child::before {
+.reveal .slide-title::before {
   content: "";
   position: absolute;
   inset: -20% -10% auto -10%;
@@ -74,24 +126,27 @@ body:has(.reveal) {
   background:
     radial-gradient(ellipse 50% 60% at 30% 30%, var(--md-primary-fg-color) 0%, transparent 65%),
     radial-gradient(ellipse 45% 55% at 75% 65%, var(--md-primary-fg-color) 0%, transparent 65%);
-  opacity: 0.32;
+  opacity: 0.18;
   filter: blur(80px);
   pointer-events: none;
 }
 
-:root > *[data-md-color-scheme="slate"] .reveal .slides > section:first-child::before {
-  opacity: 0.28;
+:root > *[data-md-color-scheme="slate"] .reveal .slide-title::before {
+  opacity: 0.16;
 }
 
-.reveal .slides > section:first-child > h1:first-child {
-  border-bottom: none;
-  padding-bottom: 0;
+/* Title: matches any h1 inside .slide-title, not just h1:first-child — a
+   logo image (or anything else) before it shouldn't break the styling. */
+.reveal .slide-title h1 {
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
-/* Subtitle right under the title (conventionally an h3) reads muted, not bold */
-.reveal .slides > section:first-child > h1:first-child + h3 {
+/* Subtitle: any h2/h3 that follows the h1, wherever it sits, reads muted,
+   not bold. General sibling combinator so it isn't tied to being the very
+   next element either. */
+.reveal .slide-title h1 ~ h2,
+.reveal .slide-title h1 ~ h3 {
   font-weight: 400;
   color: var(--md-default-fg-color--light);
 }
@@ -115,6 +170,24 @@ body:has(.reveal) {
      the slide actually has — let it grow, just guard against code longer
      than the viewport with overflow (inherited: auto). */
   max-height: 70vh;
+}
+
+/* Progressive line reveal on `{data-line-numbers="..."}` code blocks, driven
+   by reveal_script's own step script (not reveal's bundled highlight
+   plugin — see the comment there for why). */
+.reveal [data-line-numbers] code > span {
+  display: block;
+  transition: opacity 0.2s ease;
+}
+.reveal [data-line-numbers] code > span.line-dim {
+  opacity: 0.4;
+}
+
+/* Invisible markers, only used to make reveal.js count/step through the
+   line-reveal stages above via its normal fragment navigation. */
+.line-numbers-step {
+  display: block;
+  height: 0;
 }
 
 /* Language chip, injected by the reveal_script block after highlighting */
@@ -170,10 +243,10 @@ body:has(.reveal) .md-sidebar--primary {
   left: calc(var(--md-sidebar-primary-width) * -1);
   height: calc(100% - 0.8rem);
   width: var(--md-sidebar-primary-width);
-  background-color: var(--md-default-bg-color--light);
+  /* Solid, not the translucent --light variant — over slide content that
+     reads as a color-shifted tint instead of matching the site's sidebar. */
+  background-color: var(--md-default-bg-color);
   border-radius: 0.8rem;
-  -webkit-backdrop-filter: blur(0.4rem);
-  backdrop-filter: blur(0.4rem);
   overflow: hidden;
   transform: translateX(0);
   transition: transform 0.15s cubic-bezier(0.5, 0, 0.5, 0), box-shadow 0.15s;
@@ -196,6 +269,12 @@ body:has(.reveal) .md-tabs {
   left: 0;
   right: 0;
   z-index: 1998;
+  /* Opaque instead of the site's default translucent/blurred topbar —
+     it sits directly over slide content here, so glass-style bleed-through
+     reads as broken rather than intentional. */
+  background-color: var(--md-default-bg-color);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   /* A touch past -100% so the element's own box-shadow/border sliver
      (which sits right at its edge) clears the viewport too. */
   transform: translateY(calc(-100% - 0.2rem));
@@ -207,10 +286,16 @@ body:has(.reveal) [data-md-toggle="drawer"]:checked ~ .md-container .md-tabs {
   box-shadow: var(--md-shadow-z2);
 }
 
-/* Keep the toolbar clear of the tabs bar instead of overlapping it once
-   navigation is opened. */
+/* Keep the toolbar and sidebar clear of the tabs bar instead of
+   overlapping it once navigation is opened. */
 body:has(.reveal) [data-md-toggle="drawer"]:checked ~ .slides-header .slides-toolbar {
   top: 3.4rem;
+}
+body:has(.reveal) [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--primary {
+  /* Material's sticky-sidebar JS sets top/height as an inline style —
+     beat it with !important. */
+  top: 3.4rem !important;
+  height: calc(100% - 3.8rem) !important;
 }
 
 /* The primary-color active-tab underline is normally a site.css rule (only
