@@ -1,59 +1,32 @@
-{% set cover = page.meta.cover or config.theme.cover or false %}
+{% set cover_config = config.theme.cover if config.theme.cover is mapping else {} %}
+{% set cover_meta = page.meta.cover if page.meta.cover is mapping else {} %}
+
+{% if page.meta.cover is defined %}
+  {% set cover = page.meta.cover %}
+{% else %}
+  {% set cover = config.theme.cover or false %}
+{% endif %}
 
 {% if cover %}
 
-{% set cover_title = page.title %}
-{% set cover_icon = None %}
-{% set cover_logo = config.theme.cover.logo %}
-{% set cover_background = config.theme.cover.background %}
-{% set author = config.site_author %}
-{% set email = config.site_email %}
-{% set license_type = config.theme.license.type %}
-{% set license_text = config.theme.license.text %}
-{% set license_link = config.theme.license.link %}
-{% set license_image = config.theme.license.image %}
+{% set cover_license_config = cover_config.license if cover_config.license is mapping else {} %}
+{% set cover_license_meta = cover_meta.license if cover_meta.license is mapping else {} %}
 
-{% if page.meta %}
-  {% set subtitle = page.meta.subtitle %}
-  {% set curs = page.meta.curs %}
+{% set cover_title = cover_meta.title if cover_meta.title is defined else (cover_config.title if cover_config.title is defined else page.title) %}
+{% set cover_icon = cover_meta.icon if cover_meta.icon is defined else cover_config.icon %}
+{% set cover_logo = cover_meta.logo if cover_meta.logo is defined else cover_config.logo %}
+{% set cover_background = cover_meta.background if cover_meta.background is defined else cover_config.background %}
+{% set subtitle = cover_meta.subtitle if cover_meta.subtitle is defined else cover_config.subtitle %}
+{% set curs = cover_meta.curs if cover_meta.curs is defined else cover_config.curs %}
 
-  {% if page.meta.cover %}
-    {% if page.meta.cover.title is defined %}
-      {% set cover_title = page.meta.cover.title %}
-    {% endif %}
-    {% if page.meta.cover.icon is defined %}
-      {% set cover_icon = page.meta.cover.icon %}
-    {% endif %}
-    {% if page.meta.cover.logo is defined %}
-      {% set cover_logo = page.meta.cover.logo %}
-    {% endif %}
-    {% if page.meta.cover.background is defined %}
-      {% set cover_background = page.meta.cover.background %}
-    {% endif %}
-  {% endif %}
+{% set author = cover_meta.author if cover_meta.author is defined else (cover_config.author if cover_config.author is defined else config.site_author) %}
+{% set email = cover_meta.email if cover_meta.email is defined else (cover_config.email if cover_config.email is defined else config.site_email) %}
+{% set original_author = cover_meta.original_author if cover_meta.original_author is defined else cover_config.original_author %}
 
-  {% if page.meta.author is defined %}
-    {% set author = page.meta.author %}
-  {% endif %}
-  {% if page.meta.email is defined %}
-    {% set email = page.meta.email %}
-  {% endif %}
-  {% if page.meta.original_author is defined %}
-    {% set original_author = page.meta.original_author %}
-  {% endif %}
-  {% if page.meta.license_type is defined %}
-    {% set license_type = page.meta.license_type %}
-  {% endif %}
-  {% if page.meta.license_text is defined %}
-    {% set license_text = page.meta.license_text %}
-  {% endif %}
-  {% if page.meta.license_link is defined %}
-    {% set license_link = page.meta.license_link %}
-  {% endif %}
-  {% if page.meta.license_image is defined %}
-    {% set license_image = page.meta.license_image %}
-  {% endif %}
-{% endif %}
+{% set license_type = cover_license_meta.type if cover_license_meta.type is defined else (cover_license_config.type if cover_license_config.type is defined else config.theme.license.type) %}
+{% set license_text = cover_license_meta.text if cover_license_meta.text is defined else (cover_license_config.text if cover_license_config.text is defined else config.theme.license.text) %}
+{% set license_link = cover_license_meta.link if cover_license_meta.link is defined else (cover_license_config.link if cover_license_config.link is defined else config.theme.license.link) %}
+{% set license_image = cover_license_meta.image if cover_license_meta.image is defined else (cover_license_config.image if cover_license_config.image is defined else config.theme.license.image) %}
 
 {% set license_type_lower = (license_type or '') | lower %}
 {% if 'copyleft' in license_type_lower %}
