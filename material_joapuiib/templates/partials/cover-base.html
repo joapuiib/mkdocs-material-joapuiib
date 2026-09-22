@@ -27,14 +27,19 @@
 {% set license_text = cover_license_meta.text if cover_license_meta.text is defined else (cover_license_config.text if cover_license_config.text is defined else config.theme.license.text) %}
 {% set license_link = cover_license_meta.link if cover_license_meta.link is defined else (cover_license_config.link if cover_license_config.link is defined else config.theme.license.link) %}
 {% set license_image = cover_license_meta.image if cover_license_meta.image is defined else (cover_license_config.image if cover_license_config.image is defined else config.theme.license.image) %}
+{% set license_icon_override = cover_license_meta.icon if cover_license_meta.icon is defined else cover_license_config.icon %}
 
-{% set license_type_lower = (license_type or '') | lower %}
-{% if 'copyleft' in license_type_lower %}
-  {% set license_icon = 'material/copyleft' %}
-{% elif 'creative commons' in license_type_lower or ' cc ' in (' ' ~ license_type_lower ~ ' ') or license_type_lower.startswith('cc') %}
-  {% set license_icon = 'material/creative-commons' %}
+{% if license_icon_override %}
+  {% set license_icon = license_icon_override %}
 {% else %}
-  {% set license_icon = 'material/copyright' %}
+  {% set license_type_lower = (license_type or '') | lower %}
+  {% if 'copyleft' in license_type_lower %}
+    {% set license_icon = 'material/copyleft' %}
+  {% elif 'creative commons' in license_type_lower or ' cc ' in (' ' ~ license_type_lower ~ ' ') or license_type_lower.startswith('cc') %}
+    {% set license_icon = 'material/creative-commons' %}
+  {% else %}
+    {% set license_icon = 'material/copyright' %}
+  {% endif %}
 {% endif %}
 
 

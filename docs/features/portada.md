@@ -88,6 +88,7 @@ theme:
       text: "Tots els drets reservats &copy; 2021"
       link: https://example.com/license
       image: img/license/copyright.png
+      icon: material/copyright
 ```
 
 ## Front matter
@@ -109,6 +110,7 @@ cover:
     type: Copyright
     text: "All rights reserved &copy; 2021"
     image: False
+    icon: material/license
 ---
 ```
 
@@ -117,6 +119,8 @@ cover:
 Per amagar la portada en una pàgina concreta encara que estiga activada per defecte a `theme.cover`, n'hi ha prou amb definir `cover: false` al *front matter*.
 
 ## Paràmetres
+
+A la taula següent, cada paràmetre s'indica com `cover.*`: a `mkdocs.yml` correspon a `theme.cover.*`, i al *front matter* correspon directament a `cover.*`.
 
 | Paràmetre               | Descripció                                                              | Si no està definit enlloc                                  |
 | ------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -133,7 +137,18 @@ Per amagar la portada en una pàgina concreta encara que estiga activada per def
 | `cover.license.text`     | Text descriptiu de la llicència.                                         | S'utilitza `theme.license.text`; si tampoc no está definit, no es mostra cap text descriptiu |
 | `cover.license.link`     | Enllaç de destí de la imatge de llicència.                               | S'utilitza `theme.license.link`; si tampoc no está definit, la imatge (si es mostra) no enllaça enlloc |
 | `cover.license.image`    | Imatge/logotip de la llicència.                                          | S'utilitza `theme.license.image`; si tampoc no está definit, no es mostra cap imatge de llicència |
+| `cover.license.icon`     | Icona de la targeta de llicència.                                        | Es detecta automàticament a partir de `license.type`                       |
 
 Si ni `theme.cover` (a `mkdocs.yml`) ni cap pàgina defineixen `cover` al *front matter*, la portada no es mostra en absolut.
 
 `theme.license.*` és la configuració global de llicència, usada també al peu de pàgina de drets d'autor.
+
+### Detecció automàtica de la icona de llicència
+
+Si no s'indica ni `theme.cover.license.icon` a `mkdocs.yml` ni `cover.license.icon` al *front matter*, la icona de la targeta de llicència s'escull automàticament analitzant el text de `license.type` (o el `theme.license.type` global si no s'ha sobreescrit dins de `cover`):
+
+- Si conté "copyleft" → `material/copyleft`
+- Si conté "creative commons" o "cc" (com a paraula, o al començament) → `material/creative-commons`
+- En qualsevol altre cas (per exemple, "Copyright") → `material/copyright`
+
+Aquesta detecció és insensible a majúscules/minúscules. Si voleu forçar una icona concreta independentment del text de `license.type`, definiu `theme.cover.license.icon` a `mkdocs.yml` o `cover.license.icon` al *front matter*.
