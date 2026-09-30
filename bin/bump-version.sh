@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 # Bump the project version, commit, and tag it.
 #
-# Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-f|--force] [-n|--new-commit] [--dry]
+# Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-r|--release] [-f|--force] [-n|--new-commit] [--dry]
+#
+# After pushing, it offers to create a GitHub release whose notes are written
+# by Claude Code (`claude -p`) from the commits since the previous tag. The
+# notes are shown for review before publishing. Pass -r/--release to skip the
+# "create release?" question. Requires the `claude` and `gh` CLIs.
 #
 # By default, if HEAD has no tag pointing at it, the version bump is folded
 # into HEAD via `git commit --amend`. Pass -n/--new-commit to always create a
@@ -12,14 +17,17 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VERSION_FILE="$REPO_ROOT/material_joapuiib/__init__.py"
+REPO_URL="https://github.com/joapuiib/mkdocs-material-joapuiib"
+DOCS_URL="https://joapuiib.github.io/mkdocs-material-joapuiib"
 
 usage() {
-    echo "Usage: $(basename "$0") [major|minor|patch] [-p|--push] [-f|--force] [-n|--new-commit] [--dry]" >&2
+    echo "Usage: $(basename "$0") [major|minor|patch] [-p|--push] [-r|--release] [-f|--force] [-n|--new-commit] [--dry]" >&2
     exit 1
 }
 
 BUMP=""
 PUSH=""
+RELEASE=""
 FORCE=""
 DRY=""
 NEW_COMMIT=""
@@ -31,6 +39,9 @@ for arg in "$@"; do
             ;;
         -p|--push)
             PUSH="yes"
+            ;;
+        -r|--release)
+            RELEASE="yes"
             ;;
         -f|--force)
             FORCE="yes"
@@ -160,4 +171,94 @@ else
     else
         echo "Skipped push. Run 'git push origin main && git push origin $TAG' when ready."
     fi
+fi
+
+create_release() {
+    if ! command -v claude >/dev/null || ! command -v gh >/dev/null; then
+        echo "Skipped release: the 'claude' and 'gh' CLIs are required." >&2
+        return
+    fi
+
+    local prev_tag range notes_file highlights_file prompt
+    prev_tag="$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || true)"
+    range="${prev_tag:+$prev_tag..}$TAG"
+    notes_file="$(mktemp --suffix=.md)"
+    highlights_file="$(mktemp --suffix=.md)"
+
+    prompt="Write the highlights of the GitHub release notes for $TAG of mkdocs-material-joapuiib, \
+a custom MkDocs Material theme (plugins, Markdown extensions and styles) for course notes written in Valencian. \
+The commits${prev_tag:+ since $prev_tag}, the changed files and the diff of the documentation are provided on stdin. \
+Output only a Markdown bullet list, with no preamble, no title and no headings. \
+Write one bullet per user-facing change, merging related commits: start it with a short bold summary, \
+then ' — ' and one or two sentences on what changed for the theme's users. \
+Put options, admonition types, CSS classes and file names in backticks. \
+When a change is documented, end its bullet with a link like [Admonitions docs]($DOCS_URL/features/admonitions/), \
+where docs/<path>.md is published at $DOCS_URL/<path>/. \
+Leave out internal changes (tests, refactors, CI, version bumps). Write in English."
+
+    echo "Generating release notes for $TAG${prev_tag:+ (since $prev_tag)}..."
+    {
+        echo "Commits:"
+        git log --no-merges --format='- %s%n%b' "$range"
+        echo "Changed files:"
+        if [[ -n "$prev_tag" ]]; then
+            git diff --stat "$prev_tag" "$TAG"
+            echo "Documentation diff:"
+            git diff "$prev_tag" "$TAG" -- docs README.md
+        fi
+    } | claude -p "$prompt" --tools "" > "$highlights_file" || true
+    if [[ ! -s "$highlights_file" ]]; then
+        echo "Error: could not generate release notes. Run 'gh release create $TAG --generate-notes' instead." >&2
+        rm -f "$notes_file" "$highlights_file"
+        return
+    fi
+
+    {
+        echo "## Highlights"
+        echo
+        cat "$highlights_file"
+        if [[ -n "$prev_tag" ]]; then
+            echo
+            echo "**Full Changelog**: $REPO_URL/compare/$prev_tag...$TAG"
+        fi
+    } > "$notes_file"
+    rm -f "$highlights_file"
+
+    while true; do
+        echo
+        cat "$notes_file"
+        echo
+        read -r -p "Publish GitHub release $TAG with these notes? [y]es/[e]dit/[N]o " REPLY
+        case "$REPLY" in
+            [yY]|[yY][eE][sS])
+                gh release create "$TAG" --verify-tag --title "$TAG" --notes-file "$notes_file"
+                break
+                ;;
+            [eE]|[eE][dD][iI][tT])
+                "${EDITOR:-vi}" "$notes_file"
+                ;;
+            *)
+                echo "Skipped release. Run 'gh release create $TAG --generate-notes' when ready."
+                break
+                ;;
+        esac
+    done
+    rm -f "$notes_file"
+}
+
+if [[ "$PUSH" != "yes" ]]; then
+    exit 0
+fi
+
+if [[ -z "$RELEASE" ]]; then
+    read -r -p "Create GitHub release with notes written by Claude? [y/N] " REPLY
+    case "$REPLY" in
+        [yY]|[yY][eE][sS])
+            RELEASE="yes"
+            ;;
+    esac
+fi
+
+if [[ -n "$RELEASE" ]]; then
+    create_release
 fi
