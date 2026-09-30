@@ -11,6 +11,7 @@ function print_error {
     echo -e "${RED}$1${RESET}"
 }
 VENV_DIR=".venv"
+GENERATOR="properdocs"
 
 BUILD=0
 CI=0
@@ -20,6 +21,11 @@ SPELL=0
 ACT=''
 ALL=0
 SPELL_SOURCES=''
+COPILOT=0
+SKIP=0
+SQUARE_LOGO=0
+HERO_SECTION=0
+PORT=''
 
 ARGS=''
 SPELL_ARGS=''
@@ -48,6 +54,26 @@ while [ $# -gt 0 ] ; do
             ;;
         --all)
             ALL=1
+            ;;
+        --skip)
+            SKIP=1
+            ;;
+        -p | --port)
+            PORT=$2
+            if [ -z "$PORT" ]; then
+                print "Missing port number."
+                exit 1
+            fi
+            shift
+            ;;
+        --copilot)
+            COPILOT=1
+            ;;
+        --logo)
+            SQUARE_LOGO=1
+            ;;
+        --herosection)
+            HERO_SECTION=1
             ;;
         --act)
             ACT=$2
@@ -89,8 +115,8 @@ if [ $INSTALL_VENV -eq 1 ]; then
     fi
 
     print "Installing virtual environment..."
-    python3 -m venv $VENV_DIR
-    print "Installing dependencies..."
+    python3 -m virtualenv $VENV_DIR
+    print "Installing dependencies"
     $VENV_DIR/bin/pip install -r requirements.txt
     print "Install this package..."
     $VENV_DIR/bin/pip install -e .
@@ -99,19 +125,32 @@ elif [ $UPGRADE -eq 1 ]; then
     $VENV_DIR/bin/pip install --upgrade -r requirements.txt
     print "Upgrading this package..."
     $VENV_DIR/bin/pip install --upgrade -e .
+
 fi
 
 source $VENV_DIR/bin/activate
 
+if [ $SQUARE_LOGO -eq 1 ]; then
+    python3 scripts/generate_square_logo.py $ARGS
+    exit $?
+fi
+
+if [ $HERO_SECTION -eq 1 ]; then
+    python3 scripts/generate_hero_section.py $ARGS
+    exit $?
+fi
+
 COMMAND="serve --livereload --watch-theme"
 if [ $BUILD -eq 1 ]; then
     COMMAND="build"
+elif [ -n "$PORT" ]; then
+    COMMAND="$COMMAND -a localhost:$PORT"
 fi
 
 if [ $CI -eq 0 ]; then
-    properdocs $COMMAND $ARGS
+    $GENERATOR $COMMAND $ARGS
 else
-    CI=true properdocs $COMMAND $ARGS
+    CI=true $GENERATOR $COMMAND $ARGS
 fi
 if [ $? -ne 0 ]; then
     print "Error building site."
@@ -145,7 +184,9 @@ if [ $SPELL -eq 1 ]; then
 
     if [ $ALL -eq 0 ]; then
         if [ -z "$SPELL_SOURCES" ]; then
-            SPELL_SOURCES=$(git diff --name-only main HEAD)
+            CHANGED_FILES_FROM_MAIN=$(git diff --name-only main HEAD)
+            CHANGED_UNCOMMITED_FILES=$(git status --porcelain | grep '\.md$' | awk '{print $2}')
+            SPELL_SOURCES=$(echo -e "${CHANGED_FILES_FROM_MAIN}\n${CHANGED_UNCOMMITED_FILES}")
             if [ -z "$SPELL_SOURCES" ]; then
                 print "No changes found."
                 exit
@@ -158,13 +199,37 @@ if [ $SPELL -eq 1 ]; then
                 SOURCES="$SOURCES -S $FILE"
             fi
         done
-        SPELL_ARGS="$SPELL_ARGS --name mkdocs $SOURCES"
+        SPELL_ARGS="$SPELL_ARGS --name docs $SOURCES"
     fi
 
-    print "Running pyspelling..."
-    echo "pyspelling $SPELL_ARGS"
-    pyspelling $SPELL_ARGS | tee pyspelling.log
-    if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        less pyspelling.log
+    SPELLING_OK=0
+    if [ $SKIP -eq 1 -a -f pyspelling.log ]; then
+        print "Skipping spelling check. Using previous results from pyspelling.log"
+        SPELLING_OK=1
+    else
+        print "Running pyspelling..."
+        echo "pyspelling $SPELL_ARGS"
+        pyspelling $SPELL_ARGS | tee pyspelling.log
+        SPELLING_OK=${PIPESTATUS[0]}
+    fi
+    if [ $SPELLING_OK -ne 0 ]; then
+        if [ $COPILOT -eq 1 ]; then
+            print "Running copilot for fixing spell..."
+            if ! which copilot &>/dev/null; then
+                print_error "copilot not found"
+                exit 1
+            fi
+            if [ ! -f docs/_prompts/fix-spelling.md ]; then
+                print_error "Prompt file not found: docs/_prompts/fix-spelling.md"
+                exit 1
+            fi
+            if [ ! -f pyspelling.log ]; then
+                print "File pyspelling.log not found, nothing to fix."
+                exit 0
+            fi
+            copilot --allow-all-tools < docs/_prompts/fix-spelling.md
+        else
+            less pyspelling.log
+        fi
     fi
 fi
