@@ -76,3 +76,6 @@ icon: material/alert-outline
 
 !!! docs
     Admonició de tipus `docs`
+
+!!! extension
+    Admonició de tipus `extension`
