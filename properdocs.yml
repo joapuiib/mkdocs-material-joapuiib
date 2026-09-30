@@ -1,6 +1,5 @@
 site_name: MaterialX for MkDocs per @joapuiib
 site_author: "Joan Puigcerver Ibáñez"
-site_email: "j.puigcerveribanez@edu.gva.es"
 site_url: "https://joapuiib.github.io/mkdocs-material-joapuiib/"
 dev_addr: 127.0.0.1:4567
 
@@ -26,7 +25,7 @@ exclude_docs: |
 
 theme:
   name: material-joapuiib
-  under_construction: true
+  email: "j.puigcerveribanez@edu.gva.es"
   icon:
     logo: material/book-open-variant
   favicon: material/book-open-variant

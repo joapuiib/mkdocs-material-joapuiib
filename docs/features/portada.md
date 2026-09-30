@@ -1,16 +1,17 @@
 ---
 template: document.html
 icon: material/file-star-outline
-cover:
-    icon: material/file-star-outline
 title: Portada
 print_title: cover-document
-subtitle: Subtítol personalitzat
-curs: '2024 – 2025'
-original_author: Carme
-license_type: Copyright
-license_text: "Tots els drets reservats &copy; 2021"
-license_image: False
+cover:
+  icon: material/file-star-outline
+  subtitle: Subtítol personalitzat
+  curs: '2024 – 2025'
+  original_author: Carme
+  license:
+    type: Copyright
+    text: "Tots els drets reservats &copy; 2021"
+    image: False
 ---
 
 # Portada
@@ -67,23 +68,160 @@ Plantilla de portada per a documents imprimibles. La pàgina utilitza la plantil
   })
 </script>
 
+## Configuració
+
+Tots els paràmetres de la portada es poden definir per defecte a `mkdocs.yml`, dins de `theme.cover`. S'aplicaran a totes les pàgines que mostren portada.
+
+```yml title="mkdocs.yml"
+theme:
+  cover:
+    icon: material/file-star-outline
+    logo: img/cover/logo.svg
+    background: true
+    subtitle: Subtítol per defecte
+    curs: '2024 – 2025'
+    author: Joan Puigcerver
+    email: joan@example.com
+    original_author: Carme
+    license:
+      type: Copyright
+      text: "Tots els drets reservats &copy; 2021"
+      link: https://example.com/license
+      image: img/license/copyright.png
+      icon: material/copyright
+```
+
 ## Front matter
+
+Qualsevol paràmetre es pot sobreescriure per a una pàgina concreta dins del bloc `cover` del *front matter*. Els valors del *front matter* tenen prioritat sobre els definits a `mkdocs.yml`.
+
 ```yml
 ---
 template: document.html
-icon: material/file-star-outline
-cover:
-    icon: material/file-star-outline
 title: Cover
 print_title: cover-document
-subtitle: Custom subtitle
-curs: '24/25'
-original_author: Carmen
-license_type: Copyright
-license_text: "All rights reserved &copy; 2021"
-license_image: False
-cover_logo: 'img/cover/other-logo.png'
+cover:
+  icon: material/file-star-outline
+  logo: 'img/cover/other-logo.png'
+  subtitle: Custom subtitle
+  curs: '24/25'
+  original_author: Carmen
+  license:
+    type: Copyright
+    text: "All rights reserved &copy; 2021"
+    image: False
+    icon: material/license
 ---
 ```
 
-`print_title` permet definir el títol que s'utilitzarà en imprimir o guardar la pàgina en PDF, sense canviar el títol normal de la pàgina al navegador.
+`print_title` permet definir el títol que s'utilitzarà en imprimir o guardar la pàgina en PDF, sense canviar el títol normal de la pàgina al navegador. No forma part de `cover`, ja que també afecta el títol de la pestanya del navegador.
+
+Per amagar la portada en una pàgina concreta encara que estiga activada per defecte a `theme.cover`, n'hi ha prou amb definir `cover: false` al *front matter*.
+
+## Paràmetres
+
+A la taula següent, cada paràmetre s'indica com `cover.*`: a `mkdocs.yml` correspon a `theme.cover.*`, i al *front matter* correspon directament a `cover.*`.
+
+| Paràmetre               | Descripció                                                              | Si no està definit enlloc                                  |
+| ------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| `cover.title`            | Títol mostrat a la portada.                                              | S'utilitza el títol de la pàgina                              |
+| `cover.icon`             | Icona mostrada al costat del títol.                                      | No es mostra cap icona                                        |
+| `cover.logo`             | Logotip mostrat a la portada (imatge o SVG).                             | No es mostra cap logotip                                      |
+| `cover.background`       | Activa el fons decoratiu de la portada.                                  | No es mostra el fons                                          |
+| `cover.subtitle`         | Subtítol (text o llista de textos) mostrat sota el títol.                | No es mostra cap subtítol                                     |
+| `cover.curs`             | Curs acadèmic mostrat en una targeta.                                    | No es mostra la targeta de curs                               |
+| `cover.author`           | Autor mostrat en una targeta.                                            | S'utilitza `site_author`; si tampoc no està definit, no es mostra la targeta |
+| `cover.email`            | Correu electrònic mostrat en una targeta.                                | S'utilitza `theme.email`; si tampoc no està definit, no es mostra l'adreça |
+| `cover.original_author`  | Autor original de l'obra derivada.                                       | No es mostra l'avís d'obra derivada                            |
+| `cover.license.type`     | Nom de la llicència.                                                     | S'utilitza `theme.license.type`; si tampoc no està definit, la targeta es mostra sense nom de llicència |
+| `cover.license.text`     | Text descriptiu de la llicència.                                         | S'utilitza `theme.license.text`; si tampoc no està definit, no es mostra cap text descriptiu |
+| `cover.license.link`     | Enllaç de destí de la imatge de llicència.                               | S'utilitza `theme.license.link`; si tampoc no està definit, la imatge (si es mostra) no enllaça enlloc |
+| `cover.license.image`    | Imatge/logotip de la llicència.                                          | S'utilitza `theme.license.image`; si tampoc no està definit, no es mostra cap imatge de llicència |
+| `cover.license.icon`     | Icona de la targeta de llicència.                                        | Es detecta automàticament a partir de `license.type`                       |
+
+Si ni `theme.cover` (a `mkdocs.yml`) ni cap pàgina defineixen `cover` al *front matter*, la portada no es mostra en absolut.
+
+`theme.license.*` és la configuració global de llicència, usada també al peu de pàgina de drets d'autor.
+
+### Detecció automàtica de la icona de llicència
+
+Si no s'indica ni `theme.cover.license.icon` a `mkdocs.yml` ni `cover.license.icon` al *front matter*, la icona de la targeta de llicència s'escull automàticament analitzant el text de `license.type` (o el `theme.license.type` global si no s'ha sobreescrit dins de `cover`):
+
+- Si conté "copyleft" → `material/copyleft`
+- Si conté "creative commons" o "cc" (com a paraula, o al començament) → `material/creative-commons`
+- En qualsevol altre cas (per exemple, "Copyright") → `material/copyright`
+
+Aquesta detecció és insensible a majúscules/minúscules. Si voleu forçar una icona concreta independentment del text de `license.type`, definiu `theme.cover.license.icon` a `mkdocs.yml` o `cover.license.icon` al *front matter*.
+
+## Migració des del format anterior
+
+En versions anteriors del tema, els paràmetres de la portada es definien directament a l'arrel del
+*front matter*. Ara tots s'agrupen dins del bloc `cover`, igual que a `theme.cover`, de manera que
+una pàgina pot sobreescriure un sol valor sense perdre la resta dels valors per defecte.
+
+!!! important "Les claus antigues s'ignoren sense cap avís: la pàgina es genera igualment, però la portada i el peu d'impressió no mostren aquests valors."
+
+La taula següent recull l'equivalència entre les claus antigues i les noves:
+
+| Clau antiga       | Clau nova               |
+|-------------------|-------------------------|
+| `subtitle`        | `cover.subtitle`        |
+| `curs`            | `cover.curs`            |
+| `author`          | `cover.author`          |
+| `email`           | `cover.email`           |
+| `original_author` | `cover.original_author` |
+| `license_type`    | `cover.license.type`    |
+| `license_text`    | `cover.license.text`    |
+| `license_link`    | `cover.license.link`    |
+| `license_image`   | `cover.license.image`   |
+
+Les claus que ja estaven dins de `cover` (`title`, `icon`, `logo` i `background`) no canvien.
+
+A més, el paràmetre `site_email` de `mkdocs.yml` passa a ser `theme.email`. MkDocs no reconeix
+`site_email` com a paràmetre propi i mostra un avís en cada construcció, mentre que dins de `theme`
+s'accepta qualsevol clau.
+
+```yaml title="mkdocs.yml"
+theme:
+  email: joan@example.com
+```
+
+Si no es defineix `theme.email` ni `cover.email`, la portada no mostra cap adreça de correu.
+
+??? example "Exemple: Migrar el *front matter* d'una pàgina"
+    El *front matter* següent utilitza el format anterior:
+
+    ```yaml
+    ---
+    template: document.html
+    title: Unitat 1
+    cover:
+      icon: material/file-star-outline
+    subtitle: Introducció
+    curs: '2024 – 2025'
+    license_type: Copyright
+    license_text: "Tots els drets reservats &copy; 2021"
+    license_image: False
+    ---
+    ```
+
+    Per migrar-lo, es mouen les claus dins de `cover` i les de llicència dins de `cover.license`:
+
+    ```yaml
+    ---
+    template: document.html
+    title: Unitat 1
+    cover:
+      icon: material/file-star-outline
+      subtitle: Introducció
+      curs: '2024 – 2025'
+      license:
+        type: Copyright
+        text: "Tots els drets reservats &copy; 2021"
+        image: False
+    ---
+    ```
+
+    S'observa que `template` i `title` es queden a l'arrel, ja que no són paràmetres de la portada.
+
+!!! warning "El peu de pàgina web continua llegint les claus antigues `author`, `license_type`, `license_text` i `license_link`. Si una pàgina les sobreescrivia per canviar també aquest peu, cal mantindre-les a l'arrel a més de definir-les dins de `cover`."
