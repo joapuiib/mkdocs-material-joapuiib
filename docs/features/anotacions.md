@@ -41,6 +41,32 @@ def hello():
 1.  Les anotacions es poden fer servir dins de blocs de codi.
 ````
 
+### Anotacions en blocs de consola
+
+```shellconsole
+joapuiib@FP:~/git_tutorial (main) $ git status # (1)!
+On branch main
+nothing to commit, working tree clean
+joapuiib@FP:~/git_tutorial (main) $ git log --oneline # (2)!
+0fb88ef (HEAD -> main) Primer commit
+```
+
+1.  Les anotacions es poden fer servir dins de blocs de consola.
+2.  Cada ordre pot tindre la seua pròpia anotació.
+
+````md
+```shellconsole
+joapuiib@FP:~/git_tutorial (main) $ git status # (1)!
+On branch main
+nothing to commit, working tree clean
+joapuiib@FP:~/git_tutorial (main) $ git log --oneline # (2)!
+0fb88ef (HEAD -> main) Primer commit
+```
+
+1.  Les anotacions es poden fer servir dins de blocs de consola.
+2.  Cada ordre pot tindre la seua pròpia anotació.
+````
+
 ## Notes a peu de pàgina amb tooltip
 
 També s'han habilitat per defecte les notes a peu de pàgina, que mostren el seu contingut en una finestra emergent quan es passa el cursor per sobre.[^1]

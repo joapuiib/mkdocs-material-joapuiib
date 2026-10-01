@@ -93,3 +93,10 @@
 .language-shellconsole.highlight .c {
   color: #576279;
 }
+
+/* Code annotation markers: Material styles them against the page palette,
+   which breaks on the always-dark console background in the light scheme. */
+.language-shellconsole.highlight .md-annotation__index {
+  --md-default-bg-color: #2E3440;
+  --md-default-fg-color--lighter: #D8DEE952;
+}
