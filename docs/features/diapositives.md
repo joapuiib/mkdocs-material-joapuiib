@@ -143,6 +143,14 @@ c(3);
 
 ---
 
+## Taula de continguts
+
+Per tornar a una diapositiva concreta sense recórrer-les totes, prem el botó :material-table-of-contents: de la barra d'eines. S'obri a la dreta un panell amb la __taula de continguts__ de la pàgina, formada per les capçaleres de les diapositives.
+
+En fer clic en una entrada, la presentació va a la diapositiva que conté eixa capçalera i el panell es tanca. A més, l'entrada de la diapositiva actual es mostra ressaltada.
+
+---
+
 ## Exportar a PDF
 
 Prem el botó :fontawesome-regular-file-pdf: de la barra d'eines, o `Ctrl` + `P`: s'obri la mateixa presentació en una pestanya nova amb les diapositives en disposició d'impressió, i s'inicia el diàleg d'impressió del navegador en acabar de carregar.

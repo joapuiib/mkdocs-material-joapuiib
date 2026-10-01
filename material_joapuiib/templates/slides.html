@@ -20,12 +20,23 @@
 {% block header %}
   {#- bundle.js requires a [data-md-component=header] element to exist (mountHeader);
       keep a real (but visually suppressed) <header> around our own floating toolbar. -#}
+  {#- Own toggle instead of Material's `__toc`: that one also drives the
+      TOC nested in the primary nav on narrow screens. Placed here so it's
+      a sibling of both the toolbar and .md-container, like `__drawer`. -#}
+  {% if page.toc %}
+    <input class="md-toggle" data-md-toggle="slides-toc" type="checkbox" id="__slides-toc" autocomplete="off">
+  {% endif %}
   <header class="md-header slides-header" data-md-component="header">
     <div class="slides-toolbar">
       {% if nav %}
         <label class="slides-toolbar__item md-header__button md-icon" for="__drawer" title="Navegació">
           {% set icon = config.theme.icon.menu or "material/menu" %}
           {% include ".icons/" ~ icon ~ ".svg" %}
+        </label>
+      {% endif %}
+      {% if page.toc %}
+        <label class="slides-toolbar__item md-header__button md-icon" for="__slides-toc" title="{{ lang.t('toc') }}">
+          {% include ".icons/material/table-of-contents.svg" %}
         </label>
       {% endif %}
       {% if config.theme.palette %}
@@ -47,16 +58,42 @@
 
 {% block hero %}{% endblock %}
 
-{#- Only the primary nav (no secondary TOC — a slide deck has no per-page
-    headings worth a sidebar). Forced to always behave as an off-canvas
-    drawer in slides.css, since the fullscreen layout has no room for an
-    inline sidebar column at any width. -#}
+{#- Both sidebars are forced to always behave as off-canvas drawers in
+    slides.css, since the fullscreen layout has no room for an inline
+    sidebar column at any width. -#}
 {% block site_nav %}
   {% if nav %}
     <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
       <div class="md-sidebar__scrollwrap">
         <div class="md-sidebar__inner">
           {% include "partials/nav.html" %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {#- The page TOC, one entry per slide heading. Not partials/toc.html:
+      its data-md-component="toc" mounts Material's scroll-spy, which
+      tracks headings by page scroll position — meaningless here, reveal.js
+      doesn't scroll. Links are handled by the script below instead. -#}
+  {% if page.toc %}
+    {% set toc = page.toc %}
+    {% set first = toc | first %}
+    {% if first and first.level == 1 %}
+      {% set toc = first.children %}
+    {% endif %}
+    <div class="md-sidebar slides-toc">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          <nav class="md-nav md-nav--secondary" aria-label="{{ lang.t('toc') }}">
+            <label class="md-nav__title" for="__slides-toc">
+              {{ lang.t('toc') }}
+            </label>
+            <ul class="md-nav__list">
+              {% for toc_item in toc %}
+                {% include "partials/toc-item.html" %}
+              {% endfor %}
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -123,35 +160,59 @@
     // pointer/touch handling on .reveal sits in between visually, and
     // whichever element actually ends up receiving the click, a capture
     // listener at the document root sees it first regardless.
-    var drawer = document.getElementById('__drawer');
     // The whole toolbar (palette toggle, PDF export), not just the drawer
     // toggle button itself — those controls stay usable while nav is open
     // (see the z-index comment in slides.css), so clicking them must not
     // count as "outside" either.
     var toolbar = document.querySelector('.slides-toolbar');
-    var sidebar = document.querySelector('.md-sidebar--primary');
-    if (drawer) {
+
+    function closeToggle(toggle) {
+      toggle.checked = false;
+      toggle.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    // Same for the TOC panel (__slides-toc).
+    function closeOnClickOutside(toggle, panel) {
+      if (!toggle) {
+        return;
+      }
       document.addEventListener('click', function (event) {
-        if (event.target === drawer) {
+        if (event.target === toggle) {
           // The toggle label's native default action forwards a second,
           // separate click straight onto the checkbox itself (not onto
           // the label), after already flipping its `checked` per spec —
           // that's the click that opened it, never one to act on here.
           return;
         }
-        if (!drawer.checked) {
+        if (!toggle.checked) {
           return;
         }
-        if (sidebar && sidebar.contains(event.target)) {
+        if (panel && panel.contains(event.target)) {
           return;
         }
         if (toolbar && toolbar.contains(event.target)) {
           return;
         }
-        drawer.checked = false;
-        drawer.dispatchEvent(new Event('change', { bubbles: true }));
+        closeToggle(toggle);
       }, true);
     }
+
+    var drawer = document.getElementById('__drawer');
+    var tocToggle = document.getElementById('__slides-toc');
+    var toc = document.querySelector('.slides-toc');
+    closeOnClickOutside(drawer, document.querySelector('.md-sidebar--primary'));
+    closeOnClickOutside(tocToggle, toc);
+
+    // Only one drawer open at a time: they'd overlap under the toolbar.
+    [[drawer, tocToggle], [tocToggle, drawer]].forEach(function (pair) {
+      if (pair[0] && pair[1]) {
+        pair[0].addEventListener('change', function () {
+          if (pair[0].checked && pair[1].checked) {
+            closeToggle(pair[1]);
+          }
+        });
+      }
+    });
 
     // Ctrl/Cmd+P on the normal deck opens the print-pdf layout in a new tab
     // instead (reveal.js needs that mode to lay slides out one-per-page for
@@ -248,6 +309,44 @@
         // Learn about plugins: https://revealjs.com/plugins/
         plugins: [ RevealNotes, RevealZoom, RevealMath ]
       }).then(function () {
+        // TOC links point at heading ids inside slides, but reveal.js
+        // doesn't scroll to an anchor: go to the slide that contains the
+        // heading instead, and keep the entry of the current slide (or of
+        // the last heading before it) highlighted.
+        if (toc) {
+          var slides = Reveal.getSlides();
+          var entries = [];
+          toc.querySelectorAll('a.md-nav__link[href^="#"]').forEach(function (link) {
+            var target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+            var slide = target && target.closest('section');
+            if (!slide) {
+              return;
+            }
+            entries.push({ link: link, index: slides.indexOf(slide) });
+            link.addEventListener('click', function (event) {
+              event.preventDefault();
+              var indices = Reveal.getIndices(slide);
+              Reveal.slide(indices.h, indices.v);
+              closeToggle(tocToggle);
+            });
+          });
+
+          var markActive = function () {
+            var current = slides.indexOf(Reveal.getCurrentSlide());
+            var active = null;
+            entries.forEach(function (entry) {
+              if (entry.index <= current) {
+                active = entry;
+              }
+            });
+            entries.forEach(function (entry) {
+              entry.link.classList.toggle('md-nav__link--active', entry === active);
+            });
+          };
+          markActive();
+          Reveal.on('slidechanged', markActive);
+        }
+
         // Small language chip on every highlighted code block (Pygments
         // already applies the language- class server-side).
         document.querySelectorAll('.reveal pre code[class*="language-"]').forEach(function (code) {

@@ -311,7 +311,63 @@ body:has(.reveal) .md-tabs__item--active {
   display: inline-block !important;
 }
 
+/* ---------- Table of contents drawer ----------
+   Same off-canvas treatment as the primary sidebar, but from the right,
+   below the toolbar, toggled by the toolbar's TOC button (__slides-toc).
+   Material hides .md-nav--secondary's own title and indents it for an
+   inline column; here it's a standalone panel, so undo both. */
+
+body:has(.reveal) .slides-toc {
+  position: fixed;
+  top: 3.4rem;
+  right: calc(var(--md-sidebar-primary-width) * -1);
+  height: calc(100% - 3.8rem);
+  width: var(--md-sidebar-primary-width);
+  padding: 0;
+  background-color: var(--md-default-bg-color);
+  border-radius: 0.8rem;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.15s cubic-bezier(0.5, 0, 0.5, 0), box-shadow 0.15s;
+  z-index: 2000;
+}
+
+body:has(.reveal) [data-md-toggle="slides-toc"]:checked ~ .md-container .slides-toc {
+  transform: translateX(calc(var(--md-sidebar-primary-width) * -1 - var(--md-sidebar-drawer-offset)));
+  box-shadow: var(--md-shadow-z3);
+  transition: transform 0.2s cubic-bezier(0.7, 0.7, 0.1, 1), box-shadow 0.2s;
+}
+
+body:has(.reveal) .slides-toc .md-sidebar__scrollwrap {
+  height: 100%;
+  margin: 0;
+  overflow-y: auto;
+}
+
+body:has(.reveal) .slides-toc .md-nav__title {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.6rem 0.8rem 0.4rem;
+  background-color: var(--md-default-bg-color);
+  box-shadow: none;
+  font-weight: 700;
+  color: var(--md-default-fg-color--light);
+}
+
+body:has(.reveal) .slides-toc .md-nav--secondary {
+  margin: 0;
+  padding: 0 0.4rem 0.6rem;
+  border: none;
+}
+
+body:has(.reveal) .slides-toc .md-nav__list {
+  display: block;
+}
+
 html.reveal-print .md-sidebar--primary,
+html.reveal-print .slides-toc,
 html.reveal-print .md-overlay {
   display: none;
 }

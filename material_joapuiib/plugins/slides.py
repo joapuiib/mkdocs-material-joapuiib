@@ -1,6 +1,7 @@
 import re
 
 import markdown
+from markdown.extensions.toc import unique
 
 from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import get_plugin_logger
@@ -32,6 +33,13 @@ class SlidesPlugin(BasePlugin):
         _RawHTMLPreprocessor()._register(md)
         _RelativePathTreeprocessor(page.file, files, config)._register(md)
 
+        # md.reset() between slides also resets the toc extension's record of
+        # used heading ids, so a heading repeated across slides would get the
+        # same id on every slide, while the page TOC (built from the whole
+        # page) numbers the repeats `_1`, `_2`... Track ids across slides so
+        # both agree.
+        used_ids = set()
+
         slides = []
         for horizontal_lines in self._split(text, '---'):
             vertical = []
@@ -40,6 +48,7 @@ class SlidesPlugin(BasePlugin):
 
                 md.reset()
                 html = md.convert('\n'.join(content_lines).strip('\n'))
+                html = self._unique_heading_ids(html, used_ids)
 
                 if note_lines is not None:
                     md.reset()
@@ -49,6 +58,30 @@ class SlidesPlugin(BasePlugin):
                 vertical.append(html)
             slides.append(vertical)
         return slides
+
+    _HEADING_RE = re.compile(r'<h([1-6])\b[^>]*>.*?</h\1>', re.DOTALL)
+    _HEADING_ID_RE = re.compile(r'^(<h[1-6]\b[^>]*\bid=")([^"]+)(")')
+
+    @classmethod
+    def _unique_heading_ids(cls, html, used_ids):
+        """
+        Renames the id of every heading in `html` that is already in
+        `used_ids`, using the same `_1`, `_2`... suffixes as the toc
+        extension, and points its permalink (`href="#id"`) to the new id.
+        """
+        def replace(match):
+            heading = match.group(0)
+            id_match = cls._HEADING_ID_RE.match(heading)
+            if not id_match:
+                return heading
+            old_id = id_match.group(2)
+            new_id = unique(old_id, used_ids)
+            if new_id == old_id:
+                return heading
+            heading = cls._HEADING_ID_RE.sub(rf'\g<1>{new_id}\g<3>', heading, count=1)
+            return heading.replace(f'href="#{old_id}"', f'href="#{new_id}"')
+
+        return cls._HEADING_RE.sub(replace, html)
 
     @staticmethod
     def _extract_notes(lines):
