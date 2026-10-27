@@ -13,30 +13,41 @@ permet ampliar qualsevol imatge fent-hi clic. La imatge s'obri en una finestra e
 
 ## Llegendes de la imatge
 
-Les llegendes que s'escriuen davall de la imatge també es mostren dins de la finestra ampliada.
-D'aquesta manera, el text només s'escriu una vegada i es veu igual en la pàgina i en el _lightbox_.
+Les llegendes es defineixen com a tipus de l'extensió `pymdownx.blocks.caption`. El _lightbox_ no
+reconeix els blocs pel seu nom, sinó per la __classe__ que afigen a l'element generat. Per tant,
+qualsevol tipus de llegenda es pot integrar amb GLightBox afegint-li una d'aquestes classes:
 
-- __`figure-caption`__: llegenda numerada de la figura. Es mostra com a __títol__ en el _lightbox_.
-    També funciona amb `shadow-figure-caption`.
-- __`description`__: descripció més extensa de la imatge, amb una lletra més xicoteta que la
-    llegenda. Es mostra com a __descripció__ en el _lightbox_.
-- __`attribution`__: autoria de la imatge. Es mostra al final de la descripció en el _lightbox_.
+- __`glightbox-title`__: el text de la llegenda es mostra com a títol en el _lightbox_.
+- __`glightbox-description`__: el text de la llegenda es mostra com a descripció en el _lightbox_.
+
+Una possible configuració és la següent:
+
+```yaml title="properdocs.yml"
+markdown_extensions:
+  - pymdownx.blocks.caption:
+      auto: true
+      types:
+        - name: figure-caption
+          prefix: "Figura {}. "
+          classes: "glightbox-title"
+        - name: shadow-figure-caption
+          prefix: "Figura {}. "
+          classes: "shadow glightbox-title"
+        - name: figure-description
+          classes: "description glightbox-description"
+```
+
 
 ![Kenting, Taiwan](img/yuhan-chang-kenting.jpg)
-/// attribution : [Yuhan Chang](https://unsplash.com/photos/ROWXoqmqyjk)
-/// description : Platja de Kenting, al sud de l'illa de Taiwan.
+/// figure-description : Platja de Kenting, al sud de l'illa de Taiwan.
 /// figure-caption | .spell-ignore : Kenting, Taiwan
 
 ??? example ":simple-markdown: Markdown"
     ```markdown
     ![Kenting, Taiwan](img/yuhan-chang-kenting.jpg)
-    /// attribution : [Yuhan Chang](https://unsplash.com/photos/ROWXoqmqyjk)
-    /// description : Platja de Kenting, al sud de l'illa de Taiwan.
-    /// figure-caption | .spell-ignore : Kenting, Taiwan
+    /// figure-description : Platja de Kenting, al sud de l'illa de Taiwan.
+    /// figure-caption : Kenting, Taiwan
     ```
-
-    Cada bloc embolcalla l'anterior, de manera que en la pàgina les llegendes es mostren en el
-    mateix ordre en què s'escriuen: primer l'autoria, després la descripció i, al final, la llegenda.
 
 ## Títol i descripció només en el _lightbox_
 

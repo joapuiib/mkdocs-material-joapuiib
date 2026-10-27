@@ -151,7 +151,7 @@ markdown_extensions:
           prefix: "Taula {}. "
         - name: attribution
           classes: "attribution glightbox-attribution"
-        - name: description
+        - name: figure-description
           classes: "description glightbox-description"
   - pymdownx.details
   - pymdownx.emoji:
