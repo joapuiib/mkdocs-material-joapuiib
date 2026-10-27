@@ -61,28 +61,46 @@
     box-shadow: revert-layer;
 }
 
+/* Each caption block wraps the previous figure: nested figures
+   shouldn't add their own margins on top of the parent's gap. */
+.md-typeset figure > figure {
+    margin: 0;
+}
+
+.md-typeset figure:has(> figure) > figcaption {
+    margin-top: 0;
+}
+
 .md-typeset figure.attribution {
     gap: 0;
 }
 
-.md-typeset figure.description > figcaption,
-.md-typeset figcaption.description {
-  font-size: 0.85em;
+.md-typeset figure.description {
+    gap: 0.1em;
 }
 
-/* GLightBox captions. More specific than the <style> mkdocs-glightbox
+.md-typeset figure.description > figcaption,
+.md-typeset figcaption.description {
+  text-align: left;
+  font-size: 0.85em;
+  line-height: 1.4;
+  margin: unset;
+  max-width: unset;
+}
+
+/* GLightBox captions. More specific than glightbox.min.css and the <style> mkdocs-glightbox
    injects at the end of <head>, which shrinks them to 0.75rem. */
 .glightbox-container .gdesc-inner {
   font-size: 0.8rem;
 }
 
-.glightbox-container .gslide-title {
+.glightbox-container .gslide-description .gslide-title {
   font-family: var(--md-text-font-family);
   font-size: 1em;
   margin-bottom: 0.5em;
 }
 
-.glightbox-container .gslide-desc {
+.glightbox-container .gslide-description .gslide-desc {
   font-family: var(--md-text-font-family);
   font-size: 0.85em;
 }
@@ -91,6 +109,7 @@
 .md-typeset figcaption.attribution {
   text-align: left;
   font-size: 0.75em;
+  line-height: 1.4;
   margin: unset;
   max-width: unset;
 }
