@@ -9,7 +9,7 @@
 
 {% block styles %}
   {{ super() }}
-  <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+  <link rel="stylesheet" href="{{ 'vendor/katex/dist/katex.min.css' | url }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/white.min.css">
   <link rel="stylesheet" href="{{ 'stylesheets/slides.css' | url }}">
@@ -307,7 +307,9 @@
 
         transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
         // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [ RevealNotes, RevealZoom, RevealMath ]
+        // Bundled KaTeX (same as theme-base.html) instead of the plugin's default CDN.
+        katex: { local: '{{ "vendor/katex" | url }}' },
+        plugins: [ RevealNotes, RevealZoom, RevealMath.KaTeX ]
       }).then(function () {
         // TOC links point at heading ids inside slides, but reveal.js
         // doesn't scroll to an anchor: go to the slide that contains the
