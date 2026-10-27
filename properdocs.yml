@@ -142,14 +142,17 @@ markdown_extensions:
       types:
         - caption
         - name: figure-caption
-          prefix: "Figura {}."
+          prefix: "Figura {}. "
+          classes: "glightbox-title"
         - name: shadow-figure-caption
-          prefix: "Figura {}."
-          classes: shadow
+          prefix: "Figura {}. "
+          classes: "shadow glightbox-title"
         - name: "table-caption"
-          prefix: "Taula {}."
+          prefix: "Taula {}. "
         - name: attribution
-          classes: "attribution spell-ignore"
+          classes: "attribution glightbox-attribution"
+        - name: description
+          classes: "description glightbox-description"
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material_joapuiib.extensions.emoji.twemoji
