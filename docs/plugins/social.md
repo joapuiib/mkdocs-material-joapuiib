@@ -5,7 +5,7 @@ icon: material/share-variant
 
 # Social cards
 
-Plugin que activa una disposició de targeta social compartida per a tots els llocs basats en aquest tema. Configura el plugin [`materialx/social`](https://jaywhj.github.io/mkdocs-materialx/plugins/social.html) perquè utilitze una disposició empaquetada amb el tema, amb colors derivats de la paleta i suport per a la pàgina d'inici.
+Plugin que activa una disposició de targeta social compartida per a tots els llocs basats en aquest tema. Estén el plugin [`materialx/social`](https://jaywhj.github.io/mkdocs-materialx/plugins/social.html) perquè utilitze una disposició empaquetada amb el tema, amb colors derivats de la paleta i suport per a la pàgina d'inici.
 
 Exemple en viu &mdash; la targeta social d'aquest mateix lloc es genera amb aquest plugin:
 
@@ -16,18 +16,17 @@ Exemple en viu &mdash; la targeta social d'aquest mateix lloc es genera amb aque
 
 ```yml title="properdocs.yml"
 plugins:
-  - material-joapuiib/social
-  - materialx/social:
+  - material-joapuiib/social:
       enabled: !ENV [CI, false]
 ```
 
-L'ordre importa: `material-joapuiib/social` ha d'aparèixer abans de `materialx/social` perquè la disposició s'enllace correctament.
+No cal afegir `materialx/social`: aquest plugin l'estén i genera les targetes per si mateix. Si els dos estan llistats, les targetes es generen dues vegades.
 
 | Opció | Tipus | Per defecte | Descripció |
 |-------|-------|-------------|-------------|
 | `enabled` | `bool` | `true` | Activa o desactiva el plugin. |
 
-A `materialx/social`, mantén [les seues opcions habituals](https://jaywhj.github.io/mkdocs-materialx/plugins/social.html). `cards_layout_dir` i `cards_layout` es defineixen automàticament; només cal sobreescriure'ls si vols una disposició personalitzada.
+Accepta [les mateixes opcions que `materialx/social`](https://jaywhj.github.io/mkdocs-materialx/plugins/social.html). `cards_layout_dir` i `cards_layout` es defineixen automàticament; només cal sobreescriure'ls si vols una disposició personalitzada.
 
 ## Què s'hi inclou
 
