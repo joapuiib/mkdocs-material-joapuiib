@@ -1,7 +1,7 @@
 # Generalized social-card layout for the material-joapuiib theme.
 #
 # Sites consume this layout by adding the `material-joapuiib/social` plugin,
-# which points `materialx/social` at the bundled layouts directory.
+# which extends `materialx/social` and defaults to the bundled layouts directory.
 #
 # Color resolution order (highest priority first):
 #   1. `extra.social_card.<key>` in mkdocs.yml (explicit per-site override)

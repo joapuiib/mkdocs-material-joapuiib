@@ -84,8 +84,6 @@ plugins:
   - macros
   - material-joapuiib/social:
       enabled: !ENV [CI, false]
-  - materialx/social:
-      enabled: !ENV [CI, false]
   - materialx/tags
   - material-joapuiib/badges
   - material-joapuiib/enviorment
