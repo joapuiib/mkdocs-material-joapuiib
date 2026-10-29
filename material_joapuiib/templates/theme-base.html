@@ -71,6 +71,9 @@ Lloc web en construcció!
   {% endif %}
 
   <div class="md-content{{ spell_ignore }}" data-md-component="content">
+    {% if "navigation.path" in features %}
+      {% include "partials/path.html" %}
+    {% endif %}
     <article class="md-content__inner md-typeset{{ landing_class }}">
       {% block content %}
         {% include "partials/content.html" %}
