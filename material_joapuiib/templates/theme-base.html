@@ -22,6 +22,9 @@
   <link rel="stylesheet" href="{{'stylesheets/time-line.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/carousel.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/calendar.css' | url}}">
+  {% if config.extra.access %}
+    <link rel="stylesheet" href="{{'stylesheets/access.css' | url}}">
+  {% endif %}
   {% if page.meta and page.meta.landing %}
     <link rel="stylesheet" href="{{'stylesheets/landing.css' | url}}">
   {% endif %}
@@ -41,7 +44,10 @@
   <script src="{{ 'vendor/tablesort/tablesort.min.js' | url }}"></script>
   <script src="{{ 'javascript/tablesort.js' | url }}"></script>
   <script src="{{ 'javascript/carousel.js' | url }}"></script>
-  <script src="{{ 'javascript/encrypt-content.js' | url }}"></script>
+  {% if config.extra.access %}
+    <script id="__access" type="application/json">{{ config.extra.access | tojson }}</script>
+    <script src="{{ 'javascript/access.js' | url }}"></script>
+  {% endif %}
   <script src="{{ 'javascript/print-title.js' | url }}"></script>
   <script src="{{ 'javascript/calendar-tooltips.js' | url }}"></script>
   {% if page.is_page %}

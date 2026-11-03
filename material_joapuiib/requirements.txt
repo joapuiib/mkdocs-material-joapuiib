@@ -11,6 +11,7 @@ mkdocs-macros-plugin~=1.2
 #mkdocs-material~=9.7
 mkdocs-materialx[imaging]~=10.2
 mkdocs-static-i18n~=1.2
+pycryptodome~=3.20
 pygments-shell-console~=0.8
 pymdown-extensions~=10.12
 pymdown-multimd-table~=0.1

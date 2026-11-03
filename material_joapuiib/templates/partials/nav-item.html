@@ -25,6 +25,9 @@
   <span class="md-ellipsis">
     {{ title }}
   </span>
+  {% if nav_item.is_page and nav_item.access and nav_item.access.protected and nav_item.access.nav == "lock" %}
+    <span class="access-nav-lock">{% include ".icons/material/lock-outline.svg" %}</span>
+  {% endif %}
   {% if nav_item.is_page and nav_item.meta.status %}
     {{ render_status(nav_item, nav_item.meta.status) }}
   {% endif %}
@@ -43,6 +46,8 @@
   {% endif %}
 {% endmacro %}
 {% macro render(nav_item, path, level) %}
+  {% if nav_item.is_page and nav_item.access and nav_item.access.protected and nav_item.access.nav == "hide" and nav_item != page %}
+  {% else %}
   {% set class = "md-nav__item" %}
   {% if nav_item.active %}
     {% set class = class ~ " md-nav__item--active" %}
@@ -167,5 +172,6 @@
         {{ render_content(nav_item) }}
       </a>
     </li>
+  {% endif %}
   {% endif %}
 {% endmacro %}

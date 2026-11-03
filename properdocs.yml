@@ -59,25 +59,23 @@ plugins:
   - alias:
       open_tag: "[$"
       close_tag: "$]"
+      use_page_icon: true
   - awesome-nav # Navegació
   - drawio
   - exclude-search
-  - encryptcontent:
-      title_prefix: ''
-      summary: 'Aquesta pàgina està protegida!'
-      encryption_info_message: 'Introdueix la contrasenya per accedir al contingut protegit.'
-      placeholder: 'Contrasenya'
-      show_password_text: 'Mostra la contrasenya'
-      decryption_failure_message: 'Contrasenya incorrecta. Torna-ho a provar.'
-      decryption_failure_timerange_message: 'Aquesta pàgina no està disponible en aquest moment.'
-      input_class: 'md-encryption__input--password'
-      remember_keys: false
-      remember_password: false
-      threshold_warning_min_entropy: 0
-      show_content_on_serve: !ENV [SHOW_PROTECTED_CONTENT, true]
-      serve_content_info_message: 'Aquest contingut sols està disponible en mode de desenvolupament.'
-      encrypted_something:
-        mkdocs-encrypted-toc: [nav, class]
+  - material-joapuiib/access:
+      salt: mkdocs-material-joapuiib
+      timezone: Europe/Madrid
+      serve: !ENV [ACCESS_SERVE, reveal]
+      # Usuaris de demostració: no facis servir contrasenyes reals ací.
+      users:
+        professor: {password: professor, groups: [professors]}
+        alumne: {password: alumne, groups: [dam1]}
+        maria: {password: maria, groups: [dam1]}
+      groups:
+        professors: {}
+        alumnes: {}
+        dam1: {inherits: [alumnes]}
 
 
   - glightbox

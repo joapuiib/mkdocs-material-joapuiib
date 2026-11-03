@@ -18,6 +18,14 @@ Plugins de [MkDocs](https://www.mkdocs.org/dev-guide/plugins/) que afegeixen fun
 
     [:octicons-arrow-right-24: Documentació](badges.md)
 
+-   :material-lock:{ .lg .middle } __Access__
+
+    ---
+
+    Contrasenyes, usuaris, grups i finestres de temps per a protegir pàgines.
+
+    [:octicons-arrow-right-24: Documentació](access.md)
+
 -   :material-filter:{ .lg .middle } __Filters__
 
     ---

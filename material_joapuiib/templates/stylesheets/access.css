@@ -1,0 +1,240 @@
+/* material-joapuiib/access */
+
+.access__locked {
+  max-width: 28rem;
+}
+
+.access__msg {
+  margin: 0.8em 0 0.4em;
+}
+
+.access__countdown {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  margin: 0.2em 0 0.8em;
+}
+
+.access__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.6rem 0;
+}
+
+.access__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.access__row--end {
+  justify-content: flex-end;
+}
+
+.access__input {
+  flex: 1;
+  padding: 0.5rem 0.7rem;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+}
+
+.access__input:focus {
+  outline: 0.1rem solid var(--md-accent-fg-color);
+  border-color: transparent;
+}
+
+.access__check {
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+}
+
+.access__btn {
+  padding: 0.45rem 0.9rem;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: transparent;
+  color: var(--md-default-fg-color);
+  font: inherit;
+  cursor: pointer;
+}
+
+.access__btn:hover {
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-accent-fg-color);
+}
+
+.access__btn--primary {
+  background: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.access__btn--primary:hover {
+  background: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-accent-bg-color);
+}
+
+.access__error {
+  min-height: 1.2em;
+  margin: 0;
+  color: var(--md-code-hl-keyword-color, #d32f2f);
+  font-size: 0.75rem;
+}
+
+/* Bar shown above unlocked content */
+.access__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.2rem;
+  background: var(--md-code-bg-color);
+  font-size: 0.75rem;
+}
+
+.access__bar[hidden] {
+  display: none;
+}
+
+.access__bar .access__note {
+  margin-right: auto;
+}
+
+.access__bar .access__btn {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.7rem;
+}
+
+/* Login dialog */
+.access-dialog {
+  width: min(22rem, 92vw);
+  padding: 1.2rem;
+  border: 0;
+  border-radius: 0.3rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  box-shadow: var(--md-shadow-z3);
+}
+
+.access-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.access-dialog h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+/* Header button */
+/* Same specificity as Material's `.md-header__button:not([hidden])`, loaded later */
+.access-header__login:not([hidden]),
+.access-header__logout:not([hidden]) {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.access-header [hidden] {
+  display: none;
+}
+
+/* Logged in: account icon + name, accent coloured; logout icon on hover/focus */
+.access-header__logout {
+  color: var(--md-accent-fg-color);
+}
+
+.access-header__icon svg {
+  display: block;
+}
+
+.access-header__icon--logout,
+.access-header__logout:hover .access-header__icon--user,
+.access-header__logout:focus-visible .access-header__icon--user {
+  display: none;
+}
+
+.access-header__logout:hover .access-header__icon--logout,
+.access-header__logout:focus-visible .access-header__icon--logout {
+  display: inline-flex;
+}
+
+.access-header__user {
+  font-size: 0.65rem;
+  max-width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Lock icon in the navigation */
+.access-nav-lock {
+  margin-left: 0.3rem;
+  opacity: 0.6;
+}
+
+.access-nav-lock svg {
+  width: 0.7rem;
+  height: 0.7rem;
+  fill: currentcolor;
+  vertical-align: -0.05rem;
+}
+
+/* Dev preview bar (serve only) */
+.access-dev {
+  position: fixed;
+  left: 0.8rem;
+  bottom: 0.8rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.2rem;
+  background: var(--md-default-fg-color);
+  color: var(--md-default-bg-color);
+  font-size: 0.7rem;
+  box-shadow: var(--md-shadow-z2);
+}
+
+.access-dev select {
+  margin-left: 0.2rem;
+  font: inherit;
+}
+
+@media print {
+  .access-dev,
+  .access__bar,
+  .access-header {
+    display: none;
+  }
+}
+
+/* Start/end window line */
+.access__window {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.access__window-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.access__window-icon svg {
+  width: 1.1em;
+  height: 1.1em;
+  fill: currentcolor;
+  vertical-align: middle;
+}
