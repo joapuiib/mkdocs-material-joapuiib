@@ -16,12 +16,20 @@
   {% if first and first.level == 1 %}
     {% set toc = first.children %}
   {% endif %}
+  {% set cover = page and (page.meta.cover if page.meta.cover is defined else config.theme.cover) %}
   {% if toc %}
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       {{ title }}
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      {% if is_document and cover %}
+        <li class="md-nav__item">
+          <a href="#" class="md-nav__link">
+            <span class="md-ellipsis">{{ page.title }}</span>
+          </a>
+        </li>
+      {% endif %}
       {% for toc_item in toc %}
         {% include "partials/toc-item.html" %}
       {% endfor %}
