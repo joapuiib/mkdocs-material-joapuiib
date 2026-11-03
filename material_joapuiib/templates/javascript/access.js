@@ -33,7 +33,9 @@
     if (!box.dataset[attr]) return "";
     return new Date(Date.parse(box.dataset[attr])).toLocaleString(
       document.documentElement.lang || undefined,
-      { dateStyle: "long", timeStyle: "short", timeZoneName: "short", timeZone: cfg.timezone });
+      // dateStyle/timeStyle cannot be combined with timeZoneName (RangeError).
+      { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "2-digit",
+        timeZoneName: "short", timeZone: cfg.timezone });
   }
 
   /* Compact "start → end" line with icons; the full sentence is the aria-label. */
