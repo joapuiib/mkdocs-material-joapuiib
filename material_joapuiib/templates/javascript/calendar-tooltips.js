@@ -136,8 +136,14 @@
   }
 
   function init() {
+    // A tooltip open before instant navigation belongs to the old page.
+    hide();
     var hosts = document.querySelectorAll("[data-cal-tip]");
-    for (var i = 0; i < hosts.length; i++) bind(hosts[i]);
+    for (var i = 0; i < hosts.length; i++) {
+      if (hosts[i].dataset.calTipBound) continue;
+      hosts[i].dataset.calTipBound = "true";
+      bind(hosts[i]);
+    }
   }
 
   // Click-outside closes a pinned tooltip.
@@ -187,9 +193,5 @@
     }
   });
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  document$.subscribe(init);
 })();

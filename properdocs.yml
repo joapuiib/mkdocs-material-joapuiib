@@ -30,12 +30,6 @@ theme:
     logo: material/book-open-variant
   favicon: material/book-open-variant
 
-  comments:
-    repo: joapuiib/mkdocs-material-joapuiib
-    repo_id: R_kgDOMUF9Jg
-    category: General
-    category_id: DIC_kwDOMUF9Js4CgyMF
-
   # Palette toggle for light mode
   palette:
     - media: "(prefers-color-scheme: light)"

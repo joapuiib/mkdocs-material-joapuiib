@@ -4,7 +4,6 @@ icon: material/home
 hide:
     - navigation
     - toc
-comments: true
 landing: true
 ---
 

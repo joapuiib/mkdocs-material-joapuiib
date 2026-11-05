@@ -101,6 +101,15 @@
 {% endblock %}
 
 {% block container %}
+  {#- Reveal.js and the toolbar are outside the container, so arriving through
+      instant navigation needs a full load. This script only runs while the
+      document is still loading on a real page load. -#}
+  <script>
+    if (document.readyState !== "loading") {
+      document.documentElement.style.visibility = "hidden";
+      location.reload();
+    }
+  </script>
   <button type="button" class="print-pdf-hint" title="Imprimeix a PDF">
     {% include ".icons/fontawesome/solid/print.svg" %}
     Prem <kbd>Ctrl</kbd> + <kbd>P</kbd> per imprimir a PDF
@@ -139,6 +148,25 @@
 {% endblock %}
 
 {% block scripts %}
+  {#- Links leaving this page need a full load too, to bring back the regular
+      header, sidebars and footer. Must run before the bundle reads the config. -#}
+  <script>
+    (function () {
+      var el = document.getElementById("__config");
+      var config = JSON.parse(el.textContent);
+      config.features = config.features.filter(function (feature) {
+        return feature.indexOf("navigation.instant") !== 0;
+      });
+      el.textContent = JSON.stringify(config);
+
+      // After the reload above, history entries from instant navigation still
+      // belong to this document, so the back button only changes the URL.
+      var pathname = location.pathname;
+      window.addEventListener("popstate", function () {
+        if (location.pathname !== pathname) location.reload();
+      });
+    })();
+  </script>
   {{ super() }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/plugin/notes/notes.min.js"></script>

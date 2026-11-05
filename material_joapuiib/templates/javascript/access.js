@@ -252,7 +252,7 @@
 
   function payloadOf(box) {
     if (!box._payload) {
-      box._payload = JSON.parse(box.querySelector(".access__payload").textContent);
+      box._payload = JSON.parse(box.dataset.accessPayload);
     }
     return box._payload;
   }

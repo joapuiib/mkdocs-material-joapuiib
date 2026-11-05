@@ -52,6 +52,14 @@
   <script src="{{ 'javascript/print-title.js' | url }}"></script>
   <script src="{{ 'javascript/calendar-tooltips.js' | url }}"></script>
   <script src="{{ 'javascript/xref-tooltips.js' | url }}"></script>
+  {#- Temporary, until these plugins support instant navigation. -#}
+  {% if "drawio" in config.plugins %}
+    <script src="{{ 'javascript/drawio.js' | url }}" data-viewer="{{ config.plugins['drawio'].config.viewer_js | url }}"></script>
+  {% endif %}
+  {% if "glightbox" in config.plugins %}
+    <script src="{{ 'javascript/glightbox.js' | url }}"></script>
+  {% endif %}
+  <script src="{{ 'javascript/page-scripts.js' | url }}"></script>
   {% if page.is_page %}
     {% for script in page.meta.extra_javascript %}
       {{ script | script_tag }}

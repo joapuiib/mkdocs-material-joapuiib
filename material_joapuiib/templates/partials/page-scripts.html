@@ -1,0 +1,12 @@
+{#-
+  Inert copy of the page's extra_javascript, read by javascript/page-scripts.js.
+  It lives inside the container because `block scripts` doesn't run again with
+  instant navigation.
+-#}
+{% if page.is_page and page.meta.extra_javascript %}
+  <template id="__page_scripts">
+    {% for script in page.meta.extra_javascript %}
+      {{ script | script_tag }}
+    {% endfor %}
+  </template>
+{% endif %}

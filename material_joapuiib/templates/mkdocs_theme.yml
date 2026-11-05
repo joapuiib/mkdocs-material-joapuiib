@@ -23,6 +23,7 @@ features:
   - navigation.top
   - navigation.footer
   - navigation.indexes
+  - navigation.instant
   - navigation.tabs
   - navigation.path
   - toc.follow
