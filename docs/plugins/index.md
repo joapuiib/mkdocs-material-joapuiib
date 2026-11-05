@@ -65,4 +65,12 @@ Plugins de [MkDocs](https://www.mkdocs.org/dev-guide/plugins/) que afegeixen fun
     Disposició compartida per a les targetes socials, amb colors derivats de la paleta del tema.
 
     [:octicons-arrow-right-24: Documentació](social.md)
+
+-   :material-link-variant:{ .lg .middle } __Xref__
+
+    ---
+
+    Referències a figures i taules pel seu identificador, amb vista prèvia.
+
+    [:octicons-arrow-right-24: Documentació](xref.md)
 ///

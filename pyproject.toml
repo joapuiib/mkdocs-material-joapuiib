@@ -38,6 +38,7 @@ material-joapuiib = 'material_joapuiib.templates'
 "material-joapuiib/sectionicons" = "material_joapuiib.plugins.sectionicons:SectionIconsPlugin"
 "material-joapuiib/slides" = "material_joapuiib.plugins.slides:SlidesPlugin"
 "material-joapuiib/social" = "material_joapuiib.plugins.social:SocialPlugin"
+"material-joapuiib/xref" = "material_joapuiib.plugins.xref:XrefPlugin"
 
 [tool.setuptools.package-data]
 "*" = ['*.css', '*.yml']

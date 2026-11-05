@@ -26,9 +26,7 @@ Aquest és el subtítol.
 /// attribution
 Atribució
 ///
-/// figure-caption
-Subtítol de la imatge
-///
+/// figure-caption | #figure-subtitol-imatge: Subtítol de la imatge
 
 ![placeholder](img/placeholder-600x400.png)
 /// figure-caption | ^1

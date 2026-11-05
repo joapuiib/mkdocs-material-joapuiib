@@ -1,0 +1,44 @@
+/* Cross-reference tooltips. Base styles come from MaterialX (.md-tooltip2). */
+
+.xref-tooltip {
+    --md-tooltip-width: min(26rem, 100vw - 1.6rem);
+    --md-tooltip-tail: 0.3rem;
+}
+
+/* Size the content to fit instead of scrolling (MaterialX caps at 40vh). */
+.xref-tooltip .md-tooltip2__inner {
+    font-size: 0.7rem;
+    max-height: none;
+    overflow: visible;
+    padding: 0.8rem;
+}
+
+.xref-tooltip .md-tooltip2__inner::before,
+.xref-tooltip .md-tooltip2__inner::after {
+    display: none;
+}
+
+.xref-tooltip figure {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.xref-tooltip img,
+.xref-tooltip svg {
+    max-width: 100%;
+    max-height: 55vh;
+    width: auto;
+    height: auto;
+}
+
+/* Tables can be wider than the tooltip */
+.xref-tooltip .md-typeset__table,
+.xref-tooltip table {
+    max-width: 100%;
+}
+
+@media print {
+    .xref-tooltip {
+        display: none;
+    }
+}

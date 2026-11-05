@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="{{'stylesheets/time-line.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/carousel.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/calendar.css' | url}}">
+  <link rel="stylesheet" href="{{'stylesheets/xref.css' | url}}">
   {% if config.extra.access %}
     <link rel="stylesheet" href="{{'stylesheets/access.css' | url}}">
   {% endif %}
@@ -50,6 +51,7 @@
   {% endif %}
   <script src="{{ 'javascript/print-title.js' | url }}"></script>
   <script src="{{ 'javascript/calendar-tooltips.js' | url }}"></script>
+  <script src="{{ 'javascript/xref-tooltips.js' | url }}"></script>
   {% if page.is_page %}
     {% for script in page.meta.extra_javascript %}
       {{ script | script_tag }}
