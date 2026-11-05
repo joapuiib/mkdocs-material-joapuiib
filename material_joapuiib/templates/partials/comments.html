@@ -83,25 +83,28 @@
       giscus.setAttribute("data-theme", theme) 
     }
 
-    // Register event handlers after documented loaded
-    document.addEventListener("DOMContentLoaded", function() {
-      var ref = document.querySelector("[data-md-component=palette]")
-      ref.addEventListener("change", function() {
+    // Register event handler once: instant navigation runs this script again
+    if (!window.__giscusPaletteSync) {
+      window.__giscusPaletteSync = true
+      document.addEventListener("change", function(event) {
+        if (!event.target.closest("[data-md-component=palette]")) return
+
+        // Instant navigation may have left a page without comments
+        var frame = document.querySelector(".giscus-frame")
         var palette = __md_get("__palette")
-        if (palette && typeof palette.color === "object") {
+        if (frame && palette && typeof palette.color === "object") {
           var theme = palette.color.scheme === "slate"
             ? "transparent_dark"
             : "light"
 
           // Instruct Giscus to change theme
-          var frame = document.querySelector(".giscus-frame")
           frame.contentWindow.postMessage(
             { giscus: { setConfig: { theme } } },
             "https://giscus.app"
           )
         }
       })
-    })
+    }
   </script>
 {% else %}
 <p>Diponibles en producció.</p>

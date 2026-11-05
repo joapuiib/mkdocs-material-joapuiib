@@ -261,6 +261,9 @@ class AccessPlugin(plugins.BasePlugin[AccessConfig]):
 
         attrs = {
             "data-access-page": pid,
+            # Not a <script>: instant navigation runs again every script in the
+            # container, keeping only its text, so JSON would run as JavaScript.
+            "data-access-payload": json.dumps(payload, separators=(",", ":")),
             "data-access-kind": kind if kind != "page" else None,
             "data-access-users": "1" if access.users else None,
             "data-access-pw": "1" if payload["w"] else None,
@@ -273,10 +276,8 @@ class AccessPlugin(plugins.BasePlugin[AccessConfig]):
             f'{k}="{html.escape(v)}"' for k, v in attrs.items() if v)
         classes = "access" + (" access--section" if kind == "section" else "")
         heading = f"<h1>{html.escape(title)}</h1>" if title is not None else ""
-        blob = json.dumps(payload, separators=(",", ":"))
         return (
             f'<div class="{classes}" {attr_html}>'
-            f'<script type="application/json" class="access__payload">{blob}</script>'
             f'<div class="access__locked">{heading}'
             f'<div class="access__ui"></div>'
             f'<noscript><p>{html.escape(strings["no_js"])}</p></noscript></div>'

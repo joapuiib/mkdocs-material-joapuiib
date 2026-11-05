@@ -2,6 +2,9 @@ document$.subscribe(function() {
   let carousels = document.querySelectorAll(".carousel");
 
   carousels.forEach(function(e) {
+    if (e.dataset.carouselReady) return;
+    e.dataset.carouselReady = "true";
+
     let carousel = new Carousel(e);
     carousel.init();
     carousel.setSlide(0);
