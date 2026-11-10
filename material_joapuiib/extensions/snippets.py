@@ -9,8 +9,13 @@ processed:
     --8<-- "includes/abbreviations.md:abbr | sed s/^\\*/* /"
     --8<-- "includes/abbreviations.md:3:10 | sed s/^\\*/* /"
 
-In whole-file mode, filters also see the ``--8<-- [start:x]``/``[end:x]``
-section marker lines; they are removed afterwards, as usual.
+Filters never see snippet notation (nested snippets, ``-8<-`` blocks and
+section markers), so a rewrite cannot break a nested snippet. The content
+between notation lines is filtered in separate runs, in order, and the notation
+lines stay where they are. A filter therefore cannot move content across a
+nested snippet, and one that needs the whole content at once (a sort, for
+example) only sees one run at a time. Nested snippets get their own filters;
+they are not affected by the filters of the snippet that includes them.
 
 Filters can be chained; each one receives the output of the previous one:
 
@@ -285,7 +290,7 @@ def _check_pymdownx():
     """Fail clearly if pymdown-extensions lacks the snippet extension points."""
 
     missing = [
-        name for name in ('parse_snippet_target', 'process_snippet_lines')
+        name for name in ('parse_snippet_target', 'process_snippet_lines', 'get_syntax_mask')
         if not hasattr(SnippetPreprocessor, name)
     ]
     if missing:
@@ -341,7 +346,30 @@ class FilteringSnippetPreprocessor(SnippetPreprocessor):
         """Apply the filter chain to the selected lines."""
 
         lines = super().process_snippet_lines(lines, target)
-        for name, args in target.get('filters', ()):
+        chain = target.get('filters')
+        if not chain:
+            return lines
+
+        # Only filter content: runs of lines between snippet notation, which is left alone.
+        mask = self.get_syntax_mask(lines, target['section'] is not None)
+        result = []
+        run = []
+        for line, syntax in zip(lines, mask, strict=True):
+            if syntax:
+                result.extend(self.apply_filters(run, chain))
+                run = []
+                result.append(line)
+            else:
+                run.append(line)
+        result.extend(self.apply_filters(run, chain))
+        return result
+
+    def apply_filters(self, lines, chain):
+        """Apply the filter chain to a run of content lines."""
+
+        if not lines:
+            return lines
+        for name, args in chain:
             lines = self.filter_funcs[name](list(lines), args)
             if not isinstance(lines, list) or not all(isinstance(item, str) for item in lines):
                 raise SnippetFilterError(f"Snippet filter '{name}' must return a list of strings")

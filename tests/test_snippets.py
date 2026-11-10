@@ -22,6 +22,9 @@ Intro line
 def base(tmp_path):
     (tmp_path / "abbr.md").write_text(ABBR, encoding="utf-8")
     (tmp_path / "plain.md").write_text("alpha\nbeta\ngamma\n", encoding="utf-8")
+    (tmp_path / "details.md").write_text("details content\n", encoding="utf-8")
+    (tmp_path / "outer.md").write_text('details here\n--8<-- "details.md"\ndetails again\n', encoding="utf-8")
+    (tmp_path / "block.md").write_text("details\n-8<-\ndetails.md\n-8<-\ndetails\n", encoding="utf-8")
     (tmp_path / "nested.md").write_text('--8<-- "plain.md | sed s/a/A/g"\n', encoding="utf-8")
     return tmp_path
 
@@ -268,6 +271,39 @@ class TestFilterChain:
     def test_bad_return_in_chain(self, base):
         with pytest.raises(SnippetFilterError, match="'bad'"):
             preprocess('--8<-- "plain.md | sed s/a/b/ | bad"', base, filters={"bad": lambda lines, args: None})
+
+
+class TestSyntaxMask:
+    def test_nested_snippet_notation_untouched(self, base):
+        result = preprocess('--8<-- "outer.md | sed s/details/summary/g"', base)
+        assert result == ["summary here", "details content", "", "summary again", ""]
+
+    def test_block_notation_untouched(self, base):
+        result = preprocess('--8<-- "block.md | sed s/details/summary/g"', base)
+        assert result == ["summary", "details content", "", "summary", ""]
+
+    def test_delete_cannot_remove_notation(self, base):
+        result = preprocess('--8<-- "outer.md | sed /details/d"', base)
+        assert result == ["details content", "", ""]
+
+    def test_runs_filtered_separately(self, base):
+        calls = []
+
+        def spy(lines, args):
+            calls.append(list(lines))
+            return lines
+
+        preprocess('--8<-- "outer.md | spy"', base, filters={"spy": spy})
+        assert calls == [["details here"], ["details again", ""]]
+
+    def test_escaped_notation_is_content(self, base):
+        (base / "esc.md").write_text(';--8<-- "details.md"\n', encoding="utf-8")
+        result = preprocess('--8<-- "esc.md | sed s/details/summary/"', base)
+        assert result == ['--8<-- "summary.md"', ""]
+
+    def test_section_markers_untouched(self, base):
+        result = preprocess(r'--8<-- "abbr.md | sed s/start/begin/"', base)
+        assert result[0] == "Intro line"
 
 
 def test_requires_extension_points(monkeypatch, base):
