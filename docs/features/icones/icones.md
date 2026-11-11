@@ -13,6 +13,8 @@ icon: material/book-open-variant
 |-------|----------|
 | :artificial-intelligence: | `:artificial-intelligence:` |
 | :artificial-intelligence-outline: | `:artificial-intelligence-outline:` |
+| :fp-terminal: | `:fp-terminal:` |
+| :fp-terminal-mono: | `:fp-terminal-mono:` |
 
 ```md
 :speedometer:{.difficulty .basic title="Basic"}
