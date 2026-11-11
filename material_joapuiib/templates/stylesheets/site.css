@@ -249,3 +249,12 @@ p:has(img.center) {
 .columns > figure {
     margin: revert-layer;
 }
+
+/* Section icons in the breadcrumbs (sectionicons plugin) */
+.md-path__link > svg {
+    fill: currentcolor;
+    flex-shrink: 0;
+    height: 1.2em;
+    width: 1.2em;
+    margin-inline-end: 0.25em;
+}
