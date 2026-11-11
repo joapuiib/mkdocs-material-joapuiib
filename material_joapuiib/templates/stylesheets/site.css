@@ -258,3 +258,10 @@ p:has(img.center) {
     width: 1.2em;
     margin-inline-end: 0.25em;
 }
+
+@media print {
+    /* Material shows it with `.md-path:not([hidden])`, so match that specificity */
+    .md-path:not([hidden]) {
+        display: none;
+    }
+}
