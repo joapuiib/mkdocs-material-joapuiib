@@ -10,6 +10,8 @@ log = get_plugin_logger("[functions]")
 
 class _LoadFileConfig(base.Config):
     files_dir = c.Type(str, default='')
+    # name -> {filter: "sed ...", title_pattern: regex, title_replace: str}
+    modifiers = c.Type(dict, default={})
 
 class FunctionsPluginConfig(base.Config):
     load_file = c.SubConfig(_LoadFileConfig)
@@ -65,6 +67,15 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
     def load_file(self, page, config, indent, paths):
         files_dir = config.files_dir
 
+        # Arguments "+name" apply the modifier `name` to every path.
+        modifiers = []
+        for name in [p[1:] for p in paths if p.startswith('+')]:
+            if name not in config.modifiers:
+                log.error(f"{page.file.src_path}. Unknown load_file modifier '{name}'")
+                continue
+            modifiers.append(config.modifiers[name])
+        paths = [p for p in paths if not p.startswith('+')]
+
         output = []
 
         for path in paths:
@@ -75,6 +86,9 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
 
             if not title:
                 title = os.path.basename(path)
+                for m in modifiers:
+                    if m.get('title_pattern'):
+                        title = re.sub(m['title_pattern'], m.get('title_replace', ''), title)
 
             language = os.path.splitext(title)[1][1:]
 
@@ -89,9 +103,10 @@ class FunctionsPlugin(BasePlugin[FunctionsPluginConfig]):
             if not os.path.exists(absolute_path):
                 log.error(f"{page.file.src_path}. File not found {path}")
 
+            filters = [m['filter'] for m in modifiers if m.get('filter')]
             template = (
                 f'```{language} {{title="{title}" {classes} data-fold="10" data-download="blob"}}',
-                f'--8<-- "{absolute_path}"',
+                f'--8<-- "{" | ".join([absolute_path] + filters)}"',
                 f'```',
             )
             template = ''.join([indent + line + '\n' for line in template])
