@@ -29,6 +29,7 @@ exclude_docs: |
 theme:
   name: material-joapuiib
   email: "j.puigcerveribanez@edu.gva.es"
+  author_link: https://github.com/joapuiib
   icon:
     logo: material/book-open-variant
   favicon: material/book-open-variant

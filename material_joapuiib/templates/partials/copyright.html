@@ -1,11 +1,16 @@
 {% set author = config.site_author %}
+{% set author_link = config.theme.author_link %}
 {% set license_type = config.theme.license.type %}
 {% set license_text = config.theme.license.text %}
 {% set license_link = config.theme.license.link %}
 
 
 {% if page.meta %}
-{% set author = page.meta.author or config.site_author %}
+{# A page that names its own author only gets a link if it also sets one #}
+{% if page.meta.author %}
+{% set author = page.meta.author %}
+{% set author_link = page.meta.author_link %}
+{% endif %}
 {% set license_type = page.meta.license_type or config.theme.license.type %}
 {% set license_text = page.meta.license_text or config.theme.license.text %}
 {% set license_link = page.meta.license_link or config.theme.license.link %}
@@ -13,11 +18,17 @@
 
 
 <div class="md-copyright">
-  <a class="md-copyright__highlight" href="{{ license_link }}" target="_blank" rel="" style="display: block">
-    {{ license_type }}
-    {{ license_text }}
-    {{ author }}
-  </a>
+  <div class="md-copyright__highlight">
+    <a href="{{ license_link }}" target="_blank" rel="">
+      {{ license_type }}
+      {{ license_text }}
+    </a>
+    {% if author_link %}
+      <a href="{{ author_link }}" target="_blank" rel="noopener">{{ author }}</a>
+    {% else %}
+      {{ author }}
+    {% endif %}
+  </div>
   {% if not config.extra.generator == false %}
     Made with
     <a href="https://properdocs.org/" target="_blank" rel="noopener">
