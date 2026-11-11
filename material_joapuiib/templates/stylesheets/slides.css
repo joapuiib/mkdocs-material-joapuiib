@@ -151,7 +151,12 @@ body.reveal-viewport {
   color: var(--md-default-fg-color--light);
 }
 
-.reveal blockquote {
+/* .md-typeset in the selector so it beats Material's own .md-typeset
+   blockquote rule (same specificity otherwise, and Material loads later),
+   which pins a small rem font-size and a grey border. */
+.reveal .md-typeset blockquote {
+  /* Material's own ratio here is .7rem/.8rem = 0.875 */
+  font-size: 0.875em;
   background-color: color-mix(in srgb, var(--md-default-fg-color) 6%, transparent);
   border-left: 0.2rem solid var(--md-primary-fg-color);
   border-radius: 0 0.4rem 0.4rem 0;
