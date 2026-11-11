@@ -5,6 +5,11 @@
     --md-tooltip-tail: 0.3rem;
 }
 
+/* Spinner cursor on the reference while its preview is loading */
+a.xref.xref--loading {
+    cursor: progress;
+}
+
 /* Size the content to fit instead of scrolling (MaterialX caps at 40vh). */
 .xref-tooltip .md-tooltip2__inner {
     font-size: 0.7rem;

@@ -15,6 +15,7 @@
 
   var HIDE_DELAY = 250;   // ms the tooltip stays after the pointer leaves
   var GAP = 16;           // px between host and tooltip
+  var LOADING = "xref--loading";  // host class while the preview loads
 
   var pages = new Map();  // page URL (no hash) -> Promise<Document|null>
   var sequence = 0;
@@ -111,20 +112,36 @@
 
     var token = {};
     current = { host: host, node: null, token: token };
+    host.classList.add(LOADING);
 
     findTarget(host).then(function (target) {
-      if (!target || !current || current.token !== token) return;
+      if (!current || current.token !== token) return;
+      if (!target) {
+        host.classList.remove(LOADING);
+        return;
+      }
 
       var node = build(target);
       current.node = node;
       document.body.appendChild(node);
 
       place(host, node);
+
+      /* Keep the loading cursor until every image in the preview is ready. */
+      var pending = 0;
+      function settle() {
+        if (--pending === 0 && current && current.token === token) {
+          host.classList.remove(LOADING);
+        }
+      }
       node.querySelectorAll("img").forEach(function (img) {
         if (!img.complete) {
-          img.addEventListener("load", function () { place(host, node); });
+          pending++;
+          img.addEventListener("load", function () { place(host, node); settle(); });
+          img.addEventListener("error", settle);
         }
       });
+      if (pending === 0) host.classList.remove(LOADING);
 
       host.setAttribute("aria-describedby", node.id);
       requestAnimationFrame(function () {
@@ -140,6 +157,7 @@
     var node = current.node;
     current = null;
 
+    host.classList.remove(LOADING);
     host.removeAttribute("aria-describedby");
     if (node) {
       node.classList.remove("md-tooltip2--active");
