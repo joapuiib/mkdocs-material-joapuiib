@@ -63,7 +63,12 @@ cas, cal indicar la pàgina amb una ruta relativa al fitxer actual:
 
 En passar el ratolí o el focus per damunt d'una referència, es mostra una finestra amb la
 figura i la seua llegenda, igual que en les notes al peu. Funciona també amb les referències
-a altres pàgines. En dispositius tàctils, l'enllaç només porta a la figura.
+a altres pàgines.
+
+Al costat de cada referència apareix una icona que indica que l'enllaç té vista prèvia.
+En els dispositius tàctils no es pot passar el ratolí per damunt, per això cal tocar la icona
+per obrir la vista prèvia, mentre que l'enllaç porta a la figura. La finestra es tanca en
+tocar fora d'ella. La icona no es mostra en imprimir el document.
 
 ## Codi
 

@@ -42,7 +42,58 @@ a.xref.xref--loading {
     max-width: 100%;
 }
 
+/* Preview icon next to the reference. Hover devices: hint that the link has a
+ * preview. Touch devices: tap target that opens the preview. */
+.xref-group {
+    white-space: nowrap;
+}
+
+.md-typeset .xref__toggle {
+    position: relative;
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.1em;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--md-typeset-a-color);
+    vertical-align: text-top;
+    cursor: pointer;
+    transition: color 125ms;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.md-typeset .xref__toggle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Lucide mouse-pointer-2 */
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Bigger hit area (24px) without moving the text around */
+.md-typeset .xref__toggle::after {
+    content: "";
+    position: absolute;
+    inset: calc((0.8em - 24px) / 2);
+}
+
+.md-typeset .xref-group:hover .xref__toggle,
+.md-typeset .xref__toggle[aria-expanded="true"] {
+    color: var(--md-accent-fg-color);
+}
+
+.md-typeset .xref__toggle:focus-visible {
+    outline: 0.1rem solid var(--md-accent-fg-color);
+    outline-offset: 0.1rem;
+    border-radius: 0.1rem;
+}
+
 @media print {
+    .xref__toggle,
     .xref-tooltip {
         display: none;
     }

@@ -7,8 +7,14 @@
  *   - Target in another page: the page is fetched (and cached) and the
  *     target is cloned from it.
  *
+ * Each reference gets a preview icon (button.xref__toggle) next to it:
+ *   - Hover devices: hovering or focusing the link shows the preview. The
+ *     icon is only a hint (clicking it pins the preview).
+ *   - Touch devices (no hover): tapping the link follows it, tapping the
+ *     icon opens the preview. Tapping outside or ESC closes it.
+ *
  * Events are delegated on the document, so it keeps working with instant
- * navigation. Touch devices (no hover) just follow the link.
+ * navigation.
  */
 (function () {
   "use strict";
@@ -20,7 +26,10 @@
   var pages = new Map();  // page URL (no hash) -> Promise<Document|null>
   var sequence = 0;
 
-  var current = null;     // { host, node, token }
+  var TOGGLE = "xref__toggle";
+  var LABEL = "Mostra la vista prèvia";
+
+  var current = null;     // { host, toggle, node, token, pinned }
   var hideTimer = null;
 
   function noHover() {
@@ -104,20 +113,53 @@
     node.classList.toggle("md-tooltip2--bottom", !above);
   }
 
-  function open(host) {
-    if (noHover()) return;
+  /* Wrap each reference with its preview icon, so they never break apart. */
+  function enhance() {
+    document.querySelectorAll("a.xref[href]").forEach(function (host) {
+      var next = host.nextElementSibling;
+      if (next && next.classList.contains(TOGGLE)) return;
+
+      var group = document.createElement("span");
+      group.className = "xref-group";
+      host.parentNode.insertBefore(group, host);
+      group.appendChild(host);
+
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = TOGGLE;
+      toggle.setAttribute("aria-label", LABEL);
+      toggle.setAttribute("aria-expanded", "false");
+      /* With hover, focusing the link already shows the preview. */
+      if (!noHover()) toggle.tabIndex = -1;
+      group.appendChild(toggle);
+    });
+  }
+
+  function toggleOf(host) {
+    var next = host.nextElementSibling;
+    return next && next.classList.contains(TOGGLE) ? next : null;
+  }
+
+  function open(host, pinned) {
+    if (!pinned && noHover()) return;
     cancelHide();
-    if (current && current.host === host) return;
+    if (current && current.host === host) {
+      if (pinned) current.pinned = true;
+      return;
+    }
     close();
 
     var token = {};
-    current = { host: host, node: null, token: token };
+    var toggle = toggleOf(host);
+    current = { host: host, toggle: toggle, node: null, token: token, pinned: !!pinned };
     host.classList.add(LOADING);
+    if (toggle) toggle.setAttribute("aria-expanded", "true");
 
     findTarget(host).then(function (target) {
       if (!current || current.token !== token) return;
       if (!target) {
         host.classList.remove(LOADING);
+        if (toggle) toggle.setAttribute("aria-expanded", "false");
         return;
       }
 
@@ -144,6 +186,7 @@
       if (pending === 0) host.classList.remove(LOADING);
 
       host.setAttribute("aria-describedby", node.id);
+      if (toggle) toggle.setAttribute("aria-controls", node.id);
       requestAnimationFrame(function () {
         node.classList.add("md-tooltip2--active");
       });
@@ -155,10 +198,15 @@
     if (!current) return;
     var host = current.host;
     var node = current.node;
+    var toggle = current.toggle;
     current = null;
 
     host.classList.remove(LOADING);
     host.removeAttribute("aria-describedby");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.removeAttribute("aria-controls");
+    }
     if (node) {
       node.classList.remove("md-tooltip2--active");
       setTimeout(function () { node.remove(); }, HIDE_DELAY);
@@ -166,6 +214,7 @@
   }
 
   function scheduleHide() {
+    if (current && current.pinned) return;
     cancelHide();
     hideTimer = setTimeout(close, HIDE_DELAY);
   }
@@ -177,8 +226,16 @@
     }
   }
 
+  function toggleAt(el) {
+    return el && el.closest ? el.closest("." + TOGGLE) : null;
+  }
+
+  /* The reference for an event target: the link itself or its icon. */
   function hostOf(el) {
-    return el && el.closest ? el.closest("a.xref") : null;
+    if (!el || !el.closest) return null;
+    var toggle = toggleAt(el);
+    if (toggle) return toggle.previousElementSibling;
+    return el.closest("a.xref");
   }
 
   function inTooltip(el) {
@@ -204,9 +261,31 @@
     if (hostOf(e.target)) scheduleHide();
   });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") close();
+  document.addEventListener("click", function (e) {
+    var toggle = toggleAt(e.target);
+    if (toggle) {
+      e.preventDefault();
+      var host = toggle.previousElementSibling;
+      if (current && current.host === host && current.pinned) close();
+      else open(host, true);
+    } else if (current && current.pinned && !inTooltip(e.target)) {
+      close();
+    }
   });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || !current) return;
+    var toggle = current.pinned ? current.toggle : null;
+    var inside = inTooltip(document.activeElement);
+    close();
+    if (toggle && inside) toggle.focus();
+  });
+
+  if (window.document$ && window.document$.subscribe) {
+    window.document$.subscribe(enhance);
+  } else {
+    enhance();
+  }
 
   /* Hide on navigation (instant loading keeps the document alive). */
   window.addEventListener("hashchange", close);
