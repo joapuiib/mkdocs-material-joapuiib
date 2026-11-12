@@ -34,11 +34,11 @@
 {% else %}
   {% set license_type_lower = (license_type or '') | lower %}
   {% if 'copyleft' in license_type_lower %}
-    {% set license_icon = 'material/copyleft' %}
+    {% set license_icon = 'lucide/copyleft' %}
   {% elif 'creative commons' in license_type_lower or ' cc ' in (' ' ~ license_type_lower ~ ' ') or license_type_lower.startswith('cc') %}
-    {% set license_icon = 'material/creative-commons' %}
+    {% set license_icon = 'lucide/creative-commons' %}
   {% else %}
-    {% set license_icon = 'material/copyright' %}
+    {% set license_icon = 'lucide/copyright' %}
   {% endif %}
 {% endif %}
 
@@ -94,7 +94,7 @@
 {% if author or email %}
 <div class="cover__card">
     <div class="cover__card-header">
-        <span class="cover__card-icon"><span class="twemoji">{% include ".icons/material/account.svg" %}</span></span>
+        <span class="cover__card-icon"><span class="twemoji">{% include ".icons/lucide/user.svg" %}</span></span>
         {% if author %}
         <p class="cover__card-title"><strong>{{ author }}</strong></p>
         {% else %}
@@ -111,7 +111,7 @@
 {% if curs %}
 <div class="cover__card">
     <div class="cover__card-header">
-        <span class="cover__card-icon"><span class="twemoji">{% include ".icons/material/calendar.svg" %}</span></span>
+        <span class="cover__card-icon"><span class="twemoji">{% include ".icons/lucide/calendar.svg" %}</span></span>
         <p class="cover__card-title"><strong>Curs acadèmic</strong></p>
     </div>
     <div class="cover__card-body">

@@ -1,13 +1,13 @@
 ---
 title: Emoji
-icon: material/emoticon-happy
+icon: lucide/smile
 ---
 
 # Emoji
 
 Índex d'emojis personalitzat compatible amb [`pymdownx.emoji`](https://facelessuser.github.io/pymdown-extensions/extensions/emoji/) que afegeix les icones del directori `.icons/` del tema.
 
-> Referència: [:octicons-link-external-16: Icons, Emojis &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html)
+> Referència: [:lucide-external-link: Icons, Emojis &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html)
 
 ## Configuració
 
@@ -39,9 +39,9 @@ markdown_extensions:
 Les icones s'invoquen amb la sintaxi `:nom-icona:` dins del Markdown:
 
 ```md
-:material-database:
+:lucide-database:
 :fontawesome-brands-github:
-:octicons-link-external-16:
+:lucide-external-link:
 ```
 
 Veure la [documentació d'icones](../features/icones/icones.md) per al llistat complet.

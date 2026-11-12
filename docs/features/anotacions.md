@@ -1,11 +1,11 @@
 ---
 title: Anotacions
-icon: material/plus-circle
+icon: lucide/circle-plus
 ---
 
 # Anotacions
 
-> Referència: [:octicons-link-external-16: Annotations &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/annotations.html)
+> Referència: [:lucide-external-link: Annotations &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/annotations.html)
 
 ## Anotacions en paràgrafs
 

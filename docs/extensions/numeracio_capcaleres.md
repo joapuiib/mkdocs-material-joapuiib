@@ -1,6 +1,6 @@
 ---
 title: Numeració de capçaleres
-icon: material/format-list-numbered
+icon: lucide/list-ordered
 ---
 
 # Numeració de capçaleres

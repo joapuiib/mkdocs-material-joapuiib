@@ -1,11 +1,11 @@
 ---
 title: Imatges amb zoom
-icon: material/image
+icon: lucide/image
 ---
 
 # Imatges amb zoom
 
-> Referència: [:octicons-link-external-16: GLightBox plugin](https://blueswen.github.io/mkdocs-glightbox/)
+> Referència: [:lucide-external-link: GLightBox plugin](https://blueswen.github.io/mkdocs-glightbox/)
 
 El tema integra el plugin de MkDocs [GLightBox](https://blueswen.github.io/mkdocs-glightbox/) per a permetre la visualització ampliada de les imatges fent clic.
 

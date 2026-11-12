@@ -80,7 +80,7 @@ class BadgesPlugin(BasePlugin):
 
     # Create badge for package
     def _badge_for_package(self, text: str, page: Page, files: Files):
-        icon = "material-folder-zip"
+        icon = "lucide-folder-archive"
         return self._badge(
             icon = f":{icon}:{{title=Package}}",
             text = f"`{text}`",
@@ -88,7 +88,7 @@ class BadgesPlugin(BasePlugin):
 
     # Create badge for directory
     def _badge_for_dir(self, text: str, page: Page, files: Files):
-        icon = "octicons-file-directory-open-fill-24"
+        icon = "lucide-folder-open"
         return self._badge(
             icon = f":{icon}:{{title=Directori}}",
             text = f"`{text}`",
@@ -96,7 +96,7 @@ class BadgesPlugin(BasePlugin):
 
     # Create badge for eval
     def _badge_for_eval(self, text: str, page: Page, files: Files):
-        icon = "material-check"
+        icon = "lucide-check"
         return self._badge(
             icon = f":{icon}:{{title=Avaluació}}",
             text = shlex.split(text),
@@ -105,7 +105,7 @@ class BadgesPlugin(BasePlugin):
 
     # Create badge for tag
     def _badge_for_tag(self, text: str, page: Page, files: Files):
-        icon = "material-tag"
+        icon = "lucide-tag"
         return self._badge(
             icon = f":{icon}:{{title=Tag}}",
             text = f"`{text}`",
@@ -113,7 +113,7 @@ class BadgesPlugin(BasePlugin):
 
     # Create badge for branch
     def _badge_for_branch(self, text: str, page: Page, files: Files):
-        icon = "material-source-branch"
+        icon = "lucide-git-branch"
         return self._badge(
             icon = f":{icon}:{{title=Branch}}",
             text = f"`{text}`",

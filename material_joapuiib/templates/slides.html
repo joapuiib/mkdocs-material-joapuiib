@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% include "partials/icon-defaults.html" %}
 
 {% block site_meta %}
   {{ super() }}
@@ -30,13 +31,13 @@
     <div class="slides-toolbar">
       {% if nav %}
         <label class="slides-toolbar__item md-header__button md-icon" for="__drawer" title="Navegació">
-          {% set icon = config.theme.icon.menu or "material/menu" %}
+          {% set icon = config.theme.icon.menu or "lucide/menu" %}
           {% include ".icons/" ~ icon ~ ".svg" %}
         </label>
       {% endif %}
       {% if page.toc %}
         <label class="slides-toolbar__item md-header__button md-icon" for="__slides-toc" title="{{ lang.t('toc') }}">
-          {% include ".icons/material/table-of-contents.svg" %}
+          {% include ".icons/lucide/table-of-contents.svg" %}
         </label>
       {% endif %}
       {% if config.theme.palette %}
@@ -45,7 +46,7 @@
         {% endif %}
       {% endif %}
       <a href=".?print-pdf" class="slides-toolbar__item md-header__button md-icon" target="_blank" rel="noopener" title="Exporta a PDF">
-        {% include ".icons/fontawesome/regular/file-pdf.svg" %}
+        {% include ".icons/lucide/file-down.svg" %}
       </a>
     </div>
   </header>
@@ -111,7 +112,7 @@
     }
   </script>
   <button type="button" class="print-pdf-hint" title="Imprimeix a PDF">
-    {% include ".icons/fontawesome/solid/print.svg" %}
+    {% include ".icons/lucide/printer.svg" %}
     Prem <kbd>Ctrl</kbd> + <kbd>P</kbd> per imprimir a PDF
   </button>
   <div class="reveal">

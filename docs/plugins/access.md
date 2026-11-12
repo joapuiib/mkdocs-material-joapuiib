@@ -1,6 +1,6 @@
 ---
 title: Access
-icon: material/lock
+icon: lucide/lock
 alias: access
 ---
 

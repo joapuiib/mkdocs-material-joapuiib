@@ -1,6 +1,6 @@
 ---
 title: Badges
-icon: material/information-box
+icon: lucide/badge-info
 ---
 
 # Badges

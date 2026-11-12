@@ -1,6 +1,6 @@
 ---
 title: Línia de temps
-icon: material/timeline
+icon: lucide/timeline
 ---
 
 # Línia de temps

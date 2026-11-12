@@ -1,6 +1,6 @@
 ---
 title: Filters
-icon: material/filter
+icon: lucide/filter
 ---
 
 # Filters

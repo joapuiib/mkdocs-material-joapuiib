@@ -26,7 +26,7 @@
     {{ title }}
   </span>
   {% if nav_item.is_page and nav_item.access and nav_item.access.protected and nav_item.access.nav == "lock" %}
-    <span class="access-nav-lock">{% include ".icons/material/lock-outline.svg" %}</span>
+    <span class="access-nav-lock">{% include ".icons/lucide/lock.svg" %}</span>
   {% endif %}
   {% if nav_item.is_page and nav_item.meta.status %}
     {{ render_status(nav_item, nav_item.meta.status) }}

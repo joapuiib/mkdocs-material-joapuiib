@@ -1,6 +1,6 @@
 ---
 title: Esborrany
-icon: material/file-hidden
+icon: lucide/eye-off
 ---
 # Esborrany
 

@@ -238,3 +238,11 @@
   fill: currentcolor;
   vertical-align: middle;
 }
+
+.access-header__icon svg.lucide,
+.access-nav-lock svg.lucide,
+.access__window-icon svg.lucide {
+  fill: none;
+  stroke: currentcolor;
+}
+

@@ -1,6 +1,6 @@
 ---
 title: Social cards
-icon: material/share-variant
+icon: lucide/share-2
 ---
 
 # Social cards
@@ -59,7 +59,7 @@ Per a personalitzacions més fines, defineix `extra.social_card`. Totes les clau
 extra:
   social_card:
     accent_color: "#009485"
-    watermark_icon: material/rocket-launch
+    watermark_icon: lucide/rocket
 ```
 
 <img src="../img/social-custom.png" alt="Targeta social personalitzada amb paleta teal i icona de coet" loading="lazy">

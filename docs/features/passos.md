@@ -1,6 +1,6 @@
 ---
 title: Passos
-icon: octicons/list-ordered-16
+icon: lucide/list-ordered
 ---
 
 # Passos

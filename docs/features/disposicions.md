@@ -1,11 +1,11 @@
 ---
 title: Disposicions
-icon: octicons/table-16
+icon: lucide/table
 ---
 
 # Disposicions
 
-> Referència: [:octicons-link-external-16: Grids &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/grids.html)
+> Referència: [:lucide-external-link: Grids &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/grids.html)
 
 ## Columnes
 

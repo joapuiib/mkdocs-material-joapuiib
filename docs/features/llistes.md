@@ -1,11 +1,11 @@
 ---
 title: Llistes
-icon: material/format-list-bulleted
+icon: lucide/list
 ---
 
 # Llistes
 
-> Referència: [:octicons-link-external-16: Lists &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/lists.html)
+> Referència: [:lucide-external-link: Lists &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/lists.html)
 
 !!! info
     L'extensió `pymdownx-fancylists` està instal·lada per defecte i permet crear llistes amb números, lletres i numerals romans, tant en majúscules com en minúscules.

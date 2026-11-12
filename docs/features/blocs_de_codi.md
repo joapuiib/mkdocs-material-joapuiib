@@ -1,11 +1,11 @@
 ---
 title: Blocs de codi
-icon: material/code-json
+icon: lucide/braces
 ---
 
 # Blocs de codi
 
-> Referència: [:octicons-link-external-16: Code blocks &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/code-blocks.html)
+> Referència: [:lucide-external-link: Code blocks &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/code-blocks.html)
 
 ## Bloc Python amb ressaltat de línies i numeració
 ```python hl_lines="2" linenums="1"
@@ -39,7 +39,7 @@ echo "Hello, world!"
 
 ## Bloc descarregable
 
-> Referència: [:octicons-link-external-16: Code download button &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/code-blocks.html#code-download-button)
+> Referència: [:lucide-external-link: Code download button &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/code-blocks.html#code-download-button)
 
 Des d'un fitxer:
 ```java {title="HelloWorld.java" data-download="../../files/HelloWorld.java"}

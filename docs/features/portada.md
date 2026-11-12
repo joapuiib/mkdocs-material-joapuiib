@@ -1,10 +1,10 @@
 ---
 template: document.html
-icon: material/file-star-outline
+icon: lucide/file-badge
 title: Portada
 print_title: cover-document
 cover:
-  icon: material/file-star-outline
+  icon: lucide/file-badge
   subtitle: Subtítol personalitzat
   curs: '2024 – 2025'
   original_author: Carme
@@ -75,7 +75,7 @@ Tots els paràmetres de la portada es poden definir per defecte a `mkdocs.yml`, 
 ```yml title="mkdocs.yml"
 theme:
   cover:
-    icon: material/file-star-outline
+    icon: lucide/file-badge
     logo: img/cover/logo.svg
     background: true
     subtitle: Subtítol per defecte
@@ -88,7 +88,7 @@ theme:
       text: "Tots els drets reservats &copy; 2021"
       link: https://example.com/license
       image: img/license/copyright.png
-      icon: material/copyright
+      icon: lucide/copyright
 ```
 
 ## Front matter
@@ -101,7 +101,7 @@ template: document.html
 title: Cover
 print_title: cover-document
 cover:
-  icon: material/file-star-outline
+  icon: lucide/file-badge
   logo: 'img/cover/other-logo.png'
   subtitle: Custom subtitle
   curs: '24/25'
@@ -110,7 +110,7 @@ cover:
     type: Copyright
     text: "All rights reserved &copy; 2021"
     image: False
-    icon: material/license
+    icon: lucide/scale
 ---
 ```
 
@@ -147,9 +147,9 @@ Si ni `theme.cover` (a `mkdocs.yml`) ni cap pàgina defineixen `cover` al *front
 
 Si no s'indica ni `theme.cover.license.icon` a `mkdocs.yml` ni `cover.license.icon` al *front matter*, la icona de la targeta de llicència s'escull automàticament analitzant el text de `license.type` (o el `theme.license.type` global si no s'ha sobreescrit dins de `cover`):
 
-- Si conté "copyleft" → `material/copyleft`
-- Si conté "creative commons" o "cc" (com a paraula, o al començament) → `material/creative-commons`
-- En qualsevol altre cas (per exemple, "Copyright") → `material/copyright`
+- Si conté "copyleft" → `lucide/copyleft`
+- Si conté "creative commons" o "cc" (com a paraula, o al començament) → `lucide/creative-commons`
+- En qualsevol altre cas (per exemple, "Copyright") → `lucide/copyright`
 
 Aquesta detecció és insensible a majúscules/minúscules. Si voleu forçar una icona concreta independentment del text de `license.type`, definiu `theme.cover.license.icon` a `mkdocs.yml` o `cover.license.icon` al *front matter*.
 
@@ -196,7 +196,7 @@ Si no es defineix `theme.email` ni `cover.email`, la portada no mostra cap adre�
     template: document.html
     title: Unitat 1
     cover:
-      icon: material/file-star-outline
+      icon: lucide/file-badge
     subtitle: Introducció
     curs: '2024 – 2025'
     license_type: Copyright
@@ -212,7 +212,7 @@ Si no es defineix `theme.email` ni `cover.email`, la portada no mostra cap adre�
     template: document.html
     title: Unitat 1
     cover:
-      icon: material/file-star-outline
+      icon: lucide/file-badge
       subtitle: Introducció
       curs: '2024 – 2025'
       license:

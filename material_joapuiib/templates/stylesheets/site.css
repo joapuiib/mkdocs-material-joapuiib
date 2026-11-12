@@ -259,6 +259,15 @@ p:has(img.center) {
     margin-inline-end: 0.25em;
 }
 
+/* Lucide icons are stroke-based: undo the fill set for filled icon sets */
+.md-tabs__link svg.lucide,
+.md-nav__title svg.lucide,
+.md-path__link > svg.lucide {
+    fill: none;
+    stroke: currentcolor;
+}
+
+
 @media print {
     /* Material shows it with `.md-path:not([hidden])`, so match that specificity */
     .md-path:not([hidden]) {

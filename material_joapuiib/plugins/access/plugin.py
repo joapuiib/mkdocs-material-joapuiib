@@ -29,11 +29,11 @@ from .rules import (
 )
 from .strings import DEFAULT_STRINGS
 
-_ICONS = {"start": "clock-outline", "end": "flag-checkered"}
+_ICONS = {"start": "clock", "end": "flag"}
 
 
 def _load_icons() -> dict[str, str]:
-    base_dir = Path(material.__file__).parent / "templates" / ".icons" / "material"
+    base_dir = Path(material.__file__).parent / "templates" / ".icons" / "lucide"
     return {k: (base_dir / f"{v}.svg").read_text(encoding="utf-8").strip()
             for k, v in _ICONS.items()}
 

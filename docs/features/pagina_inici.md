@@ -1,6 +1,6 @@
 ---
 title: Pàgina d'inici
-icon: material/home-variant
+icon: lucide/house
 ---
 
 # Pàgina d'inici
@@ -14,7 +14,7 @@ Afegeix `landing: true` al front matter. Es recomana també amagar la navegació
 ```yaml title="docs/index.md (front matter)"
 ---
 title: Títol del lloc
-icon: material/home
+icon: lucide/house
 hide:
     - navigation
     - toc
@@ -34,28 +34,28 @@ ETIQUETA SUPERIOR
 Subtítol descriptiu.
 { .subtitle }
 
-[:octicons-arrow-right-24: Acció principal](primer.md){ .md-button .md-button--primary } [Acció secundària](segon.md){ .md-button }
+[:lucide-arrow-right: Acció principal](primer.md){ .md-button .md-button--primary } [Acció secundària](segon.md){ .md-button }
 { .actions }
 ///
 
 Paràgraf d'introducció opcional.
 
 /// html | div.grid.cards
--   :material-icon:{ .lg .middle } __Targeta 1__
+-   :lucide-icon:{ .lg .middle } __Targeta 1__
 
     ---
 
     Descripció breu.
 
-    [:octicons-arrow-right-24: Veure-ho](pagina.md)
+    [:lucide-arrow-right: Veure-ho](pagina.md)
 
--   :material-icon:{ .lg .middle } __Targeta 2__
+-   :lucide-icon:{ .lg .middle } __Targeta 2__
 
     ---
 
     Descripció breu.
 
-    [:octicons-arrow-right-24: Veure-ho](altra.md)
+    [:lucide-arrow-right: Veure-ho](altra.md)
 ///
 ```
 

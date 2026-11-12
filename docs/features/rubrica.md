@@ -1,6 +1,6 @@
 ---
 title: Rúbrica
-icon: material/format-list-checks
+icon: lucide/list-checks
 ---
 
 # Rúbrica

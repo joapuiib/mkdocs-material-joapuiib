@@ -1,0 +1,23 @@
+{#-
+  Lucide defaults for the interface icons. MkDocs merges theme options
+  shallowly, so a site that sets any `theme.icon` key would otherwise lose
+  every default declared in `mkdocs_theme.yml`. Only missing keys are set.
+-#}
+{% set icon_defaults = {
+  "menu": "lucide/menu",
+  "alternate": "lucide/languages",
+  "search": "lucide/search",
+  "share": "lucide/share-2",
+  "close": "lucide/x",
+  "top": "lucide/arrow-up",
+  "edit": "lucide/file-pen-line",
+  "view": "lucide/file-search",
+  "previous": "lucide/arrow-left",
+  "next": "lucide/arrow-right",
+  "annotation": "lucide/circle-plus",
+} %}
+{% if config.theme.icon is mapping %}
+  {% for key, value in icon_defaults | items %}
+    {% set _ = config.theme.icon.setdefault(key, value) %}
+  {% endfor %}
+{% endif %}

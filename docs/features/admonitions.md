@@ -1,11 +1,11 @@
 ---
 title: Admonicions
-icon: material/alert-outline
+icon: lucide/triangle-alert
 ---
 
 # Admonicions
 
-> Referència: [:octicons-link-external-16: Admonitions &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/admonitions.html)
+> Referència: [:lucide-external-link: Admonitions &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/admonitions.html)
 
 ## Admonicions per defecte
 

@@ -1,11 +1,11 @@
 {% set access_strings = config.extra.access.strings %}
 <div class="md-header__option access-header">
   <button type="button" class="md-header__button md-icon access-header__login" title="{{ access_strings.login | e }}" aria-label="{{ access_strings.login | e }}">
-    {% include ".icons/material/login.svg" %}
+    {% include ".icons/lucide/log-in.svg" %}
   </button>
   <button type="button" class="md-header__button md-icon access-header__logout" title="{{ access_strings.logout | e }}" aria-label="{{ access_strings.logout | e }}" hidden>
-    <span class="access-header__icon access-header__icon--user">{% include ".icons/material/account-circle.svg" %}</span>
-    <span class="access-header__icon access-header__icon--logout">{% include ".icons/material/logout.svg" %}</span>
+    <span class="access-header__icon access-header__icon--user">{% include ".icons/lucide/circle-user-round.svg" %}</span>
+    <span class="access-header__icon access-header__icon--logout">{% include ".icons/lucide/log-out.svg" %}</span>
     <span class="access-header__user"></span>
   </button>
 </div>

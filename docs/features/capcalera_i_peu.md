@@ -1,7 +1,7 @@
 ---
 template: programacio.html
 title: Capçalera i peu
-icon: material/page-layout-header-footer
+icon: lucide/panels-top-left
 ---
 
 # Capçalera i peu

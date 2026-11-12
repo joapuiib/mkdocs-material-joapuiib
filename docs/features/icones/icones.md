@@ -1,11 +1,11 @@
 ---
 title: Icones
-icon: material/book-open-variant
+icon: lucide/book-open
 ---
 
 # Icones
 
-> Referència: [:octicons-link-external-16: Icons, Emojis &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html)
+> Referència: [:lucide-external-link: Icons, Emojis &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html)
 
 ## Icones personalitzades
 
@@ -68,7 +68,7 @@ __Fonts__:
 
 ## Icones integrades
 
-Llistat complet a [:octicons-link-external-16: Search &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html#search).
+Llistat complet a [:lucide-external-link: Search &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html#search).
 
 ## Icones de pàgina
 
@@ -76,7 +76,7 @@ Al front matter:
 
 ```md
 ---
-icon: material/book-open-variant
+icon: lucide/book-open
 ---
 ```
 
@@ -87,5 +87,5 @@ Les icones de secció es configuren com a prefix del títol al fitxer `.nav.yml`
 ```yaml title=".nav.yml"
 nav:
     - "*"
-    - ":material/pencil-outline: Secció amb icona": icons
+    - ":lucide/pencil: Secció amb icona": icons
 ```

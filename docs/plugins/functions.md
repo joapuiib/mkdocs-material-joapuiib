@@ -1,6 +1,6 @@
 ---
 title: Functions
-icon: material/function
+icon: lucide/square-function
 ---
 
 # Functions

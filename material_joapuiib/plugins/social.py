@@ -12,6 +12,7 @@ a non-default value, we leave it alone — the bundled layout is only a default.
 from __future__ import annotations
 
 import os
+from io import BytesIO
 
 from material.plugins.social.plugin import SocialPlugin as _SocialPlugin
 from mkdocs.config.defaults import MkDocsConfig
@@ -39,3 +40,33 @@ class SocialPlugin(_SocialPlugin):
             self.config.cards_layout = _BUNDLED_LAYOUT_NAME
 
         return super().on_config(config)
+
+    def _render_icon(self, layer, input, config: MkDocsConfig):
+        """Render stroke-based icons (Lucide) in the layer color.
+
+        The parent class colors an icon by adding ``fill="..."`` to its root
+        ``<svg>``. Lucide icons already declare ``fill="none"`` there and draw
+        with ``stroke="currentColor"``, so the duplicated attribute breaks the
+        SVG. For those icons, color the stroke instead.
+        """
+        icon = layer.icon
+        if not icon.value or not icon.color:
+            return super()._render_icon(layer, input, config)
+
+        data = self._resolve_icon(icon.value, config)
+        if 'stroke="currentColor"' not in data:
+            return super()._render_icon(layer, input, config)
+
+        from cairosvg import svg2png
+        from material.plugins.social.plugin import _resize_contain
+        from PIL import Image, ImageColor
+
+        (r, g, b, *a) = ImageColor.getrgb(icon.color)
+        opacity = a[0] / 255 if a else 1
+        data = data.replace(
+            'stroke="currentColor"', f'stroke="rgba({r}, {g}, {b}, {opacity})"'
+        )
+
+        image = Image.open(BytesIO(svg2png(data.encode("utf-8"), output_width=input.width)))
+        input.alpha_composite(_resize_contain(image.convert("RGBA"), input))
+        return input

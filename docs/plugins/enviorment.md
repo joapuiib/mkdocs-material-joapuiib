@@ -1,6 +1,6 @@
 ---
 title: Environment
-icon: material/server-network
+icon: lucide/server
 ---
 
 # Environment

@@ -1,6 +1,6 @@
 ---
 title: Seccions protegides
-icon: material/shield-lock-outline
+icon: lucide/shield-check
 ---
 
 # Seccions protegides

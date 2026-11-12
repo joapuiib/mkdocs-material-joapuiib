@@ -1,11 +1,11 @@
 ---
 title: Matemàtiques
-icon: material/alphabet-greek
+icon: lucide/sigma
 ---
 
 # Matemàtiques
 
-> Referència: [:octicons-link-external-16: Math &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/math.html)
+> Referència: [:lucide-external-link: Math &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/math.html)
 
 KaTeX està configurat al tema i es pot fer servir de diferents maneres.
 

@@ -1,40 +1,40 @@
 ---
 title: Extensions
-icon: material/puzzle
+icon: lucide/puzzle
 ---
 
 # Extensions
 
 Extensions de [Python-Markdown](https://python-markdown.github.io/extensions/) que afegeixen sintaxi de Markdown personalitzada per a aquest tema.
 
-> Referència: [:octicons-link-external-16: Python-Markdown extensions &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/setup/extensions/python-markdown.html)
+> Referència: [:lucide-external-link: Python-Markdown extensions &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/setup/extensions/python-markdown.html)
 
 ## Extensions personalitzades
 
 /// html | div.grid.cards
--   :material-format-list-numbered:{ .lg .middle } __Numeració de capçaleres__
+-   :lucide-list-ordered:{ .lg .middle } __Numeració de capçaleres__
 
     ---
 
     Numeració automàtica de seccions als títols del document (`1.`, `1.1.`, ...).
 
-    [:octicons-arrow-right-24: Documentació](numeracio_capcaleres.md)
+    [:lucide-arrow-right: Documentació](numeracio_capcaleres.md)
 
--   :material-emoticon-happy:{ .lg .middle } __Emoji__
+-   :lucide-smile:{ .lg .middle } __Emoji__
 
     ---
 
     Índex d'emojis i icones personalitzades del tema integrades amb pymdownx.
 
-    [:octicons-arrow-right-24: Documentació](emoji.md)
+    [:lucide-arrow-right: Documentació](emoji.md)
 
--   :material-calendar-month:{ .lg .middle } __Calendar__
+-   :lucide-calendar-days:{ .lg .middle } __Calendar__
 
     ---
 
     Bloc `/// calendar` que renderitza calendaris a partir de configuració TOML, amb dies festius, rangs i suport multi-idioma.
 
-    [:octicons-arrow-right-24: Documentació](calendar.md)
+    [:lucide-arrow-right: Documentació](calendar.md)
 ///
 
 ## Extensions de tercers
@@ -42,11 +42,11 @@ Extensions de [Python-Markdown](https://python-markdown.github.io/extensions/) q
 El tema també inclou un conjunt d'extensions de tercers preinstal·lades i configurades.
 
 /// html | div.grid.cards
--   :material-package-variant:{ .lg .middle } __Llistat complet__
+-   :lucide-package:{ .lg .middle } __Llistat complet__
 
     ---
 
     Python-Markdown integrades, PyMdown Extensions i altres paquets de tercers.
 
-    [:octicons-arrow-right-24: Veure llistat](extensions_de_tercers.md)
+    [:lucide-arrow-right: Veure llistat](extensions_de_tercers.md)
 ///

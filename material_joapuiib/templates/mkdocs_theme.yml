@@ -29,9 +29,10 @@ features:
   - toc.follow
 
 
-icon:
-  admonition:
-    example: material/format-list-numbered
+# Interface icons (Lucide). Keys missing from the site's `theme.icon` are
+# filled in from `partials/icon-defaults.html`, so setting e.g. only
+# `theme.icon.logo` keeps the rest.
+icon: {}
 
 topbar_style: glass
 
@@ -40,16 +41,16 @@ palette:
   - media: "(prefers-color-scheme: light)"
     scheme: default
     toggle:
-      # icon: material/toggle-switch
-      icon: material/weather-sunny
+      # icon: lucide/toggle-right
+      icon: lucide/sun
       name: Switch to dark mode
 
   # Palette toggle for dark mode
   - media: "(prefers-color-scheme: dark)"
     scheme: slate
     toggle:
-      # icon: material/toggle-switch-off-outline
-      icon: material/weather-night
+      # icon: lucide/toggle-left
+      icon: lucide/moon
       name: Switch to light mode
 
 # Link for the author name in the footer copyright notice

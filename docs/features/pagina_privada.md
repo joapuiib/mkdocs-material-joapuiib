@@ -1,6 +1,6 @@
 ---
 title: Pàgina privada
-icon: material/account-lock
+icon: lucide/user-lock
 access:
   allow: [professors]
 ---

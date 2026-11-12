@@ -1,11 +1,11 @@
 ---
 title: Taules
-icon: material/table
+icon: lucide/table
 ---
 
 # Taules
 
-> Referència: [:octicons-link-external-16: Data tables &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/data-tables.html)
+> Referència: [:lucide-external-link: Data tables &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/data-tables.html)
 
 ## Taules de quadrícula
 

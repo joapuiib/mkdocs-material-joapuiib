@@ -1,76 +1,76 @@
 ---
 title: Plugins
-icon: material/power-plug
+icon: lucide/plug
 ---
 
 # Plugins
 
 Plugins de [MkDocs](https://www.mkdocs.org/dev-guide/plugins/) que afegeixen funcionalitats al procés de construcció del lloc.
 
-> Referència: [:octicons-link-external-16: Plugins &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/plugins/index.html)
+> Referència: [:lucide-external-link: Plugins &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/plugins/index.html)
 
 /// html | div.grid.cards
--   :material-information-box:{ .lg .middle } __Badges__
+-   :lucide-badge-info:{ .lg .middle } __Badges__
 
     ---
 
     Etiquetes per a paquets, branques, avaluacions i tags.
 
-    [:octicons-arrow-right-24: Documentació](badges.md)
+    [:lucide-arrow-right: Documentació](badges.md)
 
--   :material-lock:{ .lg .middle } __Access__
+-   :lucide-lock:{ .lg .middle } __Access__
 
     ---
 
     Contrasenyes, usuaris, grups i finestres de temps per a protegir pàgines.
 
-    [:octicons-arrow-right-24: Documentació](access.md)
+    [:lucide-arrow-right: Documentació](access.md)
 
--   :material-filter:{ .lg .middle } __Filters__
+-   :lucide-filter:{ .lg .middle } __Filters__
 
     ---
 
     Filtres Jinja personalitzats per a les plantilles.
 
-    [:octicons-arrow-right-24: Documentació](filters.md)
+    [:lucide-arrow-right: Documentació](filters.md)
 
--   :material-function:{ .lg .middle } __Functions__
+-   :lucide-square-function:{ .lg .middle } __Functions__
 
     ---
 
     Funcions invocables des de Markdown amb sintaxi `!function args`.
 
-    [:octicons-arrow-right-24: Documentació](functions.md)
+    [:lucide-arrow-right: Documentació](functions.md)
 
--   :material-server-network:{ .lg .middle } __Environment__
+-   :lucide-server:{ .lg .middle } __Environment__
 
     ---
 
     Variable de context `build` per saber si s'està construint el lloc.
 
-    [:octicons-arrow-right-24: Documentació](enviorment.md)
+    [:lucide-arrow-right: Documentació](enviorment.md)
 
--   :material-pencil-outline:{ .lg .middle } __Section icons__
+-   :lucide-pencil:{ .lg .middle } __Section icons__
 
     ---
 
     Filtres Jinja per a extreure icones del títol de seccions a la navegació.
 
-    [:octicons-arrow-right-24: Documentació](sectionicons.md)
+    [:lucide-arrow-right: Documentació](sectionicons.md)
 
--   :material-share-variant:{ .lg .middle } __Social cards__
+-   :lucide-share-2:{ .lg .middle } __Social cards__
 
     ---
 
     Disposició compartida per a les targetes socials, amb colors derivats de la paleta del tema.
 
-    [:octicons-arrow-right-24: Documentació](social.md)
+    [:lucide-arrow-right: Documentació](social.md)
 
--   :material-link-variant:{ .lg .middle } __Xref__
+-   :lucide-link:{ .lg .middle } __Xref__
 
     ---
 
     Referències a figures i taules pel seu identificador, amb vista prèvia.
 
-    [:octicons-arrow-right-24: Documentació](xref.md)
+    [:lucide-arrow-right: Documentació](xref.md)
 ///

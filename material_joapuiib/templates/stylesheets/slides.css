@@ -500,6 +500,14 @@ html.print-pdf .print-pdf-hint {
   flex-shrink: 0;
 }
 
+/* Lucide icons are stroke-based: undo the fill set above */
+.slides-footer__logo svg.lucide,
+.print-pdf-hint svg.lucide {
+  fill: none;
+  stroke: currentcolor;
+}
+
+
 .print-pdf-hint kbd {
   padding: 0.1em 0.45em;
   border-radius: 0.3rem;

@@ -203,7 +203,7 @@ definitions:
     {%- elif config.theme.icon and config.theme.icon.logo -%}
       {{ config.theme.icon.logo | x }}
     {%- else -%}
-      material/file-document
+      lucide/file-text
     {%- endif -%}
 
   # Logo icon (top-left chip) — defaults to theme logo
@@ -211,7 +211,7 @@ definitions:
     {%- if config.theme.icon and config.theme.icon.logo -%}
       {{ config.theme.icon.logo | x }}
     {%- else -%}
-      material/file-document
+      lucide/file-text
     {%- endif -%}
 
 # -----------------------------------------------------------------------------

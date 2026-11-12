@@ -1,6 +1,6 @@
 ---
 title: Xref
-icon: material/link-variant
+icon: lucide/link
 ---
 
 # Xref

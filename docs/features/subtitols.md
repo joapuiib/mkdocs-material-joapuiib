@@ -1,11 +1,11 @@
 ---
 title: Subtítols
-icon: material/tooltip-text-outline
+icon: lucide/message-square-text
 ---
 
 # Subtítols
 
-> Referència: [:octicons-link-external-16: Block Caption &mdash; PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/caption/)
+> Referència: [:lucide-external-link: Block Caption &mdash; PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/caption/)
 
 Aquesta és la figura.
 /// caption
@@ -53,14 +53,14 @@ Subtítol niat virtual
 
 ![placeholder](img/placeholder-600x400.png)
 /// shadow-figure-caption
-Subtítol :material-box-shadow: amb ombra
+Subtítol :lucide-square-dashed: amb ombra
 ///
 
 ??? example ":simple-markdown: Markdown"
     ```markdown
     ![placeholder](img/placeholder-600x400.png)
     /// shadow-figure-caption
-    Subtítol :material-box-shadow: amb ombra
+    Subtítol :lucide-square-dashed: amb ombra
     ///
     ```
 

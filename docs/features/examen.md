@@ -1,7 +1,7 @@
 ---
 template: exam.html
 title: Examen
-icon: material/file-lock
+icon: lucide/file-lock
 ---
 
 # Examen

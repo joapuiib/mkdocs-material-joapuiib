@@ -1,6 +1,6 @@
 nav:
     - index.md
     - "*"
-    - ":material/pencil-outline: Icones":
+    - ":lucide/pencil: Icones":
       - icones/icones.md
-      - ":material/web: Icones a MaterialX": https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html
+      - ":lucide/globe: Icones a MaterialX": https://jaywhj.github.io/mkdocs-materialx/reference/icons-emojis.html

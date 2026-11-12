@@ -1,6 +1,6 @@
 ---
 title: Calendar
-icon: material/calendar-month
+icon: lucide/calendar-days
 ---
 
 # Calendar

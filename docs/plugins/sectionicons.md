@@ -1,6 +1,6 @@
 ---
 title: Section icons
-icon: material/pencil-outline
+icon: lucide/pencil
 ---
 
 # Section icons
@@ -25,8 +25,8 @@ plugins:
 Extreu el nom de la icona d'una cadena amb format `:icon:` o `:icon: Text`. Retorna `None` si no n'hi ha.
 
 ```jinja
-{% raw %}{{ ":material/database: Bases de dades" | extract_icon }}{% endraw %}
-{# → "material/database" #}
+{% raw %}{{ ":lucide/database: Bases de dades" | extract_icon }}{% endraw %}
+{# → "lucide/database" #}
 ```
 
 ### `remove_icon`
@@ -34,7 +34,7 @@ Extreu el nom de la icona d'una cadena amb format `:icon:` o `:icon: Text`. Reto
 Retorna el text d'una cadena amb format `:icon: Text`, sense la icona. Si no hi ha icona, retorna la cadena íntegra.
 
 ```jinja
-{% raw %}{{ ":material/database: Bases de dades" | remove_icon }}{% endraw %}
+{% raw %}{{ ":lucide/database: Bases de dades" | remove_icon }}{% endraw %}
 {# → "Bases de dades" #}
 ```
 
@@ -45,7 +45,7 @@ La sintaxi `:icon: Text` es pot fer servir als títols de seccions a `.nav.yml` 
 ```yml title=".nav.yml"
 nav:
     - "*"
-    - ":material/pencil-outline: Secció amb icona":
+    - ":lucide/pencil: Secció amb icona":
         - pagina-1.md
         - pagina-2.md
 ```
