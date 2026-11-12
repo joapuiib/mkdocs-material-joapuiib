@@ -100,3 +100,44 @@
   --md-default-bg-color: #2E3440;
   --md-default-fg-color--lighter: #D8DEE952;
 }
+
+/* Model relacional (lexer `relational`): colors de la llegenda dels apunts. */
+.language-relational.highlight {
+  --md-code-hl-relational-entity-color: #1565c0;
+  --md-code-hl-relational-key-color: #c62828;
+}
+
+[data-md-color-scheme="slate"] .language-relational.highlight {
+  --md-code-hl-relational-entity-color: #64b5f6;
+  --md-code-hl-relational-key-color: #ef5350;
+}
+
+/* Entitat */
+.language-relational.highlight .nc {
+  color: var(--md-code-hl-relational-entity-color);
+  font-weight: bold;
+}
+
+/* Atribut de la clau primària */
+.language-relational.highlight .no {
+  color: var(--md-code-hl-relational-key-color);
+  text-decoration: underline;
+}
+
+/* Clau forana */
+.language-relational.highlight .na {
+  color: inherit;
+  font-style: italic;
+}
+
+/* Atribut que és clau primària i clau forana alhora */
+.language-relational.highlight .nv {
+  color: var(--md-code-hl-relational-key-color);
+  text-decoration: underline;
+  font-style: italic;
+}
+
+/* Atributs que no formen part de cap clau */
+.language-relational.highlight .n {
+  color: inherit;
+}

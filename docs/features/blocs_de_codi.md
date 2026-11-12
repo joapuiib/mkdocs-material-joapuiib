@@ -154,6 +154,44 @@ Initialized empty Git repository in /home/joapuiib/git_tutorial/.git/
 fatal: unable to auto-detect email address (got 'joapuiib@FP.(none)')
 ```
 
+## Model relacional
+El tema inclou un _lexer_ de Pygments per a la notació textual del model relacional.
+S'activa amb el llenguatge `relational` (també `relacional` o `rel`) i ressalta cada element
+segons la llegenda habitual:
+
+- __Entitat__: en majúscules i en blau.
+- __Clau primària__ (`#atribut`): en roig i subratllada.
+- __Clau forana__ (`atribut(ENTITAT:#atribut)`): en cursiva.
+- __Clau primària i forana__ (`#atribut(ENTITAT:#atribut)`): en roig, subratllada i en cursiva.
+- __Comentaris__: a partir de `--`.
+
+```relational
+FAMILIA_PROFESSIONAL (
+    #id_familia,
+    nom
+)
+CICLE_FORMATIU (
+    #id_cicle,
+    nom,
+    id_familia(FAMILIA_PROFESSIONAL:#id_familia)
+)
+CICLE_MODUL (
+    #id_cicle(CICLE_FORMATIU:#id_cicle),
+    #id_modul(MODUL:#id), -- clau primària composta
+    curs
+)
+```
+
+````md
+```relational
+CICLE_FORMATIU (
+    #id_cicle,
+    nom,
+    id_familia(FAMILIA_PROFESSIONAL:#id_familia)
+)
+```
+````
+
 ## Tecles de teclat
 ++ctrl+alt+del++
 

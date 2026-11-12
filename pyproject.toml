@@ -40,6 +40,9 @@ material-joapuiib = 'material_joapuiib.templates'
 "material-joapuiib/social" = "material_joapuiib.plugins.social:SocialPlugin"
 "material-joapuiib/xref" = "material_joapuiib.plugins.xref:XrefPlugin"
 
+[project.entry-points."pygments.lexers"]
+relational = "material_joapuiib.lexers.relational:RelationalLexer"
+
 [tool.setuptools.package-data]
 "*" = ['*.css', '*.yml']
 
