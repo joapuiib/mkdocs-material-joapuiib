@@ -77,6 +77,58 @@ spin() {
     wait "$pid"
 }
 
+# render_md <file>: prints Markdown with terminal styling. Uses glow when
+# installed; otherwise styles headings, bullets, bold, italics, inline code,
+# links and fenced code blocks, and wraps lines to the terminal width with
+# list items indented and their continuation lines aligned under the text.
+# Plain text when not on a terminal.
+render_md() {
+    if [ ! -t 1 ]; then
+        cat "$1"
+    elif command -v glow >/dev/null; then
+        glow "$1"
+    else
+        MD_WIDTH="$(tput cols 2>/dev/null || echo 80)" perl -CSD -Mutf8 -lpe '
+            # Visible length, without escape codes.
+            sub vlen { my $s = shift; $s =~ s/\e\[[\d;]*m//g; length $s }
+            # Wraps at spaces, indenting continuation lines by $ind columns.
+            sub wrap {
+                my ($line, $ind) = @_;
+                my @words = split / /, $line, -1;
+                my $out = shift @words;
+                my $len = vlen($out);
+                for my $word (@words) {
+                    my $l = vlen($word);
+                    if ($len + 1 + $l > $ENV{MD_WIDTH} && $len > $ind) {
+                        $out .= "\n" . (" " x $ind) . $word;
+                        $len = $ind + $l;
+                    } else {
+                        $out .= " $word";
+                        $len += 1 + $l;
+                    }
+                }
+                $out;
+            }
+            s/\r$//;
+            # Code blocks inside list items follow the items indentation.
+            s/^(\s+)/  $1/ if $fence || /^\s+```/;
+            if (/^\s*```/) { $fence = !$fence; $_ = "\e[2m$_\e[0m"; next }
+            if ($fence)    { $_ = "\e[36m$_\e[0m"; next }
+            # Set inline code aside so its content is not styled.
+            my @code;
+            s/`([^`]+)`/push @code, $1; "\0$#code\0"/ge;
+            s/\[([^\]]+)\]\(([^)]+)\)/\e[4m$1\e[24m \e[2m($2)\e[22m/g;
+            s/\*\*([^*]+)\*\*/\e[1m$1\e[22m/g;
+            s/(?<![*\w])\*([^*\s][^*]*)\*(?!\*)/\e[3m$1\e[23m/g;
+            s/^#{1,6}\s+(.*)/\e[1;34m$1\e[0m/;
+            my $indent = 0;
+            if (s/^(\s*)[-*+]\s+/  $1\e[34m•\e[39m /) { $indent = length($1) + 4 }
+            s/\0(\d+)\0/\e[36m$code[$1]\e[39m/g;
+            $_ = wrap($_, $indent);
+        ' "$1"
+    fi
+}
+
 # Step results, shown in the final summary: "mark|label|detail".
 RESULTS=()
 record() { RESULTS+=("$1|$2|$3"); }
@@ -230,7 +282,7 @@ Leave out internal changes (tests, refactors, CI, version bumps). Write in Engli
 
     while true; do
         banner "Release notes $TAG"
-        cat "$notes_file"
+        render_md "$notes_file"
         echo
         read -r -p "${BOLD}?${RESET} $question ${DIM}[y]es/[e]dit/[N]o${RESET} " reply
         case "$reply" in
