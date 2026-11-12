@@ -250,19 +250,9 @@ p:has(img.center) {
     margin: revert-layer;
 }
 
-/* Section icons in the breadcrumbs (sectionicons plugin) */
-.md-path__link > svg {
-    fill: currentcolor;
-    flex-shrink: 0;
-    height: 1.2em;
-    width: 1.2em;
-    margin-inline-end: 0.25em;
-}
-
 /* Lucide icons are stroke-based: undo the fill set for filled icon sets */
 .md-tabs__link svg.lucide,
-.md-nav__title svg.lucide,
-.md-path__link > svg.lucide {
+.md-nav__title svg.lucide {
     fill: none;
     stroke: currentcolor;
 }

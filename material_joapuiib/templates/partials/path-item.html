@@ -1,16 +1,13 @@
 {#-
-  Override of Material's partials/path-item.html: renders section icons
-  written as ":icon: Title" (see the sectionicons plugin) instead of
-  showing the raw markup in the breadcrumbs.
+  Override of Material's partials/path-item.html: strips section icons
+  written as ":icon: Title" (see the sectionicons plugin) so the raw
+  markup is not shown in the breadcrumbs. Icons are not rendered, to
+  stay consistent with pages, whose `icon` metadata is not shown either.
 -#}
 {% macro render_content(nav_item) %}
   {% set title = nav_item.title %}
   {% if "material-joapuiib/sectionicons" in config.plugins and title %}
-    {% set section_icon = title | extract_icon %}
-    {% if section_icon %}
-      {% set title = title | remove_icon %}
-      {% include ".icons/" ~ section_icon ~ ".svg" %}
-    {% endif %}
+    {% set title = title | remove_icon %}
   {% endif %}
   <span class="md-ellipsis">
     {{ title }}
