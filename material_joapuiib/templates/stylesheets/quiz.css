@@ -1,0 +1,158 @@
+/* `/// quiz` blocks (see material_joapuiib/extensions/quiz.py). */
+:root {
+  --quiz-correct-color: #43a047;
+  --quiz-correct-bg: rgba(67, 160, 71, 0.12);
+  --quiz-wrong-color: #e53935;
+  --quiz-wrong-bg: rgba(229, 57, 53, 0.1);
+}
+
+.md-typeset .quiz {
+  margin: 1em 0;
+  padding: 0.8em 1em;
+  border: 0.05rem solid var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+}
+
+.md-typeset .quiz-question {
+  margin-bottom: 0.8em;
+  font-weight: 700;
+}
+
+.md-typeset .quiz-hint {
+  margin: -0.4em 0 0.6em;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+/* Multiple choice: square markers instead of round ones. */
+.md-typeset .quiz--multiple .quiz-option::before {
+  border-radius: 0.2em;
+}
+
+.md-typeset ul.quiz-options {
+  counter-reset: quiz-option;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset .quiz-option {
+  counter-increment: quiz-option;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin: 0;
+  padding: 0.5em 0.8em;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  cursor: pointer;
+  transition: border-color 125ms, background-color 125ms;
+}
+
+/* Beats Material's `[dir=ltr] .md-typeset ul li` list indentation. */
+.md-typeset ul.quiz-options > li.quiz-option {
+  margin: 0;
+}
+
+.md-typeset .quiz-option::before {
+  content: counter(quiz-option, upper-alpha);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background-color: var(--md-default-fg-color--lightest);
+  font-size: 0.85em;
+  font-weight: 700;
+}
+
+.md-typeset .quiz-option > p {
+  margin: 0;
+}
+
+.md-typeset .quiz-option:hover:not([aria-disabled="true"]),
+.md-typeset .quiz-option:focus-visible {
+  border-color: var(--md-accent-fg-color);
+  outline: none;
+}
+
+.md-typeset .quiz-option[aria-disabled="true"] {
+  cursor: default;
+}
+
+.md-typeset .quiz-option.is-wrong {
+  border-color: var(--quiz-wrong-color);
+  background-color: var(--quiz-wrong-bg);
+  opacity: 0.7;
+  animation: quiz-shake 300ms;
+}
+
+.md-typeset .quiz-option.is-wrong::before {
+  background-color: var(--quiz-wrong-color);
+  color: #fff;
+}
+
+.md-typeset .quiz-option.is-correct {
+  border-color: var(--quiz-correct-color);
+  background-color: var(--quiz-correct-bg);
+}
+
+.md-typeset .quiz-option.is-correct::before {
+  background-color: var(--quiz-correct-color);
+  color: #fff;
+}
+
+.md-typeset .quiz-feedback:empty {
+  display: none;
+}
+
+.md-typeset .quiz-feedback {
+  margin-top: 0.8em;
+  padding: 0.4em 0.8em;
+  border-left: 0.2rem solid;
+  border-radius: 0.1rem;
+}
+
+.md-typeset .quiz-feedback--correct {
+  border-color: var(--quiz-correct-color);
+  background-color: var(--quiz-correct-bg);
+}
+
+.md-typeset .quiz-feedback--wrong {
+  border-color: var(--quiz-wrong-color);
+  background-color: var(--quiz-wrong-bg);
+}
+
+/* The explanation is part of the solution: hidden until solved. */
+.md-typeset .quiz:not(.is-solved) .quiz-explanation {
+  display: none;
+}
+
+.md-typeset .quiz-explanation {
+  margin-top: 0.6em;
+}
+
+.md-typeset .quiz-explanation > :first-child {
+  margin-top: 0;
+}
+
+.md-typeset .quiz-explanation > :last-child {
+  margin-bottom: 0;
+}
+
+@keyframes quiz-shake {
+  25% { transform: translateX(-0.2rem); }
+  75% { transform: translateX(0.2rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .quiz-option.is-wrong {
+    animation: none;
+  }
+}

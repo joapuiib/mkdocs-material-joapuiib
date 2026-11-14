@@ -35,6 +35,14 @@ Extensions de [Python-Markdown](https://python-markdown.github.io/extensions/) q
     Bloc `/// calendar` que renderitza calendaris a partir de configuració TOML, amb dies festius, rangs i suport multi-idioma.
 
     [:lucide-arrow-right: Documentació](calendar.md)
+
+-   :lucide-circle-help:{ .lg .middle } __Quiz__
+
+    ---
+
+    Bloc `/// quiz` amb preguntes tipus test interactives que només mostren la solució quan s'encerten.
+
+    [:lucide-arrow-right: Documentació](quiz.md)
 ///
 
 ## Extensions de tercers

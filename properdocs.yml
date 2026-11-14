@@ -125,7 +125,8 @@ markdown_extensions:
   - span_attr
   - def_list
   - footnotes
-  - inline_blocks
+  - inline_blocks:
+      exclude_blocks: [html, quiz]
   - markdown_grid_tables
   - md_in_html
   - sane_lists
@@ -182,3 +183,4 @@ markdown_extensions:
       toc_depth: 4
   - material_joapuiib.extensions.calendar:
       locale: ca
+  - material_joapuiib.extensions.quiz
