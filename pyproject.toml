@@ -17,6 +17,9 @@ maintainers = [
 license = {file = 'LICENSE'}
 requires-python = '>=3.11.5'
 
+[project.optional-dependencies]
+test = ["pytest"]
+
 [project.urls]
 # 'Homepage' = ''
 'Repository' = 'https://github.com/joapuiib/mkdocs-material-joapuiib'

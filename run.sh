@@ -25,6 +25,7 @@ COPILOT=0
 SKIP=0
 SQUARE_LOGO=0
 HERO_SECTION=0
+TEST=0
 PORT=''
 
 ARGS=''
@@ -75,6 +76,9 @@ while [ $# -gt 0 ] ; do
         --herosection)
             HERO_SECTION=1
             ;;
+        -t | --test)
+            TEST=1
+            ;;
         --act)
             ACT=$2
             if [ -z "$ACT" ]; then
@@ -119,16 +123,26 @@ if [ $INSTALL_VENV -eq 1 ]; then
     print "Installing dependencies"
     $VENV_DIR/bin/pip install -r requirements.txt
     print "Install this package..."
-    $VENV_DIR/bin/pip install -e .
+    $VENV_DIR/bin/pip install -e ".[test]"
 elif [ $UPGRADE -eq 1 ]; then
     print "Upgrading dependencies..."
     $VENV_DIR/bin/pip install --upgrade -r requirements.txt
     print "Upgrading this package..."
-    $VENV_DIR/bin/pip install --upgrade -e .
+    $VENV_DIR/bin/pip install --upgrade -e ".[test]"
 
 fi
 
 source $VENV_DIR/bin/activate
+
+if [ $TEST -eq 1 ]; then
+    if ! python -c 'import pytest' 2>/dev/null; then
+        print "Installing test dependencies..."
+        pip install -e ".[test]"
+    fi
+    print "Running tests..."
+    python -m pytest $ARGS
+    exit $?
+fi
 
 if [ $SQUARE_LOGO -eq 1 ]; then
     python3 scripts/generate_square_logo.py $ARGS
