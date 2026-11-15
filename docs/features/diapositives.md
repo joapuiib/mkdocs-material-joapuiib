@@ -64,6 +64,8 @@ Escriu `Note:` a l'inici d'una línia: tot el que hi haja a partir d'eixe punt, 
 
 Prem `S` per obrir la vista de l'orador i veure-les.
 
+Amb `next_notes: true` al *front matter*, les notes de cada diapositiva inclouen també, atenuades i davall d'una línia, les notes de la diapositiva següent. Així, en la vista de l'orador es pot llegir per endavant què toca dir després.
+
 Note:
 Estes són les notes d'esta diapositiva. Sols les veu qui prem `S`.
 

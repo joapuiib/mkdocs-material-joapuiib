@@ -40,6 +40,9 @@ class SlidesPlugin(BasePlugin):
         # both agree.
         used_ids = set()
 
+        # Each slide as [content_html, notes_html or None], grouped in
+        # vertical stacks. Notes are joined to the content at the end, so
+        # `next_notes` can read the notes of the following slide first.
         slides = []
         for horizontal_lines in self._split(text, '---'):
             vertical = []
@@ -50,14 +53,48 @@ class SlidesPlugin(BasePlugin):
                 html = md.convert('\n'.join(content_lines).strip('\n'))
                 html = self._unique_heading_ids(html, used_ids)
 
+                notes_html = None
                 if note_lines is not None:
                     md.reset()
                     notes_html = md.convert('\n'.join(note_lines).strip('\n'))
-                    html += f'<aside class="notes">{notes_html}</aside>'
 
-                vertical.append(html)
+                vertical.append([html, notes_html])
             slides.append(vertical)
-        return slides
+
+        if page.meta.get('next_notes'):
+            self._append_next_notes(slides)
+
+        return [
+            [
+                html + (f'<aside class="notes">{notes}</aside>' if notes is not None else '')
+                for html, notes in vertical
+            ]
+            for vertical in slides
+        ]
+
+    @staticmethod
+    def _append_next_notes(slides):
+        """
+        Appends the notes of the next slide, faded and after a rule, to the
+        notes of every slide, so the speaker view shows what comes next.
+        "Next" follows the deck's linear order: down a vertical stack, then
+        on to the first slide of the next stack. Slides whose next slide has
+        no notes are left as they are. Styles are inline because reveal.js's
+        speaker view copies the notes into its own window, without the
+        page's stylesheets.
+        """
+        flat = [slide for vertical in slides for slide in vertical]
+        own_notes = [notes for _, notes in flat]
+        for slide, next_notes in zip(flat, own_notes[1:]):
+            if next_notes is None:
+                continue
+            slide[1] = (
+                (slide[1] or '')
+                + '<hr><div style="opacity: 0.5;">'
+                + '<p><strong>Next:</strong></p>'
+                + next_notes
+                + '</div>'
+            )
 
     _HEADING_RE = re.compile(r'<h([1-6])\b[^>]*>.*?</h\1>', re.DOTALL)
     _HEADING_ID_RE = re.compile(r'^(<h[1-6]\b[^>]*\bid=")([^"]+)(")')
