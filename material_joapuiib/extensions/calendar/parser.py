@@ -2,14 +2,10 @@
 from __future__ import annotations
 
 import re
+import tomllib
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Mapping
-
-try:
-    import tomllib  # Python 3.11+
-except ModuleNotFoundError:  # pragma: no cover
-    import tomli as tomllib  # type: ignore[no-redef]
 
 from .errors import CalendarError
 from .i18n import DEFAULT_LOCALE, Locale, get_locale
