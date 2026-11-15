@@ -3,7 +3,7 @@
 #
 # Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-r|--release] [-f|--force] [-n|--new-commit]
 #                            [--prompt TEXT] [--dry]
-#        bin/bump-version.sh release [VERSION] [--prompt TEXT]
+#        bin/bump-version.sh release [VERSION] [--prompt TEXT] [--dry]
 #
 # After pushing, it offers to create a GitHub release whose notes are written
 # by Claude Code (`claude -p`) from the commits since the previous tag. The
@@ -11,6 +11,10 @@
 # "create release?" question. Pass --prompt TEXT to give Claude extra
 # instructions for the notes (e.g. what to emphasise or how to word a change).
 # Without it, the release questions also offer [p]rompt to type them.
+#
+# --dry shows the plan and, after asking (or directly with -r), previews the
+# release notes Claude would write for HEAD, without changing or publishing
+# anything. `release [VERSION] --dry` previews the notes for an existing tag.
 # Requires the `claude` and `gh` CLIs.
 #
 # `release [VERSION]` skips the bump and only writes the release for an
@@ -182,7 +186,7 @@ Options:
   -f, --force         Skip the confirmation before bumping
   -n, --new-commit    Always create a separate commit instead of amending HEAD
       --prompt TEXT   Extra instructions for Claude when writing the notes
-      --dry           Show the plan and exit without changes
+      --dry           Show the plan and preview the release notes, without changes
   -h, --help          Show this help
 USAGE
 }
@@ -236,14 +240,14 @@ current_version() { grep -oP "(?<=__version__ = ')[^']+" "$VERSION_FILE"; }
 # GitHub release
 # ---------------------------------------------------------------------------
 create_release() {
-    if ! command -v claude >/dev/null || ! command -v gh >/dev/null; then
+    if ! command -v claude >/dev/null || { [[ -z "$DRY" ]] && ! command -v gh >/dev/null; }; then
         skip "Skipped release: the 'claude' and 'gh' CLIs are required."
         record "${YELLOW}-${RESET}" "Release" "skipped (claude or gh missing)"
         return
     fi
 
     local exists=""
-    if gh release view "$TAG" >/dev/null 2>&1; then
+    if [[ -z "$DRY" ]] && gh release view "$TAG" >/dev/null 2>&1; then
         exists="yes"
         if ! confirm_prompt "GitHub release $TAG already exists. Write new notes for it?"; then
             skip "Kept the existing release $TAG."
@@ -252,9 +256,15 @@ create_release() {
         fi
     fi
 
-    local prev_tag range notes_file highlights_file err_file prompt
-    prev_tag="$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || true)"
-    range="${prev_tag:+$prev_tag..}$TAG"
+    # In a dry bump the tag does not exist yet, so the notes cover HEAD.
+    local ref="$TAG" prev_tag range notes_file highlights_file err_file prompt
+    if [[ -n "$DRY" && -z "$RELEASE_ONLY" ]]; then
+        ref="HEAD"
+        prev_tag="$PREV_TAG"
+    else
+        prev_tag="$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || true)"
+    fi
+    range="${prev_tag:+$prev_tag..}$ref"
     notes_file="$(mktemp --suffix=.md)"
     highlights_file="$(mktemp --suffix=.md)"
     err_file="$(mktemp)"
@@ -281,9 +291,9 @@ $EXTRA_PROMPT"
         git log --no-merges --format='- %s%n%b' "$range"
         echo "Changed files:"
         if [[ -n "$prev_tag" ]]; then
-            git diff --stat "$prev_tag" "$TAG"
+            git diff --stat "$prev_tag" "$ref"
             echo "Documentation diff:"
-            git diff "$prev_tag" "$TAG" -- docs README.md
+            git diff "$prev_tag" "$ref" -- docs README.md
         fi
     } | claude -p "$prompt" --tools "" > "$highlights_file" 2> "$err_file" &
     spin $! "Writing release notes for $TAG${prev_tag:+ (since $prev_tag)} with Claude..." || true
@@ -308,6 +318,15 @@ $EXTRA_PROMPT"
         fi
     } > "$notes_file"
     rm -f "$highlights_file" "$err_file"
+
+    if [[ -n "$DRY" ]]; then
+        banner "Release notes $TAG (preview)"
+        render_md "$notes_file"
+        echo
+        skip "Dry run: release notes not published."
+        rm -f "$notes_file"
+        return
+    fi
 
     local question reply
     if [[ -n "$exists" ]]; then
@@ -413,6 +432,10 @@ fi
 echo
 
 if [[ -n "$DRY" ]]; then
+    if [[ -z "$RELEASE" ]]; then
+        confirm_prompt "Preview the release notes written by Claude?" && RELEASE="yes"
+    fi
+    [[ -z "$RELEASE" ]] || create_release
     skip "Dry run: no changes made."
     exit 0
 fi
