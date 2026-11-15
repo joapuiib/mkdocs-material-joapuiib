@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # Bump the project version, commit, and tag it.
 #
-# Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-r|--release] [-f|--force] [-n|--new-commit] [--dry]
-#        bin/bump-version.sh release [VERSION]
+# Usage: bin/bump-version.sh [major|minor|patch] [-p|--push] [-r|--release] [-f|--force] [-n|--new-commit]
+#                            [--prompt TEXT] [--dry]
+#        bin/bump-version.sh release [VERSION] [--prompt TEXT]
 #
 # After pushing, it offers to create a GitHub release whose notes are written
 # by Claude Code (`claude -p`) from the commits since the previous tag. The
 # notes are shown for review before publishing. Pass -r/--release to skip the
-# "create release?" question. Requires the `claude` and `gh` CLIs.
+# "create release?" question. Pass --prompt TEXT to give Claude extra
+# instructions for the notes (e.g. what to emphasise or how to word a change).
+# Without it, the release questions also offer [p]rompt to type them.
+# Requires the `claude` and `gh` CLIs.
 #
 # `release [VERSION]` skips the bump and only writes the release for an
 # existing tag (default: the current version). If the release already exists,
@@ -60,6 +64,22 @@ confirm() {
     local reply
     read -r -p "${BOLD}?${RESET} $1 ${DIM}[y/N]${RESET} " reply
     [[ "$reply" =~ ^[yY]([eE][sS])?$ ]]
+}
+
+# confirm_prompt <question>: like confirm, but when no --prompt was given it
+# also offers [p]rompt, which asks for extra instructions for Claude and
+# stores them in EXTRA_PROMPT before answering yes.
+confirm_prompt() {
+    [[ -z "$EXTRA_PROMPT" ]] || { confirm "$1"; return; }
+    local reply
+    read -r -p "${BOLD}?${RESET} $1 ${DIM}[y]es/[p]rompt/[N]o${RESET} " reply
+    case "$reply" in
+        [yY]|[yY][eE][sS]) return 0 ;;
+        [pP]|[pP][rR][oO][mM][pP][tT])
+            read -r -p "${BOLD}?${RESET} Instructions for Claude: " EXTRA_PROMPT
+            ;;
+        *) return 1 ;;
+    esac
 }
 
 # spin <pid> <message>: shows a spinner until <pid> exits, returns its status.
@@ -161,6 +181,7 @@ Options:
   -r, --release       Create the GitHub release without asking
   -f, --force         Skip the confirmation before bumping
   -n, --new-commit    Always create a separate commit instead of amending HEAD
+      --prompt TEXT   Extra instructions for Claude when writing the notes
       --dry           Show the plan and exit without changes
   -h, --help          Show this help
 USAGE
@@ -179,8 +200,10 @@ DRY=""
 NEW_COMMIT=""
 RELEASE_ONLY=""
 RELEASE_VERSION=""
+EXTRA_PROMPT=""
 
-for arg in "$@"; do
+while [ $# -gt 0 ]; do
+    arg="$1"
     case "$arg" in
         major|minor|patch) BUMP="$arg" ;;
         release)           RELEASE_ONLY="yes" ;;
@@ -192,10 +215,17 @@ for arg in "$@"; do
         -r|--release)    RELEASE="yes" ;;
         -f|--force)      FORCE="yes" ;;
         -n|--new-commit) NEW_COMMIT="yes" ;;
+        --prompt)
+            [ $# -ge 2 ] && [ -n "$2" ] || usage_error "--prompt needs a text."
+            EXTRA_PROMPT="$2"
+            shift
+            ;;
+        --prompt=*)      EXTRA_PROMPT="${arg#--prompt=}" ;;
         --dry)           DRY="yes" ;;
         -h|--help)       usage; exit 0 ;;
         *)               usage_error "Unknown argument '$arg'." ;;
     esac
+    shift
 done
 
 cd "$REPO_ROOT"
@@ -215,7 +245,7 @@ create_release() {
     local exists=""
     if gh release view "$TAG" >/dev/null 2>&1; then
         exists="yes"
-        if ! confirm "GitHub release $TAG already exists. Write new notes for it?"; then
+        if ! confirm_prompt "GitHub release $TAG already exists. Write new notes for it?"; then
             skip "Kept the existing release $TAG."
             record "${YELLOW}-${RESET}" "Release" "kept existing $TAG"
             return
@@ -239,6 +269,12 @@ Put options, admonition types, CSS classes and file names in backticks. \
 When a change is documented, end its bullet with a link like [Admonitions docs]($DOCS_URL/features/admonitions/), \
 where docs/<path>.md is published at $DOCS_URL/<path>/. \
 Leave out internal changes (tests, refactors, CI, version bumps). Write in English."
+    if [[ -n "$EXTRA_PROMPT" ]]; then
+        prompt="$prompt
+
+Additional instructions from the maintainer, which take precedence over the ones above:
+$EXTRA_PROMPT"
+    fi
 
     {
         echo "Commits:"
@@ -322,6 +358,7 @@ if [[ -n "$RELEASE_ONLY" ]]; then
     TAG="v$RELEASE_VERSION"
     git rev-parse -q --verify "refs/tags/$TAG" >/dev/null || die "Tag $TAG does not exist."
     banner "Release $TAG"
+    [[ -z "$EXTRA_PROMPT" ]] || row "Prompt" "$EXTRA_PROMPT"
     create_release
     summary
     exit 0
@@ -367,6 +404,7 @@ if [[ "$MODE" == "amend" ]]; then
 else
     row "Commit" "new: chore: bump version to $NEW_VERSION"
 fi
+[[ -z "$EXTRA_PROMPT" ]] || row "Prompt" "$EXTRA_PROMPT"
 if [[ -n "$PREV_TAG" ]]; then
     echo
     echo "  ${DIM}Commits since $PREV_TAG:${RESET}"
@@ -434,7 +472,7 @@ fi
 # ---------------------------------------------------------------------------
 banner "Release"
 if [[ -z "$RELEASE" ]]; then
-    confirm "Create GitHub release with notes written by Claude?" && RELEASE="yes"
+    confirm_prompt "Create GitHub release with notes written by Claude?" && RELEASE="yes"
 fi
 
 if [[ -n "$RELEASE" ]]; then
