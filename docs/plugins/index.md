@@ -48,7 +48,7 @@ Plugins de [MkDocs](https://www.mkdocs.org/dev-guide/plugins/) que afegeixen fun
 
     Variable de context `build` per saber si s'està construint el lloc.
 
-    [:lucide-arrow-right: Documentació](enviorment.md)
+    [:lucide-arrow-right: Documentació](environment.md)
 
 -   :lucide-pencil:{ .lg .middle } __Section icons__
 

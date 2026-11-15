@@ -83,7 +83,7 @@ plugins:
   - materialx/tags
   - material-joapuiib/badges
   - material-joapuiib/xref
-  - material-joapuiib/enviorment
+  - material-joapuiib/environment
   - material-joapuiib/sectionicons
   - material-joapuiib/filters
   - material-joapuiib/functions:

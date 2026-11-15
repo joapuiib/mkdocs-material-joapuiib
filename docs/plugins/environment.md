@@ -11,26 +11,23 @@ Plugin que afegeix una variable `build` al context Jinja de les plantilles, indi
 
 ```yml title="properdocs.yml"
 plugins:
-  - material-joapuiib/enviorment
+  - material-joapuiib/environment
 ```
-
-!!! note
-    El nom del plugin està registrat com a `enviorment` (sic). Es manté per compatibilitat.
 
 ## Variables disponibles
 
 | Variable | Tipus | Descripció |
 |----------|-------|-------------|
-| `build` | `bool` | `true` si la comanda és `build` o `gh-deploy`; `false` durant `serve`. |
+| `build` | `bool` | `true` si l'ordre és `build` o `gh-deploy`; `false` durant `serve`. |
 
 ## Ús a les plantilles
 
 ```jinja
 {% raw %}{% if build %}
-  <!-- Codi sols per a producció -->
+  <!-- Codi només per a producció -->
 {% else %}
-  <!-- Codi sols per a desenvolupament -->
+  <!-- Codi només per a desenvolupament -->
 {% endif %}{% endraw %}
 ```
 
-Útil per a injectar scripts d'analítica, comentaris o altres recursos sols quan es publica el lloc.
+Útil per a injectar scripts d'analítica, comentaris o altres recursos només quan es publica el lloc.

@@ -1,6 +1,6 @@
 from mkdocs.plugins import BasePlugin
 
-class EnviormentPlugin(BasePlugin):
+class EnvironmentPlugin(BasePlugin):
 
     def __init__(self):
         self.enabled = True
