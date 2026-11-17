@@ -143,29 +143,32 @@ p:has(img.center) {
     color: gray;
 }
 /* Text in the colour of each admonition type, e.g. [text]{.tip} */
-.md-typeset :not(.admonition, details).note { color: var(--md-admonition-color--note); }
-.md-typeset :not(.admonition, details).abstract { color: var(--md-admonition-color--abstract); }
-.md-typeset :not(.admonition, details).info { color: var(--md-admonition-color--info); }
-.md-typeset :not(.admonition, details).tip { color: var(--md-admonition-color--tip); }
-.md-typeset :not(.admonition, details).success { color: var(--md-admonition-color--success); }
-.md-typeset :not(.admonition, details).question { color: var(--md-admonition-color--question); }
-.md-typeset :not(.admonition, details).warning { color: var(--md-admonition-color--warning); }
-.md-typeset :not(.admonition, details).failure { color: var(--md-admonition-color--failure); }
-.md-typeset :not(.admonition, details).danger { color: var(--md-admonition-color--danger); }
-.md-typeset :not(.admonition, details).bug { color: var(--md-admonition-color--bug); }
-.md-typeset :not(.admonition, details).example { color: var(--md-admonition-color--example); }
-.md-typeset :not(.admonition, details).quote { color: var(--md-admonition-color--quote); }
-.md-typeset :not(.admonition, details).notice { color: var(--md-admonition-color--notice); }
-.md-typeset :not(.admonition, details).spoiler { color: var(--md-admonition-color--spoiler); }
-.md-typeset :not(.admonition, details).recommend { color: var(--md-admonition-color--recommend); }
-.md-typeset :not(.admonition, details).prep { color: var(--md-admonition-color--prep); }
-.md-typeset :not(.admonition, details).important { color: var(--md-admonition-color--important); }
-.md-typeset :not(.admonition, details).solution { color: var(--md-admonition-color--solution); }
-.md-typeset :not(.admonition, details).construction { color: var(--md-admonition-color--construction); }
-.md-typeset :not(.admonition, details).picture { color: var(--md-admonition-color--picture); }
-.md-typeset :not(.admonition, details).deprecated { color: var(--md-admonition-color--deprecated); }
-.md-typeset :not(.admonition, details).docs { color: var(--md-admonition-color--docs); }
-.md-typeset :not(.admonition, details).extension { color: var(--md-admonition-color--extension); }
+.md-typeset :is(p, span, a).note { color: var(--md-admonition-color--note); }
+.md-typeset :is(p, span, a).abstract { color: var(--md-admonition-color--abstract); }
+.md-typeset :is(p, span, a).info { color: var(--md-admonition-color--info); }
+.md-typeset :is(p, span, a).tip { color: var(--md-admonition-color--tip); }
+.md-typeset :is(p, span, a).success { color: var(--md-admonition-color--success); }
+.md-typeset :is(p, span, a).question { color: var(--md-admonition-color--question); }
+.md-typeset :is(p, span, a).warning { color: var(--md-admonition-color--warning); }
+.md-typeset :is(p, span, a).failure { color: var(--md-admonition-color--failure); }
+.md-typeset :is(p, span, a).danger { color: var(--md-admonition-color--danger); }
+.md-typeset :is(p, span, a).bug { color: var(--md-admonition-color--bug); }
+.md-typeset :is(p, span, a).example { color: var(--md-admonition-color--example); }
+.md-typeset :is(p, span, a).quote { color: var(--md-admonition-color--quote); }
+.md-typeset :is(p, span, a).notice { color: var(--md-admonition-color--notice); }
+.md-typeset :is(p, span, a).spoiler { color: var(--md-admonition-color--spoiler); }
+.md-typeset :is(p, span, a).recommend { color: var(--md-admonition-color--recommend); }
+.md-typeset :is(p, span, a).prep { color: var(--md-admonition-color--prep); }
+.md-typeset :is(p, span, a).important { color: var(--md-admonition-color--important); }
+.md-typeset :is(p, span, a).solution { color: var(--md-admonition-color--solution); }
+.md-typeset :is(p, span, a).construction { color: var(--md-admonition-color--construction); }
+.md-typeset :is(p, span, a).picture { color: var(--md-admonition-color--picture); }
+.md-typeset :is(p, span, a).deprecated { color: var(--md-admonition-color--deprecated); }
+.md-typeset :is(p, span, a).docs { color: var(--md-admonition-color--docs); }
+.md-typeset :is(p, span, a).extension { color: var(--md-admonition-color--extension); }
+.md-typeset a:is(.note, .abstract, .info, .tip, .success, .question, .warning, .failure, .danger, .bug, .example, .quote, .notice, .spoiler, .recommend, .prep, .important, .solution, .construction, .picture, .deprecated, .docs, .extension):hover {
+    opacity: 0.75;
+}
 
 .opacity-25 {
     opacity: 0.25 !important;
