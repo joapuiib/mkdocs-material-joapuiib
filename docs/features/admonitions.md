@@ -7,7 +7,9 @@ icon: lucide/triangle-alert
 
 > Referència: [:lucide-external-link: Admonitions &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/admonitions.html)
 
-## Admonicions per defecte
+## Admonicions de MaterialX
+
+Tipus que inclou el tema MaterialX.
 
 !!! note
     Admonició de tipus `note`
@@ -45,7 +47,9 @@ icon: lucide/triangle-alert
 !!! quote
     Admonició de tipus `quote`
 
-## Admonicions personalitzades
+## Admonicions d'aquest tema
+
+Tipus que afig aquest tema.
 
 !!! spoiler
     Admonició de tipus `spoiler`
@@ -79,3 +83,42 @@ icon: lucide/triangle-alert
 
 !!! extension
     Admonició de tipus `extension`
+
+## Afegir admonicions addicionals
+
+Des de la configuració, `theme.admonition` defineix la icona i el color d'un tipus nou (ací, `pregunta-examen`) o canvia els d'un tipus existent:
+
+```yaml title="properdocs.yml"
+theme:
+  admonition:
+    pregunta-examen:
+      icon: lucide/circle-help
+      color: '#ff6f00'
+    example:
+      icon: lucide/list
+```
+
+La icona pot ser qualsevol de les incloses al tema, com les de [Lucide](https://lucide.dev/icons/), o una icona personalitzada. S'utilitza com qualsevol altra admonició:
+
+```markdown
+!!! pregunta-examen "Títol opcional"
+    Contingut de l'admonició.
+```
+
+!!! pregunta-examen "Títol opcional"
+    Contingut de l'admonició.
+
+### Títol traduït
+
+Si no s'indica un títol, l'admonició mostra el nom del tipus. Per traduir-lo, s'afig en el plugin `i18n`:
+
+```yaml title="properdocs.yml"
+plugins:
+  - i18n:
+      languages:
+        - locale: ca
+          default: true
+          name: Valencià
+          admonition_translations:
+            pregunta-examen: Pregunta d'examen
+```

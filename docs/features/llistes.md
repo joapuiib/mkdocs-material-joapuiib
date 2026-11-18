@@ -7,8 +7,7 @@ icon: lucide/list
 
 > Referència: [:lucide-external-link: Lists &mdash; MaterialX](https://jaywhj.github.io/mkdocs-materialx/reference/lists.html)
 
-!!! info
-    L'extensió `pymdownx-fancylists` està instal·lada per defecte i permet crear llistes amb números, lletres i numerals romans, tant en majúscules com en minúscules.
+!!! info "L'extensió `pymdownx-fancylists` està instal·lada per defecte i permet crear llistes amb números, lletres i numerals romans, tant en majúscules com en minúscules."
 
 ## Llistes amb números
 
@@ -102,3 +101,36 @@ iii. Element romà
     * [ ] Praesent sed risus massa
 - [ ] Aenean pretium efficitur erat, donec pharetra, ligula non scelerisque
 ```
+
+## Llistes de passos
+
+Una llista ordenada amb estil destacat per a procediments.
+
+/// html | div.steps
+1. Embolica el contingut en un `<div>` amb la classe `steps`.
+
+    === "HTML"
+        ```html
+        <div class="steps" markdown>
+
+        1. pas 1
+
+        2. pas 2
+
+        </div>
+        ```
+
+    === "Extensió `pymdownx.blocks`"
+        ```markdown
+        /// html | div.steps
+        1. pas 1
+        2. pas 2
+        ///
+        ```
+
+2. Enhorabona! Has creat una llista de passos.
+
+    > Els passos es numeren automàticament.
+
+3. Ja estàs llest per a compartir el teu treball.
+///

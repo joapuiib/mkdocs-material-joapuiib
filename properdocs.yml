@@ -30,6 +30,10 @@ theme:
   name: material-joapuiib
   email: "j.puigcerveribanez@edu.gva.es"
   author_link: https://github.com/joapuiib
+  admonition:
+    pregunta-examen:
+      icon: lucide/circle-help
+      color: '#ff6f00'
   icon:
     logo: lucide/notebook-pen
   favicon: lucide/notebook-pen

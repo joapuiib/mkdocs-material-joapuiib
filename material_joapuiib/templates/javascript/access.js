@@ -314,6 +314,10 @@
     var locked = box.querySelector(".access__locked");
     var fresh = box.dataset.accessState !== "unlocked";
 
+    // Lets other scripts (e.g. the exam) know how the page was unlocked: "dev" is the author view and
+    // `accessBypass` marks the people who bypass the restrictions (the teaching staff).
+    box.dataset.accessSource = cand.src || "";
+    if (cand.bypass) box.dataset.accessBypass = ""; else delete box.dataset.accessBypass;
     content.innerHTML = "";
     var bar = buildBar(box, cand, state);
     if (bar) content.appendChild(bar);
@@ -467,9 +471,15 @@
       error.textContent = "";
       var key = await pbkdf2(input.value, cfg.saltPw);
       var ok = false;
+      var bypass = false;
       var wraps = payloadOf(box).w;
       for (var i = 0; i < wraps.length && !ok; i++) {
-        try { await open(key, b64d(wraps[i].w)); ok = true; } catch (e) { /* next */ }
+        try { await open(key, b64d(wraps[i].w)); ok = true; bypass = !!wraps[i].b; } catch (e) { /* next */ }
+      }
+      var state = windowState(box);
+      if (state !== "open" && !(ok && bypass)) {
+        error.textContent = S.not_available;
+        return;
       }
       if (!ok) {
         error.textContent = S.wrong_password;

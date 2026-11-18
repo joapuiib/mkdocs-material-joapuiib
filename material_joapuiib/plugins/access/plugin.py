@@ -86,6 +86,9 @@ class AccessPlugin(plugins.BasePlugin[AccessConfig]):
 
     def on_startup(self, *, command, dirty):
         self.serving = command == "serve"
+        # `serve` only: the exam blocks then keep their solutions in the page for the author preview.
+        from material_joapuiib.extensions import quiz
+        quiz.PREVIEW_SOLUTIONS = self.serving
         self.dirty = dirty
 
     def on_config(self, config):

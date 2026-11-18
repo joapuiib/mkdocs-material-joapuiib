@@ -1,0 +1,12 @@
+{#- Exam page with a side panel: question navigation, name and export (see `/// exam`). -#}
+{% extends "exam.html" %}
+
+{% block content %}
+<div class="exam-page" data-exam-layout="panel">
+    {% include "partials/cover.html" %}
+    {% if not (page.meta.cover is defined and page.meta.cover or config.theme.cover) %}
+    <h1 class="exam-page-title">{{ page.title }}</h1>
+    {% endif %}
+    {{ page.content }}
+</div>
+{% endblock %}

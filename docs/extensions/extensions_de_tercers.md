@@ -39,7 +39,7 @@ Conjunt d'extensions de [PyMdown Extensions](https://facelessuser.github.io/pymd
 | `pymdownx.highlight` | Ressaltat de sintaxi amb Pygments. Veure [Blocs de codi](../features/blocs_de_codi.md). | [:lucide-external-link: Highlight](https://facelessuser.github.io/pymdown-extensions/extensions/highlight/) |
 | `pymdownx.inlinehilite` | Ressaltat de sintaxi inline. | [:lucide-external-link: InlineHilite](https://facelessuser.github.io/pymdown-extensions/extensions/inlinehilite/) |
 | `pymdownx.keys` | Tecles del teclat amb `++ctrl+c++`. | [:lucide-external-link: Keys](https://facelessuser.github.io/pymdown-extensions/extensions/keys/) |
-| `pymdownx.magiclink` | Conversió automàtica d'URL. Veure [Magic Links](../features/magic_links.md). | [:lucide-external-link: MagicLink](https://facelessuser.github.io/pymdown-extensions/extensions/magiclink/) |
+| `pymdownx.magiclink` | Conversió automàtica d'URL. | [:lucide-external-link: MagicLink](https://facelessuser.github.io/pymdown-extensions/extensions/magiclink/) |
 | `pymdownx.saneheaders` | Comportament millorat dels títols. | [:lucide-external-link: SaneHeaders](https://facelessuser.github.io/pymdown-extensions/extensions/saneheaders/) |
 | `pymdownx.snippets` | Inclusió de fragments d'altres fitxers amb `--8<--`. | [:lucide-external-link: Snippets](https://facelessuser.github.io/pymdown-extensions/extensions/snippets/) |
 | `pymdownx.superfences` | Blocs de codi avançats, niats i amb fences personalitzats (Mermaid, math). | [:lucide-external-link: SuperFences](https://facelessuser.github.io/pymdown-extensions/extensions/superfences/) |

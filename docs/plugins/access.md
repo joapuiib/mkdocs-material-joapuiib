@@ -169,6 +169,5 @@ Amb `serve: gate` (o la variable `ACCESS_SERVE=gate` de l'exemple de la configur
 
 Aquest lloc defineix els usuaris de demostració `professor`, `alumne` i `maria`, amb la seua mateixa paraula com a contrasenya.
 
-- [Examen](../features/examen.md): secció protegida amb contrasenya `1234`, finestra de temps i accés d'excepció per al professorat.
 - [Pàgina privada](../features/pagina_privada.md): pàgina visible només per al grup `professors`.
 - [Seccions protegides](../features/seccions_protegides.md): pàgina pública amb una secció que es desbloqueja amb la contrasenya `1234` o amb l'usuari `professor`.

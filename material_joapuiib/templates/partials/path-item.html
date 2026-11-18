@@ -13,23 +13,30 @@
     {{ title }}
   </span>
 {% endmacro %}
+{#-
+  Sections are not pages: Material links them to their first page. Here a section is a link
+  only when it has an index page (`navigation.indexes`, a child `is_index`); otherwise it is plain text.
+-#}
 {% macro render(nav_item, ref) %}
-  {% set ref = ref or nav_item %}
   {% if nav_item.children %}
-    {% set first = nav_item.children | first %}
-    {% if first.children %}
-      {{ render(first, ref) }}
+    {% set index = (nav_item.children | selectattr("is_index") | first) if "navigation.indexes" in features else none %}
+    {% if index %}
+      <li class="md-path__item">
+        <a href="{{ index.url | url }}" class="md-path__link">
+          {{ render_content(nav_item) }}
+        </a>
+      </li>
     {% else %}
       <li class="md-path__item">
-        <a href="{{ first.url | url }}" class="md-path__link">
-          {{ render_content(ref) }}
-        </a>
+        <span class="md-path__text">
+          {{ render_content(nav_item) }}
+        </span>
       </li>
     {% endif %}
   {% else %}
     <li class="md-path__item">
       <a href="{{ nav_item.url | url }}" class="md-path__link">
-        {{ render_content(ref) }}
+        {{ render_content(nav_item) }}
       </a>
     </li>
   {% endif %}

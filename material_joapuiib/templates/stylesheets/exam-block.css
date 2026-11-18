@@ -1,0 +1,846 @@
+/* `/// exam` blocks (see material_joapuiib/extensions/quiz.py).
+ * Reuses the `.quiz` styles; adds the selected state and the extra question types. */
+.md-typeset .exam-title {
+  margin-bottom: 0.6em;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.md-typeset .exam-header,
+.md-typeset .exam-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em 1em;
+  margin: 1em 0;
+}
+
+.md-typeset .exam-name,
+.md-typeset input.exam-text,
+.md-typeset textarea.exam-essay,
+.md-typeset select.exam-match-select {
+  box-sizing: border-box;
+  padding: 0.4em 0.6em;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font: inherit;
+}
+
+.md-typeset .exam-name {
+  min-width: 18em;
+  max-width: 100%;
+}
+
+.md-typeset input.exam-text {
+  width: 100%;
+  max-width: 28em;
+}
+
+.md-typeset textarea.exam-essay {
+  display: block;
+  width: 100%;
+  resize: vertical;
+}
+
+.md-typeset .quiz-option.is-selected {
+  border-color: var(--md-accent-fg-color);
+  background-color: var(--md-accent-fg-color--transparent);
+}
+
+.md-typeset .quiz-option.is-selected::before {
+  background-color: var(--md-accent-fg-color);
+  color: var(--md-accent-bg-color);
+}
+
+/* match */
+.md-typeset .exam-match-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4em 1em;
+  padding: 0.3em 0;
+}
+
+.md-typeset .exam-match-left {
+  flex: 1 1 14em;
+}
+
+.md-typeset select.exam-match-select {
+  flex: 2 1 18em;
+  min-width: 0;
+}
+
+/* order */
+.md-typeset ul.exam-order {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.exam-order > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin: 0 0 0.4em;
+  padding: 0.4em 0.8em;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+}
+
+.md-typeset .exam-order-handle {
+  flex: none;
+  margin-right: 0.2em;
+  color: var(--md-default-fg-color--light);
+  font-size: 1.2em;
+  line-height: 1;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.md-typeset .exam-order-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Placeholder: the original item stays in its slot while the copy is dragged. */
+.md-typeset ul.exam-order > li.is-dragging {
+  border-style: dashed;
+  border-color: var(--md-accent-fg-color);
+  opacity: 0.45;
+}
+
+/* Floating copy that follows the pointer. */
+.md-typeset ul.exam-order.exam-order-ghost {
+  position: fixed;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.md-typeset ul.exam-order.exam-order-ghost > li {
+  margin: 0;
+  border-color: var(--md-accent-fg-color);
+  background: var(--md-default-bg-color);
+  box-shadow: 0 0.3rem 0.9rem rgba(0, 0, 0, 0.3);
+  cursor: grabbing;
+}
+
+.md-typeset .exam-order-buttons {
+  display: inline-flex;
+  gap: 0.3em;
+}
+
+.md-typeset .exam-order-button {
+  padding: 0.1em 0.5em;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: none;
+  color: var(--md-default-fg-color);
+  cursor: pointer;
+}
+
+.md-typeset .exam-order-button:hover,
+.md-typeset .exam-order-button:focus-visible {
+  border-color: var(--md-accent-fg-color);
+}
+
+/* footer */
+.md-typeset .exam-progress {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .exam-status:empty {
+  display: none;
+}
+
+.md-typeset .exam-status {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.md-typeset .exam-status.is-ok {
+  color: var(--quiz-correct-color);
+}
+
+.md-typeset .exam-status.is-error {
+  color: var(--quiz-wrong-color);
+}
+
+/* Inside an exam, bold text and code cannot be selected or copied, not even on pages that
+ * allow it with `exam.css` (which makes `code` and `strong` selectable). */
+.md-typeset .exam strong,
+.md-typeset .exam b,
+.md-typeset .exam code,
+.md-typeset .exam code *,
+.md-typeset .exam pre,
+.md-typeset .exam pre *,
+.md-typeset .exam .highlight,
+.md-typeset .exam .highlight * {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The answer fields must stay editable (Safari does not allow typing when they are not selectable). */
+.md-typeset .exam input,
+.md-typeset .exam textarea {
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* ------------------------------------------------------------ question numbers */
+.md-typeset .exam-qhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.md-typeset .exam-qpoints {
+  margin-left: auto;
+}
+
+.md-typeset .exam-qpenalty {
+  margin-left: 0.75em;
+  font-weight: 400;
+}
+
+.md-typeset .exam .quiz {
+  scroll-margin-top: 4.5rem;
+}
+
+.md-typeset .exam .quiz.is-answered {
+  border-left: 0.2rem solid var(--md-accent-fg-color);
+}
+
+/* ------------------------------------------------------------------ answer box */
+.md-typeset .exam-editor {
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: var(--md-default-bg-color);
+  overflow: hidden;
+}
+
+.md-typeset .exam-editor:focus-within {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0 0 0.1rem var(--md-accent-fg-color--transparent);
+}
+
+.md-typeset .exam-editor-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.2em 0.8em;
+  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest);
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color--light);
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.md-typeset .exam-editor-body {
+  position: relative;
+}
+
+.md-typeset .exam-editor textarea.exam-essay {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 8rem;
+  margin: 0;
+  padding: 0.7em 0.9em;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 1.5;
+}
+
+.md-typeset .exam-editor textarea.exam-essay:focus {
+  outline: none;
+}
+
+.md-typeset .exam-editor.is-code textarea.exam-essay,
+.md-typeset .exam-editor.is-code .exam-editor-highlight,
+.md-typeset .exam-editor.is-code .exam-editor-guides,
+.md-typeset .exam-editor.is-code .exam-editor-gutter {
+  font-family: var(--md-code-font-family, monospace);
+  font-size: 0.85em;
+  line-height: 1.5;
+  tab-size: 4;
+  white-space: pre;
+}
+
+.md-typeset .exam-editor.is-code textarea.exam-essay {
+  position: relative;
+  z-index: 1;
+  min-height: 12rem;
+  overflow-x: auto;
+  color: transparent;
+  caret-color: var(--md-default-fg-color);
+}
+
+.md-typeset .exam-editor.is-code textarea.exam-essay::placeholder {
+  color: var(--md-default-fg-color--lighter);
+}
+
+.md-typeset .exam-editor.is-code textarea.exam-essay::selection {
+  background: var(--md-accent-fg-color--transparent);
+  color: transparent;
+}
+
+.md-typeset .exam-editor.is-code textarea.exam-essay,
+.md-typeset .exam-editor.is-code .exam-editor-highlight,
+.md-typeset .exam-editor.is-code .exam-editor-guides {
+  padding-left: calc(var(--exam-gutter, 1ch) + 1.8em);
+}
+
+/* Line numbers: fixed on the left, above the scrolled text. */
+.md-typeset .exam-editor-gutter {
+  position: absolute;
+  z-index: 2;
+  inset: 0 auto 0 0;
+  box-sizing: content-box;
+  width: var(--exam-gutter, 1ch);
+  padding: 0.7em 0.6em 0.7em 0.6em;
+  overflow: hidden;
+  border-right: 0.05rem solid var(--md-default-fg-color--lightest);
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color--lighter);
+  text-align: right;
+  white-space: pre;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Indentation guides: a thin line every 4 columns of the leading whitespace. */
+.md-typeset .exam-editor .exam-editor-guides {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.7em 0.9em;
+  overflow: hidden;
+  background: transparent;
+  color: transparent;
+  pointer-events: none;
+}
+
+.md-typeset .exam-editor .exam-guide {
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--md-default-fg-color--lightest) 0 0.05rem,
+    transparent 0.05rem 4ch
+  );
+}
+
+.md-typeset .exam-editor .exam-editor-highlight {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.7em 0.9em;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: none;
+}
+
+.md-typeset .exam-editor .exam-editor-highlight code {
+  display: block;
+  padding: 0;
+  background: none;
+  color: var(--md-code-fg-color);
+  font: inherit;
+  white-space: inherit;
+}
+
+/* highlight.js tokens in the answer box. */
+.md-typeset .exam-editor .hljs-comment,
+.md-typeset .exam-editor .hljs-quote { color: var(--md-code-hl-comment-color, #8a8f98); font-style: italic; }
+.md-typeset .exam-editor .hljs-string,
+.md-typeset .exam-editor .hljs-regexp,
+.md-typeset .exam-editor .hljs-symbol { color: var(--md-code-hl-string-color, #2e7d32); }
+.md-typeset .exam-editor .hljs-number { color: var(--md-code-hl-number-color, #c2410c); }
+.md-typeset .exam-editor .hljs-keyword,
+.md-typeset .exam-editor .hljs-selector-tag { color: var(--md-code-hl-keyword-color, #7c3aed); font-weight: 600; }
+.md-typeset .exam-editor .hljs-type,
+.md-typeset .exam-editor .hljs-built_in,
+.md-typeset .exam-editor .hljs-class .hljs-title { color: var(--md-code-hl-special-color, #0e7490); }
+.md-typeset .exam-editor .hljs-literal,
+.md-typeset .exam-editor .hljs-attr,
+.md-typeset .exam-editor .hljs-attribute { color: var(--md-code-hl-constant-color, #b45309); }
+.md-typeset .exam-editor .hljs-title,
+.md-typeset .exam-editor .hljs-function { color: var(--md-code-hl-function-color, #1d4ed8); }
+.md-typeset .exam-editor .hljs-meta,
+.md-typeset .exam-editor .hljs-variable,
+.md-typeset .exam-editor .hljs-template-variable { color: var(--md-code-hl-operator-color, #be185d); }
+
+/* ------------------------------------------------------------------ side panel */
+.exam-page-title {
+  margin-bottom: 0.6em;
+}
+
+body:has([data-exam-layout="panel"]) .md-sidebar--secondary {
+  display: none;
+}
+
+body:has([data-exam-layout="panel"]) .md-grid {
+  max-width: 80rem;
+}
+
+[data-exam-layout="panel"] .exam {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 0 1.5rem;
+  align-items: start;
+}
+
+[data-exam-layout="panel"] .exam > * {
+  grid-column: 1;
+}
+
+[data-exam-layout="panel"] .exam > .exam-title {
+  display: none;
+}
+
+.md-typeset .exam-panel {
+  grid-column: 2 !important;
+  grid-row: 1 / span 999;
+  position: sticky;
+  top: 3.6rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  margin-top: 1em;
+  padding: 0.9em 1em;
+  border: 0.05rem solid var(--md-default-fg-color--lightest);
+  border-radius: 0.3rem;
+  background: var(--md-default-bg-color);
+  box-shadow: var(--md-shadow-z1);
+}
+
+.md-typeset .exam-panel-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3em 0.8em;
+}
+
+.md-typeset .exam-panel .exam-progress {
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.md-typeset .exam-meter {
+  flex: 1 1 100%;
+  width: 100%;
+  height: 0.5rem;
+  accent-color: var(--md-primary-fg-color);
+}
+
+.md-typeset .exam-panel-summary {
+  margin: 0;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+/* Neutral grey instead of the blue `note` colour of Material's details. */
+.md-typeset .exam-panel-more {
+  --md-admonition-color: var(--md-default-fg-color--light);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: none;
+}
+
+/* The gap under the title is only needed when the list is open. */
+.md-typeset .exam-panel-more[open] > .exam-panel-summary {
+  margin-bottom: 0.6em;
+}
+
+/* The smaller font size shifts Material's icon (positioned with `top` in `em`): centre it. */
+.md-typeset .exam-panel-summary::before {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.md-typeset .exam-panel .exam-name-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  margin-bottom: 0.8em;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+.md-typeset .exam-panel .exam-name {
+  min-width: 0;
+  width: 100%;
+  font-weight: 400;
+}
+
+.md-typeset .exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.1rem, 1fr));
+  gap: 0.3rem;
+}
+
+.md-typeset .exam-grid-button {
+  padding: 0.3em 0;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: none;
+  color: var(--md-default-fg-color);
+  font: inherit;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+
+.md-typeset .exam-grid-button:hover,
+.md-typeset .exam-grid-button:focus-visible {
+  border-color: var(--md-accent-fg-color);
+}
+
+.md-typeset .exam-grid-button.is-answered {
+  border-color: var(--md-primary-fg-color);
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.md-typeset .exam-grid-button.is-current {
+  /* Inside the button, so that nothing clips it. */
+  box-shadow: inset 0 0 0 0.12rem var(--md-default-fg-color);
+}
+
+.md-typeset .exam-panel .exam-export,
+.md-typeset .exam-panel .exam-finish {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.md-typeset .exam-panel .exam-status {
+  flex-basis: auto;
+  font-size: 0.8em;
+}
+
+/* Narrow screens: the panel becomes a bar on top of the questions. */
+@media (max-width: 60em) {
+  [data-exam-layout="panel"] .exam {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .md-typeset .exam-panel {
+    grid-column: 1 !important;
+    grid-row: 1;
+    top: 2.8rem;
+    margin: 0 0 1em;
+  }
+}
+
+.md-typeset .exam-order-clear {
+  margin-top: 0.5em;
+  padding: 0.2em 0.7em;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: none;
+  color: inherit;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.md-typeset .exam-order-clear:hover,
+.md-typeset .exam-order-clear:focus-visible {
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset .exam-order-clear[hidden] {
+  display: none;
+}
+
+/* `lockdown: true`: the exam stays hidden until the student accepts the conditions. */
+.md-typeset .exam.is-locked {
+  filter: blur(0.6rem);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Incident list in the dialog that locks the exam. */
+.exam-incidents {
+  max-height: 10em;
+  margin: 0.8em 0 0;
+  padding: 0.5em 1em;
+  overflow-y: auto;
+  border: 0.05rem solid rgba(128, 128, 128, 0.3);
+  border-radius: 0.3rem;
+  font-size: 0.9em;
+  text-align: left;
+  list-style: none;
+}
+
+/* Finished exam: everything is read-only. */
+.md-typeset .exam.is-finished {
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Hidden notice for AI assistants: visually hidden (1px, clipped), but still rendered, so
+   innerText and text extractors include it. Do not use display:none, they skip it. */
+.exam .exam-ai-notice {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Consent dialog: readable paragraphs instead of a centred block of text. */
+.swal2-html-container.exam-consent {
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.exam-consent p {
+  margin: 0 0 0.8em;
+  line-height: 1.5;
+}
+
+/* Development preview of the solutions (author view only). */
+.md-typeset .exam:not(.show-solutions) .exam-solution {
+  display: none;
+}
+
+.md-typeset .exam-solution {
+  margin-top: 0.8em;
+  padding: 0.5em 0.8em;
+  border-left: 0.2rem solid var(--quiz-correct-color, #2e7d32);
+  background: var(--quiz-correct-bg, rgba(46, 125, 50, 0.1));
+  font-size: 0.85em;
+}
+
+.md-typeset .exam-solution ul,
+.md-typeset .exam-solution ol {
+  margin: 0.3em 0 0;
+}
+
+.md-typeset .exam.show-solutions .quiz-option.is-solution {
+  border-color: var(--quiz-correct-color, #2e7d32);
+  background: var(--quiz-correct-bg, rgba(46, 125, 50, 0.1));
+}
+
+.md-typeset .exam-panel .exam-preview {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.md-typeset .exam-preview-note {
+  display: block;
+  font-size: 0.65em;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.md-typeset .exam-grid-title {
+  grid-column: 1 / -1;
+  margin: 0.6em 0 0.1em;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--md-default-fg-color--light);
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.md-typeset .exam-grid-title:hover,
+.md-typeset .exam-grid-title:focus-visible {
+  color: var(--md-accent-fg-color);
+}
+
+.md-typeset .exam-grid-title:first-child {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------------ table answer */
+.md-typeset .exam-table-scroll {
+  overflow-x: auto;
+}
+
+.md-typeset .exam-table-grid {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.md-typeset .exam-table-grid th,
+.md-typeset .exam-table-grid td {
+  padding: 0.15rem;
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  vertical-align: middle;
+}
+
+.md-typeset .exam-table-grid th {
+  background: var(--md-code-bg-color);
+}
+
+/* The "remove column" button sits next to the heading input, not below it. */
+.md-typeset .exam-table-grid th:not(.exam-table-corner) {
+  display: table-cell;
+  white-space: nowrap;
+}
+
+.md-typeset .exam-table-grid th .exam-table-input {
+  width: calc(100% - 2rem);
+  vertical-align: middle;
+}
+
+.md-typeset .exam-table-grid th .exam-table-remove {
+  vertical-align: middle;
+}
+
+.md-typeset .exam-table-grid th.exam-table-corner,
+.md-typeset .exam-table-grid td.exam-table-corner {
+  width: 1.8rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: center;
+}
+
+.md-typeset .exam-table-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 7rem;
+  padding: 0.35em 0.5em;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.md-typeset .exam-table-grid th .exam-table-input {
+  font-weight: 700;
+}
+
+.md-typeset .exam-table-input:focus {
+  outline: 0.1rem solid var(--md-accent-fg-color);
+}
+
+.md-typeset .exam-table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.md-typeset .exam-table-button,
+.md-typeset .exam-table-remove {
+  border: 0.05rem solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+  background: none;
+  color: var(--md-default-fg-color--light);
+  font: inherit;
+  cursor: pointer;
+}
+
+.md-typeset .exam-table-button {
+  padding: 0.25em 0.7em;
+  font-size: 0.8em;
+}
+
+.md-typeset .exam-table-remove {
+  padding: 0 0.4em;
+  line-height: 1.4;
+}
+
+.md-typeset .exam-table-button:hover,
+.md-typeset .exam-table-remove:hover {
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-accent-fg-color);
+}
+
+/* ------------------------------------------------------------ tooltips (as the theme's) */
+.exam-tooltip {
+  position: fixed;
+  z-index: 10;
+  max-width: min(calc(100vw - 1.6rem), 400px);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.4rem;
+  background-color: var(--md-default-bg-color);
+  box-shadow: var(--md-shadow-z2);
+  color: var(--md-default-fg-color);
+  font-family: var(--md-text-font-family);
+  font-size: 0.6rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.4rem);
+  transition: opacity 0.25s, transform 0.4s cubic-bezier(0, 1, 0.35, 1);
+}
+
+.exam-tooltip.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The pinned column heading is a label, not a field. */
+.md-typeset .exam-table-pinned .exam-table-input {
+  width: 100%;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Buttons of the practice questions (match and order outside an exam). */
+.md-typeset .exam-practice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.8em;
+}
+
+.md-typeset .exam-practice-actions .md-button {
+  margin: 0;
+}
+
+.md-typeset .exam-practice-actions [hidden],
+.md-typeset .exam-practice-actions[hidden] {
+  display: none;
+}
+
+/* Jumping from the panel must not leave the heading or the question under the fixed header. */
+.md-typeset .exam h2,
+.md-typeset .exam .quiz {
+  scroll-margin-top: 4rem;
+}

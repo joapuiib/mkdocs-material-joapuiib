@@ -288,3 +288,10 @@ p:has(img.center) {
         display: none;
     }
 }
+
+/* Breadcrumb entries that are not pages (sections without an index page). */
+.md-path__text {
+  display: flex;
+  align-items: center;
+  color: var(--md-default-fg-color--light);
+}

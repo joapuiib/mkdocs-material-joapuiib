@@ -33,8 +33,8 @@ def test_question_rendered_with_inline_markdown():
 def test_options_marked_and_markers_removed():
     html = render(BASIC)
     assert '<ul class="quiz-options">' in html
-    assert '<li class="quiz-option">8069</li>' in html
-    assert '<li class="quiz-option" data-quiz-correct=""><code>5432</code></li>' in html
+    assert '<li class="quiz-option">\n<div class="quiz-option-body">8069</div>\n</li>' in html
+    assert '<li class="quiz-option" data-quiz-correct="">\n<div class="quiz-option-body"><code>5432</code></div>\n</li>' in html
     assert "[x]" not in html and "[ ]" not in html
     # tasklist must not turn the options into checkboxes
     assert "checkbox" not in html
@@ -63,7 +63,7 @@ def test_loose_list():
     - [X] b
     ///
     """)
-    assert '<li class="quiz-option" data-quiz-correct="">\n<p>b</p>' in html
+    assert '<li class="quiz-option" data-quiz-correct="">\n<div class="quiz-option-body">\n<p>b</p>' in html
     assert "[X]" not in html
 
 
@@ -113,3 +113,61 @@ def test_shuffle_block_option_overrides_config():
     """, shuffle=True)
     assert "data-quiz-shuffle" in on
     assert "data-quiz-shuffle" not in off
+
+
+def test_tilde_prefix_shuffles():
+    html = render("""
+    /// quiz | ~ Which one?
+    - [x] A
+    - [ ] B
+    ///
+    """)
+    assert "data-quiz-shuffle" in html
+    assert '<div class="quiz-question">Which one?</div>' in html
+
+
+def test_tilde_prefix_respects_explicit_option():
+    html = render("""
+    /// quiz | ~ Which one?
+        shuffle: false
+
+    - [x] A
+    - [ ] B
+    ///
+    """)
+    assert "data-quiz-shuffle" not in html
+
+
+def test_solutions_only_in_the_page_when_previewing():
+    from material_joapuiib.extensions import quiz as quiz_mod
+
+    src = "/// exam | T\n    id: t\n\n//// quiz-test | Q?\n- [x] a\n- [ ] b\n////\n///\n"
+    try:
+        quiz_mod.PREVIEW_SOLUTIONS = False
+        assert "data-quiz-solution" not in render(src)
+        quiz_mod.PREVIEW_SOLUTIONS = True
+        assert 'data-quiz-solution' in render(src)
+    finally:
+        quiz_mod.PREVIEW_SOLUTIONS = False
+
+
+def test_authoring_mistakes_are_warned(caplog):
+    import logging
+
+    caplog.set_level(logging.WARNING, logger="mkdocs.material_joapuiib.quiz")
+    render("/// quiz | No answer\n- [ ] a\n- [ ] b\n///\n")
+    render("/// quiz-match | Pairs\n- Portugal\n- Italy -> Rome\n///\n")
+    render("/// quiz-order | One\n- Only\n///\n")
+    messages = " ".join(r.getMessage() for r in caplog.records)
+    assert "cap opció està marcada" in messages
+    assert "«Portugal» no té `->`" in messages
+    assert "calen almenys dos elements" in messages
+
+
+def test_well_formed_questions_do_not_warn(caplog):
+    import logging
+
+    caplog.set_level(logging.WARNING, logger="mkdocs.material_joapuiib.quiz")
+    render("/// quiz | Ok\n- [ ] a\n- [x] b\n///\n")
+    render("/// quiz-text | Ok\n- a\n///\n")
+    assert not caplog.records

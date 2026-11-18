@@ -46,9 +46,67 @@
     items.forEach(function (item) { list.appendChild(item); });
   }
 
+  function normalize(text) {
+    return text.replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  /* Short answer: Enter checks the text against the accepted answers (the list items). */
+  function setupText(quiz) {
+    var items = quiz.querySelector(".quiz-items");
+    if (!items) return;
+    var accepted = Array.prototype.map.call(items.children, function (li) {
+      return normalize(li.textContent);
+    });
+    items.hidden = true;
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "exam-text quiz-text";
+    input.autocomplete = "off";
+    input.spellcheck = false;
+    var question = quiz.querySelector(".quiz-question");
+    if (question) input.setAttribute("aria-label", question.textContent.trim());
+    items.insertAdjacentElement("afterend", input);
+
+    var feedback = document.createElement("div");
+    feedback.className = "quiz-feedback";
+    feedback.setAttribute("aria-live", "polite");
+    input.insertAdjacentElement("afterend", feedback);
+
+    var firstTry = true;
+    input.addEventListener("input", function () {
+      input.classList.remove("is-wrong");
+    });
+    input.addEventListener("keydown", function (ev) {
+      if (ev.key !== "Enter" || quiz.classList.contains("is-solved")) return;
+      ev.preventDefault();
+      if (!input.value.trim()) return;
+      var msg = messages();
+      if (accepted.indexOf(normalize(input.value)) < 0) {
+        firstTry = false;
+        input.classList.add("is-wrong");
+        feedback.className = "quiz-feedback quiz-feedback--wrong";
+        feedback.textContent = msg.wrong;
+        return;
+      }
+      quiz.classList.add("is-solved");
+      input.classList.add("is-correct");
+      input.readOnly = true;
+      feedback.className = "quiz-feedback quiz-feedback--correct";
+      feedback.textContent = firstTry ? msg.correct : msg.retry;
+      quiz.dispatchEvent(new CustomEvent("quiz:answered", {
+        bubbles: true,
+        detail: { firstTry: firstTry },
+      }));
+    });
+  }
+
   function setup(quiz) {
+    if (quiz.closest(".exam")) return; // handled by exam.js
     if (quiz.dataset.quizReady) return;
     quiz.dataset.quizReady = "true";
+
+    if (quiz.getAttribute("data-quiz-type") === "text") return setupText(quiz);
 
     var list = quiz.querySelector(".quiz-options");
     if (!list) return;

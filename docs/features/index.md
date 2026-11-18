@@ -46,7 +46,7 @@ Recull de característiques i components proporcionats per aquest tema, basats e
 
     ---
 
-    Llistes ordenades, no ordenades i de definicions amb numeració alfabètica i romana.
+    Llistes ordenades, no ordenades, de tasques i de passos, amb numeració alfabètica i romana.
 
     [:lucide-arrow-right: Documentació](llistes.md)
 
@@ -90,14 +90,6 @@ Recull de característiques i components proporcionats per aquest tema, basats e
 
     [:lucide-arrow-right: Documentació](carrusel.md)
 
--   :lucide-list-ordered:{ .lg .middle } __Passos__
-
-    ---
-
-    Llistes numerades amb estil destacat per a procediments.
-
-    [:lucide-arrow-right: Documentació](passos.md)
-
 -   :lucide-timeline:{ .lg .middle } __Línia de temps__
 
     ---
@@ -129,14 +121,6 @@ Recull de característiques i components proporcionats per aquest tema, basats e
     Components de columnes i graelles per a estructurar contingut.
 
     [:lucide-arrow-right: Documentació](disposicions.md)
-
--   :lucide-link-2:{ .lg .middle } __Magic Links__
-
-    ---
-
-    Conversió automàtica d'URL en enllaços dins del contingut.
-
-    [:lucide-arrow-right: Documentació](magic_links.md)
 
 -   :lucide-book-open:{ .lg .middle } __Icones__
 
@@ -170,13 +154,13 @@ Recull de característiques i components proporcionats per aquest tema, basats e
 
     [:lucide-arrow-right: Documentació](diapositives.md)
 
--   :lucide-file-lock:{ .lg .middle } __Examen__
+-   :lucide-clipboard-check:{ .lg .middle } __Quiz exam__
 
     ---
 
-    Plantilla d'examen amb contingut protegit per contrasenya.
+    Exemple d'examen amb preguntes de tots els tipus i el quadre de progrés.
 
-    [:lucide-arrow-right: Documentació](examen.md)
+    [:lucide-arrow-right: Documentació](quiz_exam.md)
 
 -   :lucide-eye-off:{ .lg .middle } __Esborranys__
 

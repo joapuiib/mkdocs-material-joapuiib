@@ -12,6 +12,7 @@ DEFAULT_STRINGS = {
     "cancel": "Cancel·la",
     "wrong_credentials": "Usuari o contrasenya incorrectes.",
     "wrong_password": "Contrasenya incorrecta.",
+    "not_available": "Aquesta pàgina no està disponible en aquests moments.",
     "network_error": "No s'ha pogut carregar el teu perfil d'accés.",
     "locked_text": "Aquesta pàgina està protegida.",
     "locked_password": "Introdueix la contrasenya per accedir al contingut.",

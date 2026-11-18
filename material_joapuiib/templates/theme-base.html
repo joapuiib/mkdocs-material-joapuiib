@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{'stylesheets/calendar.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/xref.css' | url}}">
   <link rel="stylesheet" href="{{'stylesheets/quiz.css' | url}}">
+  <link rel="stylesheet" href="{{'stylesheets/exam-block.css' | url}}">
   {% if config.extra.access %}
     <link rel="stylesheet" href="{{'stylesheets/access.css' | url}}">
   {% endif %}
@@ -55,6 +56,7 @@
   <script src="{{ 'javascript/calendar-tooltips.js' | url }}"></script>
   <script src="{{ 'javascript/xref-tooltips.js' | url }}"></script>
   <script src="{{ 'javascript/quiz.js' | url }}"></script>
+  <script src="{{ 'javascript/exam.js' | url }}"></script>
   {#- Temporary, until these plugins support instant navigation. -#}
   {% if "drawio" in config.plugins %}
     <script src="{{ 'javascript/drawio.js' | url }}" data-viewer="{{ config.plugins['drawio'].config.viewer_js | url }}"></script>

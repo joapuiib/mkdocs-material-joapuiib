@@ -72,7 +72,12 @@
   font-weight: 700;
 }
 
-.md-typeset .quiz-option > p {
+.md-typeset .quiz-option-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.md-typeset .quiz-option-body > p {
   margin: 0;
 }
 
@@ -106,6 +111,16 @@
 .md-typeset .quiz-option.is-correct::before {
   background-color: var(--quiz-correct-color);
   color: #fff;
+}
+
+.md-typeset input.quiz-text.is-wrong {
+border-color: var(--quiz-wrong-color);
+background-color: var(--quiz-wrong-bg);
+}
+
+.md-typeset input.quiz-text.is-correct {
+border-color: var(--quiz-correct-color);
+background-color: var(--quiz-correct-bg);
 }
 
 .md-typeset .quiz-feedback:empty {
@@ -155,4 +170,23 @@
   .md-typeset .quiz-option.is-wrong {
     animation: none;
   }
+}
+
+/* Statement between the question and the options (paragraphs, code). */
+.md-typeset .quiz-stem {
+  margin-bottom: 0.8em;
+}
+
+.md-typeset .quiz-stem > :first-child {
+  margin-top: 0;
+}
+
+.md-typeset .quiz-stem > :last-child {
+  margin-bottom: 0;
+}
+
+/* Options that are a code block. */
+.md-typeset .quiz-option-body > .highlight,
+.md-typeset .quiz-option-body > pre {
+  margin: 0;
 }

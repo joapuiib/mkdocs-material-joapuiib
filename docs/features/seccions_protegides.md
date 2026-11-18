@@ -9,7 +9,22 @@ Aquesta pàgina és pública, però conté una secció protegida amb el plugin [
 
 ## Contingut públic
 
-Aquest text el pot llegir qualsevol persona.
+Aquest text el pot llegir qualsevol persona. La secció protegida de sota es desbloqueja amb la contrasenya `1234`.
+
+````markdown title="docs/pagina.md"
+/// access
+    password: "1234"
+    bypass: professors
+
+## Solució de l'exercici
+
+Aquest apartat només es mostra amb la contrasenya `1234` o amb l'usuari `professor`.
+
+```python
+print("Hola, món!")
+```
+///
+````
 
 /// access
     password: "1234"

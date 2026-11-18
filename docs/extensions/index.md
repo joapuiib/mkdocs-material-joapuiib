@@ -43,6 +43,14 @@ Extensions de [Python-Markdown](https://python-markdown.github.io/extensions/) q
     Bloc `/// quiz` amb preguntes tipus test interactives que només mostren la solució quan s'encerten.
 
     [:lucide-arrow-right: Documentació](quiz.md)
+
+-   :lucide-clipboard-check:{ .lg .middle } __Examen__
+
+    ---
+
+    Bloc `/// exam` per fer exàmens en el navegador sense la solució en l'HTML i exportar les respostes xifrades.
+
+    [:lucide-arrow-right: Documentació](exam.md)
 ///
 
 ## Extensions de tercers
