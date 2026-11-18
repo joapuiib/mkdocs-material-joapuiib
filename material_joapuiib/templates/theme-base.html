@@ -59,7 +59,7 @@
   <script src="{{ 'javascript/exam.js' | url }}"></script>
   {#- Temporary, until these plugins support instant navigation. -#}
   {% if "drawio" in config.plugins %}
-    <script src="{{ 'javascript/drawio.js' | url }}" data-viewer="{{ config.plugins['drawio'].config.viewer_js | url }}"></script>
+    <script src="{{ 'javascript/drawio.js' | url }}" data-viewer="{{ config.plugins['drawio'].config.viewer_js | url }}" data-config='{{ config.plugins['drawio'].get_diagram_config() | tojson }}'></script>
   {% endif %}
   {% if "glightbox" in config.plugins %}
     <script src="{{ 'javascript/glightbox.js' | url }}"></script>
