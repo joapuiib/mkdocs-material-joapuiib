@@ -124,6 +124,15 @@ access:
 
 Els valors de la capçalera se sumen als de les regles del `properdocs.yml`.
 
+Amb `enabled: false` la pàgina queda exclosa del plugin: ignora tant les regles del `properdocs.yml` com la resta de la capçalera. Per defecte és `true` quan hi ha `access`.
+
+```yaml title="docs/publica.md"
+---
+access:
+  enabled: false
+---
+```
+
 ## Seccions protegides
 
 No cal protegir la pàgina sencera: amb un bloc `access` es xifra només una part del contingut, per exemple la solució d'un exercici. La resta de la pàgina continua sent pública.

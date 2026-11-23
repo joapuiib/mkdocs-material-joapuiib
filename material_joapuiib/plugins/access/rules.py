@@ -241,6 +241,14 @@ def resolve(directory: Directory, rules: list[Rule], src_uri: str,
             page_access: dict | None, tz: ZoneInfo) -> PageAccess:
     """Resolve access for ``src_uri``: config rules in order, then front matter."""
     access = PageAccess()
+    if page_access:
+        page_access = dict(page_access)
+        enabled = page_access.pop("enabled", True)
+        if not isinstance(enabled, bool):
+            raise AccessConfigError(
+                f"{src_uri}: access 'enabled' must be true or false")
+        if not enabled:
+            return access  # page opted out: no rules, no front matter
     for rule in rules:
         if rule.spec.match_file(src_uri):
             _apply(access, directory, rule.options, tz, f"rule for {src_uri}")

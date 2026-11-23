@@ -125,3 +125,15 @@ def test_gitignore_patterns():
     assert run(rules, uri="x/ud1_exam.md").protected
     assert run(rules, uri="exams/q.md").protected
     assert not run(rules, uri="x/other.md").protected
+
+
+def test_page_enabled_false_skips_rules():
+    import datetime as dt
+    from zoneinfo import ZoneInfo
+    from material_joapuiib.plugins.access.rules import Directory, parse_rules, resolve
+    rules = parse_rules([{"pattern": "**", "password": "x"}])
+    d = Directory.build({}, {})
+    tz = ZoneInfo("UTC")
+    assert resolve(d, rules, "a.md", {}, tz).protected
+    assert resolve(d, rules, "a.md", {"enabled": True}, tz).protected
+    assert not resolve(d, rules, "a.md", {"enabled": False, "password": "y"}, tz).protected
