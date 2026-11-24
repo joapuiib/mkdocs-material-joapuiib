@@ -450,13 +450,16 @@
   }
 
   function buildPasswordForm(box) {
+    // A text field masked with CSS: browsers only offer to save type=password fields.
     var input = h("input", {
-      type: "password", class: "access__input", autocomplete: "current-password",
+      type: "text", class: "access__input access__input--secret", autocomplete: "off",
+      autocapitalize: "off", spellcheck: "false", "data-lpignore": "true",
+      "data-1p-ignore": "", "data-bwignore": "true", "data-form-type": "other",
       placeholder: S.password, "aria-label": S.password, required: "",
     });
     var show = h("input", { type: "checkbox" });
     show.addEventListener("change", function () {
-      input.type = show.checked ? "text" : "password";
+      input.classList.toggle("access__input--secret", !show.checked);
     });
     var remember = h("input", { type: "checkbox" });
     var error = h("p", { class: "access__error", role: "alert" });

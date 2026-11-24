@@ -246,3 +246,9 @@
   stroke: currentcolor;
 }
 
+
+/* Masked like a password, but not type=password so browsers don't offer to save it. */
+.access__input--secret {
+  -webkit-text-security: disc;
+  text-security: disc;
+}

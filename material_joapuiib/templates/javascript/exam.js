@@ -183,8 +183,13 @@
         return Swal.fire({
           title: m.lockedTitle, icon: "error",
           text: m.lockedText,
-          input: "password", inputPlaceholder: m.unlockPassword,
-          inputAttributes: { autocomplete: "off" },
+          // Masked text field (not type=password) so browsers don't offer to save it.
+          input: "text", inputPlaceholder: m.unlockPassword,
+          inputAttributes: {
+            autocomplete: "off", spellcheck: "false", "data-lpignore": "true",
+            "data-1p-ignore": "", "data-bwignore": "true",
+            style: "-webkit-text-security: disc; text-security: disc;",
+          },
           confirmButtonText: m.unlock, confirmButtonColor: primaryColor(),
           allowOutsideClick: false, allowEscapeKey: false,
           preConfirm: function (value) {
