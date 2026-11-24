@@ -259,6 +259,8 @@ class AccessPlugin(plugins.BasePlugin[AccessConfig]):
         if access.open:
             payload["o"] = crypto.b64(cek)
 
+        share = (self.config.share_links
+                 if access.share is None else access.share)
         self.grants[pid] = {
             user: (cek, bypass) for user, bypass in access.users.items()}
 
@@ -274,6 +276,7 @@ class AccessPlugin(plugins.BasePlugin[AccessConfig]):
             "data-access-end": access.end.isoformat() if access.end else None,
             "data-access-dev": crypto.b64(cek) if self.serving else None,
             "data-access-author": "1" if access.author else None,
+            "data-access-share": "1" if share else "0",
         }
         attr_html = " ".join(
             f'{k}="{html.escape(v)}"' for k, v in attrs.items() if v)

@@ -146,7 +146,7 @@ class Directory:
 
 RULE_KEYS = {
     "allow", "deny", "bypass", "password", "bypass_password",
-    "start", "end", "nav", "author",
+    "start", "end", "nav", "author", "share",
 }
 
 
@@ -182,6 +182,7 @@ class PageAccess:
     end: dt.datetime | None = None
     nav: str | None = None
     author: bool = False
+    share: bool | None = None  # None: use the global ``share_links``
     has_deny: bool = False
     restricted: bool = False  # some allow/bypass/password was requested
 
@@ -235,6 +236,8 @@ def _apply(access: PageAccess, directory: Directory, options: dict,
         access.nav = options["nav"]
     if "author" in options:
         access.author = bool(options["author"])
+    if "share" in options:
+        access.share = bool(options["share"])
 
 
 def resolve(directory: Directory, rules: list[Rule], src_uri: str,

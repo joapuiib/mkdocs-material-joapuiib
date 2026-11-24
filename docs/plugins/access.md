@@ -58,7 +58,7 @@ plugins:
 
 - __`exclude`__: on no apareixen les pàgines protegides. Per defecte `[search, social]`, és a dir, ni al cercador ni a les targetes socials.
 - __`remember_days`__: durada, en dies, de l'opció «Recorda'm» (per defecte, 30).
-- __`share_links`__: permet copiar un enllaç que desbloqueja la pàgina (per defecte, `true`).
+- __`share_links`__: permet copiar un enllaç que desbloqueja la pàgina (per defecte, `true`). Es pot substituir per a cada pàgina o regla amb la clau `share`.
 - __`strings`__: substitueix els textos de la interfície (vegeu [Textos de la interfície](#textos-de-la-interficie)).
 
 ## Textos de la interfície
@@ -102,6 +102,7 @@ Cada regla té un `pattern` amb la mateixa sintaxi que `exclude_docs` i les clau
 | `start`, `end`    | data i hora en què el contingut està disponible                      |
 | `nav`             | substitueix l'opció global `nav` per a la pàgina                     |
 | `author`          | la pàgina només existeix en mode de desenvolupament                  |
+| `share`           | activa (`true`) o desactiva (`false`) el botó «Copia l'enllaç d'accés»; substitueix `share_links` |
 
 Cal tindre en compte:
 

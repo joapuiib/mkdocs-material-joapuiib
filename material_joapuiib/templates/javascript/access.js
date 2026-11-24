@@ -351,7 +351,8 @@
       parts.push(h("span", { class: "access__note" }, S.unlocked_exception, " ", windowLine(box)));
     }
     if (cand.src === "pw") {
-      if (cfg.share) {
+      var shareOn = box.dataset.accessShare ? box.dataset.accessShare === "1" : cfg.share;
+      if (shareOn) {
         var share = h("button", { type: "button", class: "access__btn" }, S.share);
         share.addEventListener("click", function () {
           var link = location.origin + location.pathname + location.search +
