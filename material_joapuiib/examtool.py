@@ -174,7 +174,8 @@ def cmd_grade(args) -> int:
             errors += 1
             continue
         res = grade_submission(solutions, payload)
-        rows.append({"student": payload["name"], "file": name, "date": payload.get("date", ""),
+        rows.append({"student": payload["name"], "file": name, "start": payload.get("start", ""),
+                     "date": payload.get("end") or payload.get("date", ""),
                      "incidents": sum(1 for e in payload.get("events", []) if e.get("type") not in ("consent", "unlock")),
                      "events": [e for e in payload.get("events", []) if e.get("type") not in ("consent", "unlock")], **res})
         if args.essays:
@@ -190,9 +191,9 @@ def cmd_grade(args) -> int:
     if args.csv:
         with open(args.csv, "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
-            w.writerow(["student", "file", "date", "total", "max", "manual", "incidents", *qids])
+            w.writerow(["student", "file", "start", "date", "total", "max", "manual", "incidents", *qids])
             for r in rows:
-                w.writerow([r["student"], r["file"], r["date"], round(r["total"], 3), r["max"],
+                w.writerow([r["student"], r["file"], r["start"], r["date"], round(r["total"], 3), r["max"],
                             len(r["manual"]), r["incidents"], *[r["scores"].get(q, "manual") for q in qids]])
     return 0
 

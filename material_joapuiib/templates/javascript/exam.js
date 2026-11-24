@@ -429,6 +429,17 @@
     try { localStorage.setItem(store(exam), JSON.stringify({ name: name, answers: answers })); } catch (e) { /* no storage */ }
   }
 
+  // Start time: the first time the exam is opened in this browser; it survives reloads.
+  function startKey(exam) { return "exam-start:" + exam.dataset.examId; }
+
+  function startTime(exam) {
+    try {
+      var t = localStorage.getItem(startKey(exam));
+      if (!t) { t = new Date().toISOString(); localStorage.setItem(startKey(exam), t); }
+      return t;
+    } catch (e) { return null; }
+  }
+
   function loadDraft(exam) {
     try { return JSON.parse(localStorage.getItem(store(exam)) || "null"); } catch (e) { return null; }
   }
@@ -1061,6 +1072,7 @@
     // no dialogs, checks or incidents.
     var exempt = !!exam.closest('.access[data-access-source="dev"], .access[data-access-bypass]');
     var events = !demo && !exempt && exam.hasAttribute("data-exam-lockdown") ? startLockdown(exam, m) : null;
+    var started = demo ? null : startTime(exam);
     var panelLayout = !demo && !!exam.closest("[data-exam-layout='panel']");
 
     var handlers = {};
@@ -1261,6 +1273,7 @@
       Array.prototype.forEach.call(exam.querySelectorAll("input, textarea, select, button"), function (el) { el.disabled = true; });
       try {
         window.localStorage.removeItem(store(exam));
+        window.localStorage.removeItem(startKey(exam));
         window.localStorage.removeItem("exam-lockdown:" + exam.dataset.examId);
         window.sessionStorage.removeItem("exam-lockdown:" + exam.dataset.examId);
       } catch (e) { /* ignore */ }
@@ -1301,7 +1314,8 @@
         .then(function (ok) { if (ok) doExport(); });
 
       function doExport() {
-        var payload = { v: 1, exam: exam.dataset.examId, name: name, date: new Date().toISOString(), answers: answers };
+        var end = new Date().toISOString();
+        var payload = { v: 1, exam: exam.dataset.examId, name: name, start: started || end, end: end, date: end, answers: answers };
         if (events) payload.events = events;
         // Promise.resolve().then(...) also catches synchronous errors (e.g. a malformed key).
         Promise.resolve().then(function () {

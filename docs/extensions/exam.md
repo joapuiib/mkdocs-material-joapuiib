@@ -172,7 +172,7 @@ python -m material_joapuiib.examtool grade \
 
 - __`--submissions`__: carpeta o fitxer `.zip` amb els fitxers pujats (per exemple, el
     que descarrega l'aula virtual amb totes les entregues).
-- __`--csv`__: (opcional) taula amb la nota de cada pregunta.
+- __`--csv`__: (opcional) taula amb la nota de cada pregunta, l'hora d'inici (`start`) i la de lliurament (`date`).
 - __`--essays`__: (opcional) carpeta on es guarda un fitxer per estudiant amb les respostes
     de redacció, per corregir-les a mà.
 - __`--exam`__: (opcional) identificador de l'examen, si el fitxer en té més d'un.
