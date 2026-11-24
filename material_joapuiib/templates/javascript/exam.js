@@ -1120,6 +1120,15 @@
       var top = el("div", "exam-panel-top");
       meter = el("progress", "exam-meter");
       top.appendChild(progress);
+      // Full-screen hides the system clock: show the time in the panel.
+      var clock = el("span", "exam-clock");
+      var tick = function () {
+        if (!exam.isConnected) { clearInterval(clockId); return; }
+        clock.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      };
+      var clockId = setInterval(tick, 1000);
+      tick();
+      top.appendChild(clock);
       top.appendChild(meter);
       panel.appendChild(top);
 

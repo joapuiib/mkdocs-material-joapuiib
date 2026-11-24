@@ -446,6 +446,12 @@ body:has([data-exam-layout="panel"]) .md-grid {
   font-weight: 700;
 }
 
+.md-typeset .exam-clock {
+  font-size: 1.1em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 .md-typeset .exam-meter {
   flex: 1 1 100%;
   width: 100%;
