@@ -137,3 +137,18 @@ def test_page_enabled_false_skips_rules():
     assert resolve(d, rules, "a.md", {}, tz).protected
     assert resolve(d, rules, "a.md", {"enabled": True}, tz).protected
     assert not resolve(d, rules, "a.md", {"enabled": False, "password": "y"}, tz).protected
+
+
+def test_share_with_enabled():
+    from zoneinfo import ZoneInfo
+    from material_joapuiib.plugins.access.rules import Directory, parse_rules, resolve
+    rules = parse_rules([{"pattern": "**", "password": "x", "share": False}])
+    d = Directory.build({}, {})
+    tz = ZoneInfo("UTC")
+    # rule value applies, front matter overrides it
+    assert resolve(d, rules, "a.md", {}, tz).share is False
+    assert resolve(d, rules, "a.md", {"share": True}, tz).share is True
+    assert resolve(d, rules, "a.md", {"enabled": True, "share": True}, tz).share is True
+    # enabled: false drops the rule, the page and its share setting
+    off = resolve(d, rules, "a.md", {"enabled": False, "share": True}, tz)
+    assert not off.protected and off.share is None
