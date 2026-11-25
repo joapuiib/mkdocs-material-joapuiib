@@ -241,10 +241,9 @@
         allowOutsideClick: false, allowEscapeKey: false,
       }).then(function (r) {
         if (r.isConfirmed) return true;
-        return Swal.fire({
-          text: m.lockDeclined, icon: "info", confirmButtonText: m.lockRetry,
-          confirmButtonColor: primaryColor(), allowOutsideClick: false, allowEscapeKey: false,
-        }).then(function () { return consent(Swal); });
+        // Declined: close the access session and go back to the password page.
+        if (window.accessLogout) window.accessLogout(); else location.reload();
+        return new Promise(function () {});
       });
     }
 
@@ -263,6 +262,7 @@
         cleanups.push(function () { clearInterval(id); });
       }
       function teardown() {
+        document.documentElement.classList.remove("exam-started");
         cleanups.forEach(function (fn) { fn(); });
         cleanups = [];
       }
@@ -318,6 +318,8 @@
     }
 
     swal().then(consent).then(function () {
+      // Accepted: hide the site navigation (header, sidebars, tabs) while the exam is open.
+      document.documentElement.classList.add("exam-started");
       // The click on the dialog counts as the user gesture that fullscreen requires.
       try { document.documentElement.requestFullscreen().catch(function () {}); } catch (e) { /* unsupported */ }
       arm();
@@ -363,7 +365,6 @@
         "El registre s'inclourà en el fitxer que lliures. Si no ho acceptes, no podràs fer l'examen.",
       ],
       lockAccept: "Accepte les condicions", lockDecline: "No ho accepte",
-      lockDeclined: "Sense acceptar les condicions no pots fer l'examen.", lockRetry: "Torna a l'avís",
       lockLeft: "S'ha registrat que has eixit de l'examen.",
       lockedTitle: "Examen bloquejat", lockedText: "S'ha registrat una incidència. Avisa el professorat perquè desbloquege l'examen.",
       incidentsTitle: "Incidències registrades", noIncidents: "No hi ha incidències.", resume: "Continua l'examen",

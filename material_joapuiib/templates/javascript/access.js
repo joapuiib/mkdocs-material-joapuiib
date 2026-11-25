@@ -247,6 +247,7 @@
     clearAll();
     location.reload();
   }
+  window.accessLogout = logout;  // used by exam.js when the conditions are declined
 
   /* ------------------------------------------------------------------ pages */
 

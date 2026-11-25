@@ -850,3 +850,11 @@ body:has([data-exam-layout="panel"]) .md-grid {
 .md-typeset .exam .quiz {
   scroll-margin-top: 4rem;
 }
+
+/* Once the conditions are accepted the site navigation is hidden. */
+html.exam-started .md-header,
+html.exam-started .md-tabs,
+html.exam-started .md-sidebar--primary,
+html.exam-started .md-sidebar--secondary {
+  display: none;
+}
