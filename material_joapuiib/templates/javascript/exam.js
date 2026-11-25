@@ -318,7 +318,7 @@
     }
 
     swal().then(consent).then(function () {
-      // Accepted: hide the site navigation (header, sidebars, tabs) while the exam is open.
+      // Accepted: hide the site navigation (header, sidebars, tabs, breadcrumb) while the exam is open.
       document.documentElement.classList.add("exam-started");
       // The click on the dialog counts as the user gesture that fullscreen requires.
       try { document.documentElement.requestFullscreen().catch(function () {}); } catch (e) { /* unsupported */ }
