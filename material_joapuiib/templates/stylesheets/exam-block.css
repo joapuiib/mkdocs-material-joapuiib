@@ -282,6 +282,10 @@
   line-height: 1.5;
   tab-size: 4;
   white-space: pre;
+  /* The caret belongs to the textarea and the visible text to the layers below: same glyph metrics. */
+  letter-spacing: normal;
+  font-variant-ligatures: none;
+  font-feature-settings: "kern";
 }
 
 .md-typeset .exam-editor.is-code textarea.exam-essay {
@@ -364,7 +368,10 @@
   background: none;
   color: var(--md-code-fg-color);
   font: inherit;
+  letter-spacing: inherit;
   white-space: inherit;
+  /* The `pre` must be the scroll container, as its scroll is synced with the textarea. */
+  overflow: visible;
 }
 
 /* highlight.js tokens in the answer box. */
