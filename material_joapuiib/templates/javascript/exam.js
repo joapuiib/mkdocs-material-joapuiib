@@ -94,6 +94,29 @@
 
   var BLOCKED_EVENTS = ["copy", "cut", "paste", "contextmenu", "dragstart", "drop"];
   var LOCKING_EVENTS = { copy: 1, cut: 1, paste: 1 };
+  var ANSWER_FIELDS = ".exam-essay, .exam-text, .exam-table-input";
+
+  /* Copy, cut and paste inside the answer boxes use `clipboard`, kept in memory: the system
+     clipboard is never read nor written, so text cannot get in or out of the exam. */
+  var clipboard = "";
+
+  function editClipboard(type, field) {
+    var s = field.selectionStart, e = field.selectionEnd;
+    if (type !== "paste") {
+      if (s === e) return;
+      clipboard = field.value.slice(s, e);
+      if (type === "copy" || field.readOnly) return;
+    }
+    if (field.readOnly || field.disabled) return;
+    var text = type === "cut" ? "" : clipboard;
+    if (field.tagName === "INPUT") text = text.replace(/[\r\n]+/g, " ");
+    if (type === "paste" && !text) return;
+    // `execCommand` is deprecated, but it is the only way that keeps the undo history.
+    if (!document.execCommand(text ? "insertText" : "delete", false, text)) {
+      field.setRangeText(text, s, e, "end");
+      fire(field);
+    }
+  }
 
   function escapeHtml(text) {
     return String(text).replace(/[&<>"']/g, function (c) {
@@ -270,7 +293,13 @@
       BLOCKED_EVENTS.forEach(function (name) {
         on(document, name, function (ev) {
           ev.preventDefault();
-          if (LOCKING_EVENTS[name]) incident(name);
+          if (!LOCKING_EVENTS[name]) return;
+          var field = ev.target;
+          if (exam.contains(field) && field.matches && field.matches(ANSWER_FIELDS)) {
+            if (!locked) editClipboard(name, field);
+          } else {
+            incident(name);
+          }
         });
       });
       on(document, "keydown", function (ev) {
@@ -359,7 +388,7 @@
       cancel: "Cancel·la",
       lockTitle: "Examen amb control anticòpia",
       lockParagraphs: [
-        "Durant l'examen no es pot copiar, retallar ni apegar, ni obrir el menú contextual.",
+        "Durant l'examen només es pot copiar, retallar i apegar text dins dels quadres de resposta (no es pot apegar text de fora) i no es pot obrir el menú contextual.",
         "Es registrarà cada vegada que isques de la finestra o de la pantalla completa, i també quan utilitzes les eines de desenvolupador.",
         "També es registrarà el nom de les extensions del navegador que modifiquen aquesta pàgina.",
         "El registre s'inclourà en el fitxer que lliures. Si no ho acceptes, no podràs fer l'examen.",

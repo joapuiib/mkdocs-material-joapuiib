@@ -100,13 +100,18 @@ l'examen (per defecte, el títol sense accents ni espais).
     l'examen. Mentre dura, es bloquegen les ordres de copiar, retallar, apegar i el menú
     contextual, i es demana la pantalla completa.
 
+    Dins dels quadres de resposta sí que es pot copiar, retallar i apegar amb les dreceres de
+    teclat, però només el text copiat d'un altre quadre de resposta: no es pot apegar text de fora
+    de l'examen ni traure'l.
+
     > JavaScript no pot impedir que una persona copie des d'un altre dispositiu. Per això el
     > control __registra__ cada eixida de la finestra o de la pantalla completa i inclou el
     > registre en el fitxer entregat. [`examtool`](#correccio) mostra el nombre d'incidències de
     > cada entrega.
 
 - __`unlock`__: (opcional, amb `lockdown`) contrasenya del professorat. Amb ella, la __primera
-    incidència__ (eixir de la finestra o de la pantalla completa, copiar, retallar o apegar)
+    incidència__ (eixir de la finestra o de la pantalla completa, o copiar, retallar o apegar fora
+    dels quadres de resposta)
     bloqueja l'examen: es mostra la llista d'incidències i no es pot continuar fins que el
     professorat escriu la contrasenya. El bloqueig es manté si es recarrega la pàgina, i
     `examtool` detalla les incidències de cada entrega.
